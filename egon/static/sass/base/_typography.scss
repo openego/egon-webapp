@@ -1,0 +1,21 @@
+body {
+  font-family: $main-font-family !important;
+  color: $egon-black;
+}
+
+// general links and anchors
+@each $anchor-pseudo-class in $anchor-pseudo-classes {
+  a#{$anchor-pseudo-class} {
+    font-weight: 400;
+    color: $egon-red;
+    text-decoration: none;
+  }
+}
+
+// navigation and footer links
+@each $anchor-pseudo-class in $anchor-pseudo-classes {
+  nav a#{$anchor-pseudo-class},
+  footer a#{$anchor-pseudo-class} {
+    color: $egon-black;
+  }
+}

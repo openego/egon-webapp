@@ -42,7 +42,7 @@ Running type checks with mypy:
 
 ::
 
-  $ mypy enershelf
+  $ mypy egon
 
 Test coverage
 ^^^^^^^^^^^^^

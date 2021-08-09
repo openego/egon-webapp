@@ -1,5 +1,5 @@
 [run]
-include = enershelf/*
+include = egon/*
 omit = *migrations*, *tests*
 plugins =
     django_coverage_plugin

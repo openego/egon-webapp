@@ -1,4 +1,4 @@
-name: enershelf
+name: egon
 channels:
   - conda-forge
 dependencies:

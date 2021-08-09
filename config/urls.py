@@ -5,11 +5,11 @@ from django.contrib import admin
 from django.views import defaults as default_views
 
 urlpatterns = [
-    path("", include("enershelf.map.urls", namespace="map")),
+    path("", include("egon.map.urls", namespace="map")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    # path("users/", include("enershelf.users.urls", namespace="users")),
+    # path("users/", include("egon.users.urls", namespace="users")),
     # path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

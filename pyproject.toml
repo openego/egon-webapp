@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "enershelf"
+name = "egon"
 version = "0.1.0"
 description = "EnerSHelf"
 authors = ["Hendrik Huyskens <hendrik.huyskens@rl-institut.de>"]

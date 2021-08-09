@@ -163,7 +163,7 @@ html_static_path = ["_static"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "enershelfdoc"
+htmlhelp_basename = "egondoc"
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -182,7 +182,7 @@ latex_elements = {
 latex_documents = [
     (
         "index",
-        "enershelf.tex",
+        "egon.tex",
         "EnerShelf Documentation",
         """Hendrik Huyskens""",
         "manual",
@@ -215,7 +215,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ("index", "enershelf", "EnerShelf Documentation", ["""Hendrik Huyskens"""], 1,)
+    ("index", "egon", "EnerShelf Documentation", ["""Hendrik Huyskens"""], 1,)
 ]
 
 # If true, show URL addresses after external links.
@@ -230,7 +230,7 @@ man_pages = [
 texinfo_documents = [
     (
         "index",
-        "enershelf",
+        "egon",
         "EnerShelf Documentation",
         """Hendrik Huyskens""",
         "EnerShelf",

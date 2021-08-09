@@ -5,8 +5,8 @@ Base settings to build other settings files upon.
 import environ
 from django.core.exceptions import ValidationError
 
-ROOT_DIR = environ.Path(__file__) - 3  # (enershelf/config/settings/base.py - 3 = enershelf/)
-APPS_DIR = ROOT_DIR.path("enershelf")
+ROOT_DIR = environ.Path(__file__) - 3  # (egon/config/settings/base.py - 3 = egon/)
+APPS_DIR = ROOT_DIR.path("egon")
 METADATA_DIR = APPS_DIR.path("metadata")
 
 env = environ.Env()
@@ -75,8 +75,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "enershelf.users.apps.UsersConfig",
-    "enershelf.map.apps.MapConfig",
+    "egon.users.apps.UsersConfig",
+    "egon.map.apps.MapConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -84,7 +84,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "enershelf.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "egon.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -176,7 +176,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "enershelf.utils.context_processors.settings_context",
+                "egon.utils.context_processors.settings_context",
             ],
         },
     }
