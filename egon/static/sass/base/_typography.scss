@@ -7,7 +7,7 @@ body {
 @each $anchor-pseudo-class in $anchor-pseudo-classes {
   a#{$anchor-pseudo-class} {
     font-weight: 400;
-    color: $egon-red;
+    color: $egon-blue;
     text-decoration: none;
   }
 }

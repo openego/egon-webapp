@@ -42,6 +42,24 @@
     }
   }
 
+  &__tabs {
+    .nav-tabs .nav-item {
+      width: 50%;
+      text-align: center;
+    }
+
+    .nav-tabs .nav-link {
+      font-size: $font-size-normal;
+      text-transform: uppercase;
+      letter-spacing: 4%;
+      color: $font-color;
+    }
+
+    .nav-tabs .nav-link:not(.active) {
+      color: $egon-blue;
+    }
+  }
+
   .footer {
     flex-shrink: 0;
     border-top: $border-gray;
