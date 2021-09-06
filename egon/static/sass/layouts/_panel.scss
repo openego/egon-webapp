@@ -56,6 +56,33 @@
       color: $egon-blue;
       background-color: $background-color;
     }
+
+    .tab-content {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  .scenario-btns {
+    @include flex-row;
+    border: 2px solid $egon-green;
+    border-radius: $border-radius;
+    background-color: $white;
+    padding: 2px;
+    height: 2.25rem;
+
+    button {
+      flex: 1;
+      font-size: $font-size-small;
+      color: $egon-green;
+      background-color: $white;
+      border: none;
+      border-radius: $border-radius;
+    }
+
+    button.active {
+      background-color: $egon-green;
+      color: $white;
+    }
   }
 
   .footer {
