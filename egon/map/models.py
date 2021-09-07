@@ -108,3 +108,164 @@ class Municipality(models.Model):
 
 
 # LAYER
+
+# DEMAND
+
+class DemandModel(models.Model):
+    geom = models.MultiPolygonField(srid=4326)
+    demand = models.IntegerField()
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "demand"])
+
+    data_folder = "1_Demand"
+    mapping = {
+        "geom": "MULTISURFACE",
+        "demand": "demand",
+    }
+
+
+class DemandCts(DemandModel):
+    data_file = "egon_demand_electricity_cts_2035"
+    layer = "egon_demand_electricity_cts_2035"
+
+
+class DemandHousehold(DemandModel):
+    data_file = "egon_demand_electricity_household_2035"
+    layer = "egon_demand_electricity_household_2035"
+
+
+class SupplyModel(models.Model):
+    geom = models.PointField(srid=4326)
+    carrier = models.CharField(max_length=255)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "carrier"])
+
+    data_folder = "2_Supply"
+    mapping = {
+        "geom": "POINT",
+        "carrier": "carrier",
+    }
+
+    class Meta:
+        abstract = True
+
+
+class SupplyBiomass(SupplyModel):
+    data_file = "egon_supply_power_plants_biomass"
+    layer = "egon_supply_power_plants_biomass"
+
+
+class SupplyRunOfRiver(SupplyModel):
+    data_file = "egon_supply_power_plants_run_of_river"
+    layer = "egon_supply_power_plants_run_of_river"
+
+
+class SupplySolarGround(SupplyModel):
+    data_file = "egon_supply_power_plants_solar_ground"
+    layer = "egon_supply_power_plants_solar_ground"
+
+
+class SupplyWindOnshore(SupplyModel):
+    data_file = "egon_supply_power_plants_wind_onshore"
+    layer = "egon_supply_power_plants_wind_onshore"
+
+
+class SupplyPotentialModel(models.Model):
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "2_Supply"
+    mapping = {
+        "geom": "MULTIPLOYGON",
+    }
+
+    class Meta:
+        abstract = True
+
+
+class SupplyPotentialPVGround(SupplyPotentialModel):
+    data_file = "egon_supply_re_potential_areas_pvground"
+    layer = "egon_supply_re_potential_areas_pvground"
+
+
+class SupplyPotentialWind(SupplyPotentialModel):
+    data_file = "egon_supply_re_potential_areas_wind"
+    layer = "egon_supply_re_potential_areas_wind"
+
+
+# POWER AND GAS GRIDS
+
+class LineModel(models.Model):
+    geom = models.MultiLineStringField(srid=4326)
+    type = models.CharField(max_length=255)
+    carrier = models.CharField(max_length=255)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "type", "carrier"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "MULTILINE",
+    }
+
+    class Meta:
+        abstract = True
+
+
+class EHVLine(LineModel):
+    data_file = "egon_grid_ehv_line_2035"
+    layer = "egon_grid_ehv_line_2035"
+
+
+class HVLine(LineModel):
+    data_file = "egon_grid_hv_line_2035"
+    layer = "egon_grid_hv_line_2035"
+
+
+class SubstationModel(models.Model):
+    geom = models.PointField(srid=4326)
+    voltage = models.CharField(max_length=255)
+    power_type = models.CharField(max_length=255)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "voltage", "power_type"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "POINT",
+    }
+
+    class Meta:
+        abstract = True
+
+
+class EHVHVSubstation(SubstationModel):
+    data_file = "egon_grid_ehvhv_substation"
+    layer = "egon_grid_ehvhv_substation"
+
+
+class HVMVSubstation(SubstationModel):
+    data_file = "egon_grid_hvmv_substation"
+    layer = "egon_grid_hvmv_substation"
+
+
+# DATA MODEL
+
+class MVGridDistricts(models.Model):
+    geom = models.PointField(srid=4326)
+    area = models.FloatField()
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "area"])
+
+    data_folder = "4_Data_model"
+    data_file = "egon_grid_mv_grid_districts"
+    layer = "egon_grid_mv_grid_districts"
+    mapping = {
+        "geom": "MULTIPLOYGON",
+        "area": "area"
+    }
