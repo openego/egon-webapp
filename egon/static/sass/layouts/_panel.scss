@@ -85,6 +85,28 @@
     }
   }
 
+  .category-tabs {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $light-gray;
+
+    ul {
+      @include flex-row-space-between;
+    }
+
+    .nav-link.category-tabs__category {
+      width: 3rem;
+      height: 3rem;
+      background-color: $white;
+      border: 1px solid $egon-blue;
+      border-radius: 0;
+    }
+
+    .nav-link.category-tabs__category.active {
+      background-color: $egon-blue;
+    }
+  }
+
   .footer {
     flex-shrink: 0;
     border-top: $border-gray;
