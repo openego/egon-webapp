@@ -100,10 +100,51 @@
       background-color: $white;
       border: 1px solid $egon-blue;
       border-radius: 0;
+      background-size: contain;
     }
 
     .nav-link.category-tabs__category.active {
       background-color: $egon-blue;
+    }
+
+    #category-boundaries-tab {
+      background-image: url("../images/icons/i_boundaries_b.svg");
+    }
+
+    #category-boundaries-tab.active {
+      background-image: url("../images/icons/i_boundaries_w.svg");
+    }
+
+    #category-demand-tab {
+      background-image: url("../images/icons/i_demand_b.svg");
+    }
+
+    #category-demand-tab.active {
+      background-image: url("../images/icons/i_demand_w.svg");
+    }
+
+    #category-generation-tab {
+      background-image: url("../images/icons/i_electricity_b.svg");
+    }
+
+    #category-generation-tab.active {
+      background-image: url("../images/icons/i_electricity_w.svg");
+    }
+
+    #category-grid-tab {
+      background-image: url("../images/icons/i_grid_b.svg");
+    }
+
+    #category-grid-tab.active {
+      background-image: url("../images/icons/i_grid_w.svg");
+    }
+
+    #category-model-tab {
+      background-image: url("../images/icons/i_data_b.svg");
+    }
+
+    #category-model-tab.active {
+      background-image: url("../images/icons/i_data_w.svg");
     }
   }
 
