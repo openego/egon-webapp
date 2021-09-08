@@ -19,7 +19,7 @@ class Region(models.Model):
     layer_type = models.CharField(max_length=12, choices=LayerType.choices, null=False)
 
 
-class Country(models.Model):
+class RegionModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
     name = models.CharField(max_length=50, unique=True)
 
@@ -37,74 +37,35 @@ class Country(models.Model):
         "name": "gen",
     }
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.name
 
 
-class State(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    name = models.CharField(max_length=50, unique=True)
+class Country(RegionModel):
+    data_file = "egon_boundaries_country"
+    layer = "egon_boundaries_country"
 
-    region = models.OneToOneField("Region", on_delete=models.DO_NOTHING, null=True)
 
-    objects = models.Manager()
-    vector_tiles = RegionMVTManager(columns=["id", "name", "bbox"])
-    label_tiles = LabelMVTManager(geo_col="geom_label", columns=["id", "name"])
-
-    data_folder = "0_Boundaries"
+class State(RegionModel):
     data_file = "egon_boundaries_state"
     layer = "egon_boundaries_state"
-    mapping = {
-        "geom": "MULTISURFACE",
-        "name": "gen",
-    }
-
-    def __str__(self):
-        return self.name
 
 
-class District(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    name = models.CharField(max_length=50, unique=True)
+class District(RegionModel):
+    name = models.CharField(max_length=50)
 
-    region = models.OneToOneField("Region", on_delete=models.DO_NOTHING, null=True)
-
-    objects = models.Manager()
-    vector_tiles = RegionMVTManager(columns=["id", "name", "bbox"])
-    label_tiles = LabelMVTManager(geo_col="geom_label", columns=["id", "name"])
-
-    data_folder = "0_Boundaries"
     data_file = "egon_boundaries_district"
     layer = "egon_boundaries_district"
-    mapping = {
-        "geom": "MULTISURFACE",
-        "name": "gen",
-    }
-
-    def __str__(self):
-        return self.name
 
 
-class Municipality(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    name = models.CharField(max_length=50, unique=True)
+class Municipality(RegionModel):
+    name = models.CharField(max_length=50)
 
-    region = models.OneToOneField("Region", on_delete=models.DO_NOTHING, null=True)
-
-    objects = models.Manager()
-    vector_tiles = RegionMVTManager(columns=["id", "name", "bbox"])
-    label_tiles = LabelMVTManager(geo_col="geom_label", columns=["id", "name"])
-
-    data_folder = "0_Boundaries"
     data_file = "egon_boundaries_municipality"
     layer = "egon_boundaries_municipality"
-    mapping = {
-        "geom": "MULTISURFACE",
-        "name": "gen",
-    }
-
-    def __str__(self):
-        return self.name
 
 
 # LAYER
@@ -120,7 +81,7 @@ class DemandModel(models.Model):
 
     data_folder = "1_Demand"
     mapping = {
-        "geom": "MULTISURFACE",
+        "geom": "MULTIPOLYGON",
         "demand": "demand",
     }
 
@@ -180,7 +141,7 @@ class SupplyPotentialModel(models.Model):
 
     data_folder = "2_Supply"
     mapping = {
-        "geom": "MULTIPLOYGON",
+        "geom": "MULTIPOLYGON",
     }
 
     class Meta:
@@ -209,7 +170,7 @@ class LineModel(models.Model):
 
     data_folder = "3_Power_and_gas_grids"
     mapping = {
-        "geom": "MULTILINE",
+        "geom": "MULTILINESTRING",
     }
 
     class Meta:
@@ -256,7 +217,7 @@ class HVMVSubstation(SubstationModel):
 # DATA MODEL
 
 class MVGridDistricts(models.Model):
-    geom = models.PointField(srid=4326)
+    geom = models.MultiPolygonField(srid=4326)
     area = models.FloatField()
 
     objects = models.Manager()
@@ -266,6 +227,6 @@ class MVGridDistricts(models.Model):
     data_file = "egon_grid_mv_grid_districts"
     layer = "egon_grid_mv_grid_districts"
     mapping = {
-        "geom": "MULTIPLOYGON",
+        "geom": "MULTIPOLYGON",
         "area": "area"
     }

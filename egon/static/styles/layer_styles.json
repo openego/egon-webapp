@@ -70,14 +70,14 @@
       "text-halo-blur": 1.5
     }
   },
-  "grid": {
+  "demandcts": {
     "type": "fill",
     "paint": {
       "fill-color": "rgb(0, 100, 0)",
       "fill-opacity": 0.8
     }
   },
-  "nightlight": {
+  "demandhousehold": {
     "type": "fill",
     "paint": {
       "fill-color": "rgb(0, 0, 0)",

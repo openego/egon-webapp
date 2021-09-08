@@ -20,7 +20,12 @@ REGION_MVT_LAYERS = {
     ],
 }
 
-STATIC_MVT_LAYERS = {}
+STATIC_MVT_LAYERS = {
+    "static": [
+        MVTLayer("demandcts", models.DemandCts.vector_tiles),
+        MVTLayer("demandhousehold", models.DemandHousehold.vector_tiles),
+    ]
+}
 
 DYNAMIC_MVT_LAYERS = {}
 

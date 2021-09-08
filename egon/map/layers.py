@@ -5,6 +5,7 @@ from itertools import product
 from typing import List, Optional
 
 from django.db.models import IntegerField, BooleanField
+from django.utils.translation import gettext_lazy as _
 
 from config.settings.base import USE_DISTILLED_MVTS
 from .config import MAX_ZOOM, MIN_ZOOM, REGIONS, ZOOM_LEVELS, MAX_DISTILLED_ZOOM
@@ -23,8 +24,39 @@ def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
 
 
-LAYERS_DEFINITION = []
-LAYERS_CATEGORIES = {}
+DEMAND = [
+    {
+        "source": "demandcts",
+        "color": get_color("demandcts"),
+        "model": models.DemandCts,
+        "name": _("Cts"),
+        "name_singular": _("Ct"),
+        "description": _(
+            "Mit dem Schalter blenden Sie die Siedlungsflächen mit dem gewählten Abstand zu Siedlungen in der Karte "
+            "ein und aus. Nur mit dem Regler unter 'Mein Szenario' können Sie festlegen, welcher Abstand von "
+            "Siedlungen zu Windenergieanlagen eingehalten werden soll, um die Windpotenzialflächen zu ermitteln.<br>"
+            "<br>Eine Siedlung ist ein Gebiet, welches die menschliche Niederlassung in beliebiger Form der "
+            "gruppierten Behausung beschreibt. Sie beinhaltet überwiegend Wohngebiete."
+        ),
+    },
+    {
+        "source": "demandhousehold",
+        "color": get_color("demandhousehold"),
+        "model": models.DemandHousehold,
+        "name": _("Haushalte"),
+        "name_singular": _("Haushalt"),
+        "description": _(
+            "Mit dem Schalter blenden Sie die Siedlungsflächen mit dem gewählten Abstand zu Siedlungen in der Karte "
+            "ein und aus. Nur mit dem Regler unter 'Mein Szenario' können Sie festlegen, welcher Abstand von "
+            "Siedlungen zu Windenergieanlagen eingehalten werden soll, um die Windpotenzialflächen zu ermitteln.<br>"
+            "<br>Eine Siedlung ist ein Gebiet, welches die menschliche Niederlassung in beliebiger Form der "
+            "gruppierten Behausung beschreibt. Sie beinhaltet überwiegend Wohngebiete."
+        ),
+    },
+]
+
+LAYERS_DEFINITION = DEMAND
+LAYERS_CATEGORIES = {"Last": DEMAND}
 
 
 @dataclass
