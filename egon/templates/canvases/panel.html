@@ -6,13 +6,56 @@
     <div class="panel__logos">
       <div class="logo logo--egon">
         <a href="https://egon.de/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/EnerSHelF.jpg" alt="EnerSHelF logo">
+          <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo">
         </a>
       </div>
       <div class="logo logo--bmbf">
         <a href="https://www.bmbf.de/en/index.html" target="_blank" rel="noopener noreferrer">
           <img src="../../static/images/logos/BMBF_gefoerdert_2017_en.jpg" alt="German Federal Ministry of Education and Research logo">
         </a>
+      </div>
+    </div>
+    <div class="panel__tabs">
+      <div>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Scenarios</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Results</button>
+        </div>
+      </div>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-scenarios" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="scenario-btns">
+            <button type="button" class="active">eGon2035</button>
+            <button type="button">eGon100RE</button>
+          </div>
+          <div class="category-tabs">
+            <ul class="nav nav-pills mb-3" id="category-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active category-tabs__category" id="category-boundaries-tab" data-bs-toggle="pill" data-bs-target="#category-boundaries" type="button" role="tab" aria-controls="category-boundaries" aria-selected="true" title="Boundaries"></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link category-tabs__category" id="category-demand-tab" data-bs-toggle="pill" data-bs-target="#category-demand" type="button" role="tab" aria-controls="category-demand" aria-selected="false" title="Demand"></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link category-tabs__category" id="category-generation-tab" data-bs-toggle="pill" data-bs-target="#category-generation" type="button" role="tab" aria-controls="category-generation" aria-selected="false" title="Generation"></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link category-tabs__category" id="category-grid-tab" data-bs-toggle="pill" data-bs-target="#category-grid" type="button" role="tab" aria-controls="category-grid" aria-selected="false" title="Power and gas grids"></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill" data-bs-target="#category-model" type="button" role="tab" aria-controls="category-model" aria-selected="false" title="Data model"></button>
+              </li>
+            </ul>
+            <div class="tab-content" id="category-tabContent">
+              <div class="tab-pane fade show active" id="category-boundaries" role="tabpanel" aria-labelledby="category-boundaries-tab">boundaries...</div>
+              <div class="tab-pane fade" id="category-demand" role="tabpanel" aria-labelledby="category-demand-tab">demand...</div>
+              <div class="tab-pane fade" id="category-generation" role="tabpanel" aria-labelledby="category-generation-tab">generation...</div>
+              <div class="tab-pane fade" id="category-grid" role="tabpanel" aria-labelledby="category-grid-tab">grid...</div>
+              <div class="tab-pane fade" id="category-model" role="tabpanel" aria-labelledby="category-model-tab">model...</div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
       </div>
     </div>
     {% for category, switches in area_switches.items %}

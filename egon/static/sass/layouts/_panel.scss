@@ -24,21 +24,127 @@
     }
 
     .logo--egon {
-      text-align: left;
+      text-align: center;
       padding-left: $padding-normal;
 
       img {
-        width: 7rem;
+        width: 5rem;
         transform: translateY(4px);
       }
     }
 
     .logo--bmbf {
-      text-align: right;
+      text-align: center;
 
       img {
         width: 8rem;
       }
+    }
+  }
+
+  &__tabs {
+    .nav-tabs .nav-link {
+      width: 50%;
+      text-align: center;
+      font-size: $font-size-normal;
+      text-transform: uppercase;
+      letter-spacing: $letter-spacing-normal;
+      color: $font-color;
+    }
+
+    .nav-tabs .nav-link:not(.active) {
+      color: $egon-blue;
+      background-color: $background-color;
+    }
+
+    .tab-content {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  .scenario-btns {
+    @include flex-row;
+    border: 2px solid $egon-green;
+    border-radius: $border-radius;
+    background-color: $white;
+    padding: 2px;
+    height: 2.25rem;
+
+    button {
+      flex: 1;
+      font-size: $font-size-small;
+      color: $egon-green;
+      background-color: $white;
+      border: none;
+      border-radius: $border-radius;
+    }
+
+    button.active {
+      background-color: $egon-green;
+      color: $white;
+    }
+  }
+
+  .category-tabs {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $light-gray;
+
+    ul {
+      @include flex-row-space-between;
+    }
+
+    .nav-link.category-tabs__category {
+      width: 3rem;
+      height: 3rem;
+      background-color: $white;
+      border: 1px solid $egon-blue;
+      border-radius: 0;
+      background-size: contain;
+    }
+
+    .nav-link.category-tabs__category.active {
+      background-color: $egon-blue;
+    }
+
+    #category-boundaries-tab {
+      background-image: url("../images/icons/i_boundaries_b.svg");
+    }
+
+    #category-boundaries-tab.active {
+      background-image: url("../images/icons/i_boundaries_w.svg");
+    }
+
+    #category-demand-tab {
+      background-image: url("../images/icons/i_demand_b.svg");
+    }
+
+    #category-demand-tab.active {
+      background-image: url("../images/icons/i_demand_w.svg");
+    }
+
+    #category-generation-tab {
+      background-image: url("../images/icons/i_electricity_b.svg");
+    }
+
+    #category-generation-tab.active {
+      background-image: url("../images/icons/i_electricity_w.svg");
+    }
+
+    #category-grid-tab {
+      background-image: url("../images/icons/i_grid_b.svg");
+    }
+
+    #category-grid-tab.active {
+      background-image: url("../images/icons/i_grid_w.svg");
+    }
+
+    #category-model-tab {
+      background-image: url("../images/icons/i_data_b.svg");
+    }
+
+    #category-model-tab.active {
+      background-image: url("../images/icons/i_data_w.svg");
     }
   }
 
