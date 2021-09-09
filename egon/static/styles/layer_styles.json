@@ -80,7 +80,19 @@
   "demandhousehold": {
     "type": "fill",
     "paint": {
-      "fill-color": "rgb(0, 0, 0)",
+      "fill-color": [
+        "step",
+        ["get","demand"],
+        "#ffeda0", 500,
+        "#ffeda0", 1000,
+        "#fed976", 5000,
+        "#feb24c", 10000,
+        "#fd8d3c", 50000,
+        "#fc4e2a", 100000,
+        "#e31a1c", 500000,
+        "hsl(348, 100%, 37%)", 1000000,
+        "#bd0026"
+      ],
       "fill-opacity": 0.8
     }
   },

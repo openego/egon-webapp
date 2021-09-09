@@ -2,7 +2,7 @@
 from django.contrib.gis.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .managers import MVTManager, RegionMVTManager, LabelMVTManager
+from .managers import MVTManager, RegionMVTManager, LabelMVTManager, CenterMVTManager
 
 
 # REGIONS
@@ -77,7 +77,7 @@ class DemandModel(models.Model):
     demand = models.IntegerField()
 
     objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "demand"])
+    vector_tiles = CenterMVTManager(columns=["id", "demand", "lat", "lon"])
 
     data_folder = "1_Demand"
     mapping = {

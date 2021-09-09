@@ -41,7 +41,7 @@ DEMAND = [
     },
     {
         "source": "demandhousehold",
-        "color": get_color("demandhousehold"),
+        "color": "#fd8d3c",
         "model": models.DemandHousehold,
         "name": _("Haushalte"),
         "name_singular": _("Haushalt"),
@@ -52,6 +52,7 @@ DEMAND = [
             "<br>Eine Siedlung ist ein Gebiet, welches die menschliche Niederlassung in beliebiger Form der "
             "gruppierten Behausung beschreibt. Sie beinhaltet überwiegend Wohngebiete."
         ),
+        "popup_fields": ["id", "demand"]
     },
 ]
 
