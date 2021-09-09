@@ -16,7 +16,6 @@ whitenoise = "^5.2.0"  # https://github.com/evansd/whitenoise
 redis = "^3.5.3"  # https://github.com/antirez/redis
 range-key-dict = "^1.1.0"
 psycopg2 = "^2.8.6" # https://github.com/psycopg/psycopg2
-GDAL = "^3.2.1"
 
 # Django
 # ------------------------------------------------------------------------------
