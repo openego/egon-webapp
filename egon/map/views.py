@@ -13,7 +13,7 @@ from config.settings.base import (
     MAPBOX_STYLE_LOCATION,
 )
 from .forms import StaticLayerForm
-from .config import STORE_COLD_INIT, STORE_HOT_INIT, SOURCES, MAP_IMAGES
+from .config import STORE_COLD_INIT, STORE_HOT_INIT, SOURCES, MAP_SYMBOLS
 
 
 class MapGLView(TemplateView):
@@ -23,7 +23,7 @@ class MapGLView(TemplateView):
         "password": PASSWORD,
         "mapbox_token": MAPBOX_TOKEN,
         "mapbox_style_location": MAPBOX_STYLE_LOCATION,
-        "map_images": MAP_IMAGES,
+        "map_symbols": MAP_SYMBOLS,
         "all_layers": ALL_LAYERS,
         "all_sources": ALL_SOURCES,
         "popups": POPUPS,

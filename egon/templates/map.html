@@ -58,10 +58,10 @@
       const nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      {% for map_image in map_images %}
-        map.loadImage("{% static map_image.path %}", function(error, image) {
+      {% for symbol in map_symbols %}
+        map.loadImage("{% static symbol.path %}", function(error, image) {
           if (error) throw error;
-          map.addImage("{{map_image.name}}", image);
+          map.addImage("{{symbol.name}}", image);
         });
       {% endfor %}
 

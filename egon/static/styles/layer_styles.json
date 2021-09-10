@@ -70,14 +70,14 @@
       "text-halo-blur": 1.5
     }
   },
-  "demandcts": {
+  "demand_cts": {
     "type": "fill",
     "paint": {
       "fill-color": "rgb(0, 100, 0)",
       "fill-opacity": 0.8
     }
   },
-  "demandhousehold": {
+  "demand_household": {
     "type": "fill",
     "paint": {
       "fill-color": [
@@ -96,25 +96,88 @@
       "fill-opacity": 0.8
     }
   },
-  "cluster": {
-    "type": "fill",
-    "paint": {
-      "fill-color": "rgb(100, 200, 100)",
-      "fill-opacity": 0.8
-    }
-  },
-  "hospital": {
+  "supply_biomass": {
     "type": "symbol",
     "layout": {
-      "icon-image": "hospital",
+      "icon-image": "biomass",
       "icon-size": 0.5
     }
   },
-  "hospital_simulated": {
+  "supply_run_of_river": {
     "type": "symbol",
     "layout": {
-      "icon-image": "hospital",
-      "icon-size": 1.0
+      "icon-image": "river",
+      "icon-size": 0.5
+    }
+  },
+  "supply_wind": {
+    "type": "symbol",
+    "layout": {
+      "icon-image": "wind",
+      "icon-size": 0.5
+    }
+  },
+  "supply_solar": {
+    "type": "symbol",
+    "layout": {
+      "icon-image": "solar",
+      "icon-size": 0.5
+    }
+  },
+  "potential_wind": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "darkblue",
+      "fill-opacity": 0.8
+    }
+  },
+  "potential_pv": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "gold",
+      "fill-opacity": 0.8
+    }
+  },
+  "ehv_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "blue"
+    }
+  },
+  "hv_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "darkblue"
+    }
+  },
+  "ehv_hv_station": {
+    "type": "symbol",
+    "layout": {
+      "icon-image": "station",
+      "icon-size": 0.5
+    }
+  },
+  "hv_mv_station": {
+    "type": "symbol",
+    "layout": {
+      "icon-image": "station",
+      "icon-size": 0.8
+    }
+  },
+  "mv_grid_districts": {
+    "type": "fill",
+    "paint": {
+      "fill-color": [
+        "step",
+        ["get","area"],
+        "#00eda0", 100000,
+        "#00eda0", 1000000,
+        "#00d976", 10000000,
+        "#001a1c", 100000000,
+        "hsl(348, 100%, 37%)", 1000000000,
+        "#bd0026"
+      ],
+      "fill-opacity": 0.8
     }
   }
 }

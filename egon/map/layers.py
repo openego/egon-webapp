@@ -24,10 +24,10 @@ def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
 
 
-DEMAND = [
+DEMAND: list = [
     {
-        "source": "demandcts",
-        "color": get_color("demandcts"),
+        "source": "demand_cts",
+        "color": get_color("demand_cts"),
         "model": models.DemandCts,
         "name": _("Cts"),
         "name_singular": _("Ct"),
@@ -40,7 +40,7 @@ DEMAND = [
         ),
     },
     {
-        "source": "demandhousehold",
+        "source": "demand_household",
         "color": "#fd8d3c",
         "model": models.DemandHousehold,
         "name": _("Haushalte"),
@@ -56,8 +56,114 @@ DEMAND = [
     },
 ]
 
-LAYERS_DEFINITION = DEMAND
-LAYERS_CATEGORIES = {"Last": DEMAND}
+GENERATION: list = [
+    {
+        "source": "supply_biomass",
+        "color": "blue",
+        "model": models.SupplyBiomass,
+        "name": _("Biomasse"),
+        "name_singular": _("Biomasse"),
+        "description": _("Text einfügen"),
+        "popup_fields": ["id", "carrier"],
+    },
+    {
+        "source": "supply_run_of_river",
+        "color": "blue",
+        "model": models.SupplyRunOfRiver,
+        "name": _("Hydro"),
+        "name_singular": _("Hydro"),
+        "description": _("Text einfügen"),
+        "popup_fields": ["id", "carrier"],
+    },
+    {
+        "source": "supply_wind",
+        "color": "blue",
+        "model": models.SupplyWindOnshore,
+        "name": _("Wind onshore"),
+        "name_singular": _("Wind onshore"),
+        "description": _("Text einfügen"),
+        "popup_fields": ["id", "carrier"],
+    },
+    {
+        "source": "supply_solar",
+        "color": "yellow",
+        "model": models.SupplySolarGround,
+        "name": _("Solar"),
+        "name_singular": _("Solar"),
+        "description": _("Text einfügen"),
+        "popup_fields": ["id", "carrier"],
+    },
+    {
+        "source": "potential_wind",
+        "color": get_color("potential_wind"),
+        "model": models.SupplyPotentialWind,
+        "name": _("Windpotenzial"),
+        "name_singular": _("Windpotenzial"),
+        "description": _("Text einfügen"),
+    },
+    {
+        "source": "potential_pv",
+        "color": get_color("potential_pv"),
+        "model": models.SupplyPotentialPVGround,
+        "name": _("PV-Potenzial"),
+        "name_singular": _("PV-Potenzial"),
+        "description": _("Text einfügen"),
+    },
+]
+
+GRID: list = [
+    {
+        "source": "ehv_line",
+        "color": "blue",
+        "model": models.EHVLine,
+        "name": _("EHV Leitung"),
+        "name_singular": _("EHV Leitung"),
+        "description": _("Text einfügen"),
+    },
+    {
+        "source": "hv_line",
+        "color": "darkblue",
+        "model": models.HVLine,
+        "name": _("HV Leitung"),
+        "name_singular": _("HV Leitung"),
+        "description": _("Text einfügen"),
+    },
+    {
+        "source": "ehv_hv_station",
+        "color": "green",
+        "model": models.EHVHVSubstation,
+        "name": _("EHV/HV Substation"),
+        "name_singular": _("EHV/HV Substation"),
+        "description": _("Text einfügen"),
+    },
+    {
+        "source": "hv_mv_station",
+        "color": "blue",
+        "model": models.HVMVSubstation,
+        "name": _("HV/MV Substation"),
+        "name_singular": _("HV/MV Substation"),
+        "description": _("Text einfügen"),
+    },
+]
+
+MODEL: list = [
+    {
+        "source": "mv_grid_districts",
+        "color": "pink",
+        "model": models.MVGridDistricts,
+        "name": _("MV Grid Districts"),
+        "name_singular": _("MV Grid Districts"),
+        "description": _("Text einfügen"),
+    },
+]
+
+LAYERS_DEFINITION: list = DEMAND + GENERATION + GRID +MODEL
+LAYERS_CATEGORIES: dict = {
+    "demand": DEMAND,
+    "generation": GENERATION,
+    "grid": GRID,
+    "model": MODEL
+}
 
 
 @dataclass

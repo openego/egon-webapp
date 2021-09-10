@@ -72,8 +72,15 @@ SOURCES = init_sources()
 
 
 # MAP
-MapImage = namedtuple("MapImage", ["name", "path"])
-MAP_IMAGES = []
+# Images which shall be used in mapbox style of type "symbol" have to be declared here:
+MapSymbol = namedtuple("MapImage", ["name", "path"])
+MAP_SYMBOLS = [
+    MapSymbol("biomass", "images/icons/biomass.png"),
+    MapSymbol("solar", "images/icons/solar.png"),
+    MapSymbol("wind", "images/icons/wind.png"),
+    MapSymbol("river", "images/icons/river.png"),
+    MapSymbol("station", "images/icons/station.png"),
+]
 
 
 # DISTILL
