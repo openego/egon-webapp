@@ -44,6 +44,7 @@
               </li>
             </ul>
             <div class="tab-content layers" id="category-tabContent">
+              <div class="panel-chart" id="demandChart"></div>
               {% for category, switches in area_switches.items %}
                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="category-{{category}}" role="tabpanel" aria-labelledby="category-{{category}}-tab">
                   {% for switch in switches %}
@@ -72,3 +73,74 @@
     </ul>
   </footer>
 </section>
+
+<script>
+  // Variables
+	const demandXValues = ['Electricity', 'Heat', 'Gas', 'Transport'];
+  const demandYValues = [20, 14, 23, 54];
+  const demandTitle = 'Sum for Germany in TWh per sector';
+
+  // Layout
+  var trace1 = {
+    x: demandXValues,
+    y: demandYValues,
+    type: 'bar',
+    text: demandYValues.map(String),
+    textposition: 'auto',
+    hoverinfo: 'none',
+    marker: {
+      color: '#8CA4B4'
+    },
+    width: 0.4,
+    textfont: {
+      size: 12,
+      color: '#000'
+    },
+  };
+
+  var data = [trace1];
+
+  var layout = {
+    title: {
+      text: demandTitle,
+      x: 0,
+      xanchor: 'left'
+    },
+    showlegend: false,
+    font: {
+      family: 'Lato, sans-serif',
+      size: 12,
+      color: '#7f7f7f'
+    },
+    height: 275,
+    margin: {
+      l: 35,
+      r: 5,
+      b: 40,
+      t: 30
+    },
+    barmode: 'stack',
+    xaxis: {
+      autotick: false,
+      ticks: 'outside',
+      tick0: 0,
+      dtick: 1,
+      ticklen: 4,
+      tickwidth: 2,
+      tickcolor: '#fff'
+    },
+    yaxis: {
+      autotick: false,
+      ticks: 'outside',
+      tick0: 0,
+      dtick: 50,
+      ticklen: 8,
+      tickwidth: 4,
+      tickcolor: '#fff',
+      zerolinecolor: '#EDEDED'
+    }
+  };
+
+  // Plots
+  Plotly.newPlot('demandChart', data, layout, {staticPlot: true});
+</script>
