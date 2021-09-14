@@ -1,6 +1,10 @@
 {% load static i18n %}
 
-<form class="layers__item static-layer">
+<form class="layers__item">
+  <div class="name">
+    <span class="name__text" data-source="{{ form.layer.source }}">{{ form.layer.name }}</span>
+    {% include 'widgets/info_button.html' with description=form.layer.description %}
+  </div>
   <div class="switch-wrap">
     {{ form.switch }}
   </div>
@@ -11,10 +15,6 @@
     }
   </style>
   {% endif %}
-  <div class="name">
-    <span class="name__text" data-source="{{ form.layer.source }}">{{ form.layer.name }}</span>
-    {% include 'widgets/info_button.html' with description=form.layer.description %}
-  </div>
 
   {% if form.has_filters %}
     <div class="line-break"></div>

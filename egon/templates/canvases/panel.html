@@ -43,7 +43,7 @@
                 <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill" data-bs-target="#category-model" type="button" role="tab" aria-controls="category-model" aria-selected="false" title="Data model"></button>
               </li>
             </ul>
-            <div class="tab-content" id="category-tabContent">
+            <div class="tab-content layers" id="category-tabContent">
               {% for category, switches in area_switches.items %}
                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="category-{{category}}" role="tabpanel" aria-labelledby="category-{{category}}-tab">
                   {% for switch in switches %}

@@ -148,6 +148,15 @@
     }
   }
 
+  .tab-content.layers {
+    padding: 1rem 0 0;
+
+    .layers__item {
+      @include flex-row-space-between;
+      padding-bottom: 0.5rem;
+    }
+  }
+
   .footer {
     flex-shrink: 0;
     border-top: $border-gray;
