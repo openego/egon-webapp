@@ -48,7 +48,16 @@
               {% for category, switches in area_switches.items %}
                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="category-{{category}}" role="tabpanel" aria-labelledby="category-{{category}}-tab">
                   {% for switch in switches %}
-                    {% crispy switch %}
+                    {% if switch.layer.type.value != 3 %}
+                      {{switch.layer}}
+                      {% crispy switch %}
+                    {% endif %}
+                  {% endfor %}
+                  Choropleths:
+                  {% for switch in switches %}
+                    {% if switch.layer.type.value == 3 %}
+                      {% crispy switch %}
+                    {% endif %}
                   {% endfor %}
                 </div>
               {% endfor %}

@@ -1,10 +1,11 @@
+
 import json
-import os
 from dataclasses import dataclass, field
 from itertools import product
+from enum import Enum
 from typing import List, Optional
 
-from django.db.models import IntegerField, BooleanField, Model
+from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from raster.models import RasterLayer as RasterModel
 
@@ -12,9 +13,6 @@ from config.settings.base import USE_DISTILLED_MVTS
 from .config import MAX_ZOOM, MIN_ZOOM, REGIONS, ZOOM_LEVELS, MAX_DISTILLED_ZOOM, LAYER_STYLES
 
 from . import models
-
-with open(os.path.join(os.path.dirname(__file__), "../static/styles/layer_styles.json"), mode="rb",) as f:
-    LAYER_STYLES = json.loads(f.read())
 
 
 def get_color(source_layer):
@@ -25,6 +23,13 @@ def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
 
 
+class VectorLayerType(Enum):
+    Fill = 0
+    Symbol = 1
+    Line = 2
+    Choropleth = 3
+
+
 @dataclass
 class VectorLayerData:
     source: str
@@ -33,6 +38,7 @@ class VectorLayerData:
     name: str
     name_singular: str
     description: str
+    type: VectorLayerType = VectorLayerType.Fill
     popup_fields: list = field(default_factory=list)
 
 
@@ -50,6 +56,7 @@ class RasterLayerData:
 DEMAND: list = [
     VectorLayerData(
         source="demand_cts",
+        type=VectorLayerType.Choropleth,
         color=get_color("demand_cts"),
         model=models.DemandCts,
         name=_("Cts"),
@@ -64,6 +71,7 @@ DEMAND: list = [
     ),
     VectorLayerData(
         source="demand_household",
+        type=VectorLayerType.Choropleth,
         color="#fd8d3c",
         model=models.DemandHousehold,
         name=_("Haushalte"),
@@ -82,6 +90,7 @@ DEMAND: list = [
 GENERATION: list = [
     VectorLayerData(
         source="supply_biomass",
+        type=VectorLayerType.Symbol,
         color="blue",
         model=models.SupplyBiomass,
         name=_("Biomasse"),
@@ -91,6 +100,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_run_of_river",
+        type=VectorLayerType.Symbol,
         color="blue",
         model=models.SupplyRunOfRiver,
         name=_("Hydro"),
@@ -100,6 +110,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_wind",
+        type=VectorLayerType.Symbol,
         color="blue",
         model=models.SupplyWindOnshore,
         name=_("Wind onshore"),
@@ -109,6 +120,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_solar",
+        type=VectorLayerType.Symbol,
         color="yellow",
         model=models.SupplySolarGround,
         name=_("Solar"),
@@ -137,6 +149,7 @@ GENERATION: list = [
 GRID: list = [
     VectorLayerData(
         source="ehv_line",
+        type=VectorLayerType.Line,
         color="blue",
         model=models.EHVLine,
         name=_("EHV Leitung"),
@@ -145,6 +158,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="hv_line",
+        type=VectorLayerType.Line,
         color="darkblue",
         model=models.HVLine,
         name=_("HV Leitung"),
@@ -153,6 +167,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="ehv_hv_station",
+        type=VectorLayerType.Symbol,
         color="green",
         model=models.EHVHVSubstation,
         name=_("EHV/HV Substation"),
@@ -161,6 +176,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="hv_mv_station",
+        type=VectorLayerType.Symbol,
         color="blue",
         model=models.HVMVSubstation,
         name=_("HV/MV Substation"),
@@ -172,6 +188,7 @@ GRID: list = [
 MODEL: list = [
     VectorLayerData(
         source="mv_grid_districts",
+        type=VectorLayerType.Choropleth,
         color="pink",
         model=models.MVGridDistricts,
         name=_("MV Grid Districts"),
