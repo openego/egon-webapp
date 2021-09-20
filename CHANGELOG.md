@@ -9,6 +9,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 - raster layers
 - multiselect dropdown filters
 - layers can be filtered by multiple filters
+- separation of choropleth layers 
 
 ### Changed
 - prevent zoom, if marker is clicked
