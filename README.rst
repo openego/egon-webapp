@@ -1,4 +1,4 @@
-EnerShelf
+EGON
 =========
 
 Behold My Awesome Project!
@@ -85,3 +85,13 @@ See detailed `cookiecutter-django Docker documentation`_.
 
 .. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
 
+
+
+Errors
+------
+
+GDAL
+^^^^
+
+Attention: First, check if environment variable `PROJ_LIB` points to correct proj directory.
+This can lead to several strange (and non-helpful) errors!
