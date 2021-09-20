@@ -1,10 +1,9 @@
 import json
-import os
 from dataclasses import dataclass, field
 from itertools import product
 from typing import List, Optional
 
-from django.db.models import IntegerField, BooleanField, Model
+from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from raster.models import RasterLayer as RasterModel
 
@@ -12,9 +11,6 @@ from config.settings.base import USE_DISTILLED_MVTS
 from .config import MAX_ZOOM, MIN_ZOOM, REGIONS, ZOOM_LEVELS, MAX_DISTILLED_ZOOM, LAYER_STYLES
 
 from . import models
-
-with open(os.path.join(os.path.dirname(__file__), "../static/styles/layer_styles.json"), mode="rb",) as f:
-    LAYER_STYLES = json.loads(f.read())
 
 
 def get_color(source_layer):
@@ -131,6 +127,15 @@ GENERATION: list = [
         name=_("PV-Potenzial"),
         name_singular=_("PV-Potenzial"),
         description=_("Text einfügen"),
+    ),
+    RasterLayerData(
+        source="soil_quality",
+        filepath="2_Supply/bgr_sqr1000_high.tif",
+        legend="soil_quality",
+        model=RasterModel,
+        name="Soil Quality",
+        name_singular="Soil Quality",
+        description="Text to come",
     ),
 ]
 
