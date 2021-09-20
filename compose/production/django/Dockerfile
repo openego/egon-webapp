@@ -72,6 +72,7 @@ COPY ./pyproject.toml ./poetry.lock ./
 RUN source /venv/bin/activate && python -m pip install --upgrade pip && pip install --no-cache-dir poetry && poetry install --no-root
 # Move this into poetry file, once changes merged into pypi package
 RUN source /venv/bin/activate && pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
+RUN source /venv/bin/activate && pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint

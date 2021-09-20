@@ -22,6 +22,12 @@ CACHES = {
         "LOCATION": "",
     }
 }
+if env("REDIS_URL", default=None):
+    CACHES["select2"] = {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env("REDIS_URL"),
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+    }
 
 # EMAIL
 # ------------------------------------------------------------------------------

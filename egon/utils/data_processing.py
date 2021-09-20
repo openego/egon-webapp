@@ -1,8 +1,14 @@
-import os
 
-from config.settings.base import ROOT_DIR
+import os
+import json
+
+from config.settings.base import DATA_DIR
+from raster.models import Legend, RasterLayer as RasterModel
+
 from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 from egon.map import models
+from egon.map.layers import LAYERS_DEFINITION
+from egon.map.config import LAYER_STYLES
 
 
 REGIONS = [
@@ -37,9 +43,9 @@ def load_regions(regions=None, verbose=True):
             continue
         print(f"Upload data for region '{region.__name__}'")
         if hasattr(region, "data_folder"):
-            data_path = os.path.join(ROOT_DIR, "egon", "data", region.data_folder, f"{region.data_file}.gpkg")
+            data_path = os.path.join(DATA_DIR, region.data_folder, f"{region.data_file}.gpkg")
         else:
-            data_path = os.path.join(ROOT_DIR, "egon", "data", f"{region.data_file}.gpkg")
+            data_path = os.path.join(DATA_DIR, f"{region.data_file}.gpkg")
         region_model = models.Region(layer_type=region.__name__.lower())
         region_model.save()
         instance = RelatedModelLayerMapping(
@@ -61,9 +67,9 @@ def load_data(data_models=None, verbose=True):
             continue
         print(f"Upload data for model '{model.__name__}'")
         if hasattr(model, "data_folder"):
-            data_path = os.path.join(ROOT_DIR, "egon", "data", model.data_folder, f"{model.data_file}.gpkg")
+            data_path = os.path.join(DATA_DIR, model.data_folder, f"{model.data_file}.gpkg")
         else:
-            data_path = os.path.join(ROOT_DIR, "egon", "data", f"{model.data_file}.gpkg")
+            data_path = os.path.join(DATA_DIR, f"{model.data_file}.gpkg")
         instance = RelatedModelLayerMapping(
             model=model,
             data=data_path,
@@ -74,7 +80,37 @@ def load_data(data_models=None, verbose=True):
         instance.save(strict=True, verbose=verbose)
 
 
+def load_raster(layers=None):
+    layers = layers or LAYERS_DEFINITION
+    for layer in layers:
+        if not issubclass(layer.model, RasterModel):
+            continue
+        if RasterModel.objects.filter(name=layer.source).exists():
+            print(f"Skipping data for raster '{layer.name}' - Please empty raster first if you want to update data.")
+            continue
+        print(f"Upload data for raster '{layer.name}'")
+        rm = RasterModel(name=layer.source, rasterfile=layer.filepath)
+        rm.save()
+        if Legend.objects.filter(title=layer.legend).exists():
+            print(
+                f"Skipping legend '{layer.legend}' for raster '{layer.name}' - "
+                f"Please remove raster legend first if you want to update it."
+            )
+            continue
+        legend = Legend(title=layer.legend, json=json.dumps(LAYER_STYLES[layer.legend]))
+        legend.save()
+
+
 def empty_data(data_models=None):
     data_models = data_models or MODELS
     for model in data_models:
         model.objects.all().delete()
+
+
+def empty_raster(layers=None):
+    layers = layers or LAYERS_DEFINITION
+    for layer in layers:
+        if not issubclass(layer.model, RasterModel):
+            continue
+        RasterModel.objects.filter(name=layer.source).delete()
+        Legend.objects.filter(title=layer.legend).delete()
