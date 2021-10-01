@@ -70,9 +70,9 @@ function setDetailLayersOnDetailLayersSwitchClick(msg) {
 function filterChanged(msg, {layerForm}) {
   const layer_id = get_layer_id(layerForm);
   const filters = get_layer_filters(layerForm);
-  const layers = get_map_layer_ids(layer_id);
+  const layers = map.getStyle().layers.filter(layer => layer["id"].startsWith(layer_id));
   $.each(layers, function (i, layer) {
-    set_filters(layer, filters);
+    set_filters(layer["id"], filters);
   })
   return logMessage(msg);
 }
@@ -117,22 +117,12 @@ function turn_off_layer(layer_form) {
 function turn_on_layer(layer_form) {
   const layer_id = get_layer_id(layer_form);
   const filters = get_layer_filters(layer_form);
-  const layers = get_map_layer_ids(layer_id);
+  const layers = map.getStyle().layers.filter(layer => layer["id"].startsWith(layer_id));
   $.each(layers, function (i, layer) {
-    map.setLayoutProperty(layer, "visibility", "visible");
-    set_filters(layer, filters);
+    map.setLayoutProperty(layer["id"], "visibility", "visible");
+    set_filters(layer["id"], filters);
   })
-  return layers;
-}
-
-function get_map_layer_ids(layer_id) {
-  let layers;
-  if (store.cold.useDistilledMVTs) {
-    layers = [layer_id, layer_id + "_distilled"];
-  } else {
-    layers = [layer_id];
-  }
-  return layers;
+  return layers.map(layer => layer["id"]);
 }
 
 function get_layer_filters(layer_form) {

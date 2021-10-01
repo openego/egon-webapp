@@ -1,14 +1,15 @@
 
 import os
 import json
+from geojson import FeatureCollection, Feature, Point
 
 from config.settings.base import DATA_DIR
 from raster.models import Legend, RasterLayer as RasterModel
 
 from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 from egon.map import models
-from egon.map.layers import LAYERS_DEFINITION
-from egon.map.config import LAYER_STYLES
+from egon.map.layers import LAYERS_DEFINITION, VectorLayerData
+from egon.map.config import LAYER_STYLES, CLUSTER_GEOJSON_FILE, ZOOM_LEVELS
 
 
 REGIONS = [
@@ -99,6 +100,30 @@ def load_raster(layers=None):
             continue
         legend = Legend(title=layer.legend, json=json.dumps(LAYER_STYLES[layer.legend]))
         legend.save()
+
+
+def build_cluster_geojson(cluster_layers: list[VectorLayerData] = None):
+    cluster_layers = cluster_layers or LAYERS_DEFINITION
+    features = []
+    for region_model in REGIONS[:-1]:
+        region_name = region_model.__name__.lower()
+        zoom_level = ZOOM_LEVELS[region_name].max
+        for region in region_model.objects.all():
+            point = Point(region.geom.point_on_surface.coords)
+            properties = {"zoom_level": zoom_level}
+            for cluster_layer in cluster_layers:
+                if not cluster_layer.clustered:
+                    continue
+                cluster_count = len(cluster_layer.model.objects.filter(geom__within=region.geom))
+                properties[cluster_layer.source] = cluster_count
+            feature = Feature(
+                geometry=point,
+                properties=properties
+            )
+            features.append(feature)
+    fc = FeatureCollection(features)
+    with open(CLUSTER_GEOJSON_FILE, 'w') as geojson_file:
+        json.dump(fc, geojson_file)
 
 
 def empty_data(data_models=None):

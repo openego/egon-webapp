@@ -9,6 +9,11 @@ from range_key_dict import RangeKeyDict
 from django.conf import settings
 from egon import __version__
 
+# FILES
+
+CLUSTER_GEOJSON_FILE = settings.DATA_DIR.path("cluster.geojson")
+LAYER_STYLES_FILE = os.path.join(os.path.dirname(__file__), "../static/styles/layer_styles.json")
+
 # REGIONS
 
 MIN_ZOOM = 5
@@ -17,8 +22,8 @@ MAX_DISTILLED_ZOOM = 10
 
 Zoom = namedtuple("MinMax", ["min", "max"])
 ZOOM_LEVELS = {
-    "country": Zoom(MIN_ZOOM, 5),
-    "state": Zoom(MIN_ZOOM, 8),
+    "country": Zoom(MIN_ZOOM, 6),
+    "state": Zoom(6, 8),
     "district": Zoom(8, 11),
     "municipality": Zoom(11, MAX_ZOOM + 1),
 }
@@ -75,7 +80,7 @@ SOURCES = init_sources()
 
 # STYLES
 
-with open(os.path.join(os.path.dirname(__file__), "../static/styles/layer_styles.json"), mode="rb",) as f:
+with open(LAYER_STYLES_FILE, mode="rb",) as f:
     LAYER_STYLES = json.loads(f.read())
 
 
