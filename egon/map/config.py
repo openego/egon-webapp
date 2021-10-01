@@ -43,7 +43,10 @@ FILTER_DEFINITION = {}
 
 # STORE
 
-STORE_COLD_INIT = {"version": __version__}
+STORE_COLD_INIT = {
+    "version": __version__,
+    "zoom_levels": ZOOM_LEVELS
+}
 
 
 def init_hot_store():

@@ -161,7 +161,7 @@
               });
               map.addLayer(
                 {
-                  id: "{{layer.source_layer}}_{{level}}_count",
+                  id: "{{layer.source_layer}}_counter_{{level}}",
                   type: "symbol",
                   source: "clusters",
                   minzoom: {{zoom.min}},
@@ -176,7 +176,7 @@
                 }
               );
               map.setLayoutProperty("{{layer.source_layer}}_{{level}}", "visibility", "none");
-              map.setLayoutProperty("{{layer.source_layer}}_{{level}}_count", "visibility", "none");
+              map.setLayoutProperty("{{layer.source_layer}}_counter_{{level}}", "visibility", "none");
             {% endfor %}
           {% endif %}
         {% endfor %}

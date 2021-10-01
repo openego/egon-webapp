@@ -368,7 +368,7 @@ for layer in LAYERS_DEFINITION:
         if layer.clustered and suffix == "_distilled":
             # Clustered layers are not distilled
             continue
-        layer_id = f"fill-{layer.source}{suffix}"
+        layer_id = f"{layer.source}{suffix}"
         if layer.clustered:
             min_zoom = list(ZOOM_LEVELS.values())[-1].min  # Show unclustered only at last LOD
             max_zoom = MAX_ZOOM
