@@ -167,20 +167,20 @@ function set_filters(layer, filters, clustered) {
   if (clustered) {
     const level = layer.split("_").at(-1);
     if (level in store.cold.zoom_levels) {
-      cluster_filter = ["==", ["get", "zoom_level"], store.cold.zoom_levels[level][1]];
+      const cluster_filter = ["==", ["get", "zoom_level"], store.cold.zoom_levels[level][1]];
       map_filters.push(cluster_filter);
     }
   }
 
   for (let i = 0; i < filters.length; i++) {
     if (filters[i].type == "range") {
-      lower_bound = [">=", ["get", filters[i].name], filters[i].from];
-      upper_bound = ["<=", ["get", filters[i].name], filters[i].to];
+      const lower_bound = [">=", ["get", filters[i].name], filters[i].from];
+      const upper_bound = ["<=", ["get", filters[i].name], filters[i].to];
       map_filters.push(lower_bound);
       map_filters.push(upper_bound);
     }
     if (filters[i].type == "value") {
-      equals = ["match", ["get", filters[i].name], filters[i].values, true, false];
+      const equals = ["match", ["get", filters[i].name], filters[i].values, true, false];
       map_filters.push(equals);
     }
   }
