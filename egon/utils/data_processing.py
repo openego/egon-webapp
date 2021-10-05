@@ -112,7 +112,7 @@ def build_cluster_geojson(cluster_layers: list[VectorLayerData] = None):
             point = Point(region.geom.point_on_surface.coords)
             properties = {"zoom_level": zoom_level}
             for cluster_layer in cluster_layers:
-                if not cluster_layer.clustered:
+                if not hasattr(cluster_layer, "clustered") or not cluster_layer.clustered:
                     continue
                 cluster_count = len(cluster_layer.model.objects.filter(geom__within=region.geom))
                 properties[cluster_layer.source] = cluster_count
