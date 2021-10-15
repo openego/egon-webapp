@@ -173,7 +173,9 @@
 
     .name__visual.name__visual--choropleth {
       background-color: blue;
-      border-right: 0.5rem solid yellow;
+      border-right-width: 0.5rem;
+      border-right-style: solid;
+      border-right-color: yellow;
     }
 
     .name__visual.name__visual--icon {
