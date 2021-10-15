@@ -2,6 +2,7 @@
 
 <form class="layers__item static-layer {% if form.layer.clustered %}cluster-layer{% endif %}">
   <div class="name">
+    <div class="name__visual name__visual--choropleth"></div>
     <span class="name__text" data-source="{{ form.layer.source }}">{{ form.layer.name }}</span>
     {% include 'widgets/info_button.html' with description=form.layer.description %}
   </div>
