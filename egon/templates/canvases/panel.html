@@ -1,4 +1,6 @@
+
 {% load static i18n %}
+{% load utils %}
 {% load crispy_forms_tags %}
 
 <section class="panel">
@@ -52,7 +54,10 @@
                       {% crispy switch %}
                     {% endif %}
                   {% endfor %}
-                  <div class="panel-line"></div>
+                  {% separate_layers switches as separate %}
+                  {% if separate %}
+                    <div class="panel-line"></div>
+                  {% endif %}
                   {% for switch in switches %}
                     {% if switch.layer.type.value == 3 %}
                       {% crispy switch %}
