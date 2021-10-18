@@ -2,20 +2,13 @@
 
 <form class="layers__item static-layer {% if form.layer.clustered %}cluster-layer{% endif %}">
   <div class="name">
-    <div class="name__visual name__visual--choropleth"></div>
+    <div class="name__visual" style="{{form.visual|safe}}"></div>
     <span class="name__text" data-source="{{ form.layer.source }}">{{ form.layer.name }}</span>
     {% include 'widgets/info_button.html' with description=form.layer.description %}
   </div>
   <div class="switch-wrap">
     {{ form.switch }}
   </div>
-  {% if form.layer.source and form.layer.color %}
-  <style>
-    #fill-{{ form.layer.source }}:checked ~ #fill-{{ form.layer.source }}-label {
-      background-color: {{ form.layer.color }};
-    }
-  </style>
-  {% endif %}
 
   {% if form.has_filters %}
     <div class="line-break"></div>
