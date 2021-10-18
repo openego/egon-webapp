@@ -7,8 +7,25 @@ from django.db.models import Min, Max
 from django_select2.forms import Select2MultipleWidget
 from raster.models import RasterLayer as RasterModel
 
+from .config import LAYER_STYLES, MAP_SYMBOLS
 from .widgets import SwitchWidget
 from .models import LayerFilterType
+from .layers import VectorLayerType
+
+
+def get_layer_visual(layer):
+    """Returns visualization style switch depending on layer type"""
+    if layer.type in (VectorLayerType.Fill, VectorLayerType.Line):
+        return f"background-color: {layer.color}"
+    elif layer.type == VectorLayerType.Symbol:
+        image = LAYER_STYLES[layer.source]['layout']['icon-image']
+        image_path = next(x.path for x in MAP_SYMBOLS if x.name == image)
+        return f"background-image: url('/static/{image_path}');background-size: cover;"
+    elif layer.type == VectorLayerType.Choropleth:
+        # Return first and last color of color range:
+        return f"background-color: {LAYER_STYLES[layer.source]['paint']['fill-color'][2]};border-right: 0.5rem solid {LAYER_STYLES[layer.source]['paint']['fill-color'][-1]};"
+    else:
+        raise ValueError(f"Unknown layer type '{layer.type}'")
 
 
 class StaticLayerForm(Form):
@@ -21,6 +38,7 @@ class StaticLayerForm(Form):
     def __init__(self, layer, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layer = layer
+        self.visual = get_layer_visual(layer)
         layer_id = layer.source if issubclass(layer.model, RasterModel) else f"fill-{layer.source}"
         self.fields["switch"].widget.attrs["id"] = layer_id
 
