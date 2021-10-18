@@ -23,11 +23,12 @@ def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
 
 
-class VectorLayerType(Enum):
+class LayerType(Enum):
     Fill = 0
     Symbol = 1
     Line = 2
     Choropleth = 3
+    Raster = 4
 
 
 @dataclass
@@ -39,7 +40,7 @@ class VectorLayerData:
     name_singular: str
     description: str
     clustered: bool = False
-    type: VectorLayerType = VectorLayerType.Fill
+    type: LayerType = LayerType.Fill
     popup_fields: list = field(default_factory=list)
 
 
@@ -52,12 +53,13 @@ class RasterLayerData:
     name: str
     name_singular: str
     description: str
+    type: LayerType = LayerType.Raster
 
 
 DEMAND: list = [
     VectorLayerData(
         source="demand_cts",
-        type=VectorLayerType.Choropleth,
+        type=LayerType.Choropleth,
         color=get_color("demand_cts"),
         model=models.DemandCts,
         name=_("Cts"),
@@ -72,7 +74,7 @@ DEMAND: list = [
     ),
     VectorLayerData(
         source="demand_household",
-        type=VectorLayerType.Choropleth,
+        type=LayerType.Choropleth,
         color="#fd8d3c",
         model=models.DemandHousehold,
         name=_("Haushalte"),
@@ -91,7 +93,7 @@ DEMAND: list = [
 GENERATION: list = [
     VectorLayerData(
         source="supply_biomass",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="blue",
         model=models.SupplyBiomass,
         name=_("Biomasse"),
@@ -102,7 +104,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_run_of_river",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="blue",
         model=models.SupplyRunOfRiver,
         name=_("Hydro"),
@@ -112,7 +114,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_wind",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="blue",
         model=models.SupplyWindOnshore,
         name=_("Wind onshore"),
@@ -122,7 +124,7 @@ GENERATION: list = [
     ),
     VectorLayerData(
         source="supply_solar",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="yellow",
         model=models.SupplySolarGround,
         name=_("Solar"),
@@ -160,7 +162,7 @@ GENERATION: list = [
 GRID: list = [
     VectorLayerData(
         source="ehv_line",
-        type=VectorLayerType.Line,
+        type=LayerType.Line,
         color="blue",
         model=models.EHVLine,
         name=_("EHV Leitung"),
@@ -169,7 +171,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="hv_line",
-        type=VectorLayerType.Line,
+        type=LayerType.Line,
         color="darkblue",
         model=models.HVLine,
         name=_("HV Leitung"),
@@ -178,7 +180,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="ehv_hv_station",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="green",
         model=models.EHVHVSubstation,
         name=_("EHV/HV Substation"),
@@ -187,7 +189,7 @@ GRID: list = [
     ),
     VectorLayerData(
         source="hv_mv_station",
-        type=VectorLayerType.Symbol,
+        type=LayerType.Symbol,
         color="blue",
         model=models.HVMVSubstation,
         name=_("HV/MV Substation"),
@@ -199,7 +201,7 @@ GRID: list = [
 MODEL: list = [
     VectorLayerData(
         source="mv_grid_districts",
-        type=VectorLayerType.Choropleth,
+        type=LayerType.Choropleth,
         color="pink",
         model=models.MVGridDistricts,
         name=_("MV Grid Districts"),
