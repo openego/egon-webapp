@@ -71,7 +71,7 @@ STORE_HOT_INIT = init_hot_store()
 def init_sources():
     sources = {}
     metadata_path = pathlib.Path(settings.METADATA_DIR)
-    for metafile in metadata_path.iterdir():
+    for metafile in [_ for _ in metadata_path.iterdir() if _.suffix == '.json']:
         with open(metafile, "r") as metadata_raw:
             metadata = json.loads(metadata_raw.read())
             sources[metadata["id"]] = metadata
