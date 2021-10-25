@@ -1,5 +1,5 @@
 EGON
-=========
+====
 
 Behold My Awesome Project!
 
@@ -13,6 +13,40 @@ Behold My Awesome Project!
 
 :License: MIT
 
+Quickstart
+----------
+
+To deploy, do the following:
+
+Put data into `egon/data/`, then:
+
+.. code-block:: bash
+
+    docker-compose -f local.yml up --build
+    docker-compose -f local.yml run --rm django python manage.py dbshell
+
+In the psql shell, run
+
+.. code-block:: sql
+
+    CREATE EXTENSION postgis;
+    CREATE EXTENSION postgis_raster;
+
+Afterwards:
+
+.. code-block:: bash
+
+    docker-compose -f local.yml run --rm django python manage.py migrate --skip-checks
+    docker-compose -f local.yml run --rm django make load_regions
+    docker-compose -f local.yml run --rm django make load_data
+    docker-compose -f local.yml run --rm django make load_raster
+    docker-compose -f local.yml run --rm django make build_clusters
+
+Finally, bring up with:
+
+    docker-compose -f local.yml up -d
+
+and access at http://0.0.0.0:8001/
 
 Settings
 --------
