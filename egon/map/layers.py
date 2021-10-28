@@ -240,6 +240,7 @@ class Layer:
     description: Optional[str] = None
     color: Optional[str] = None
     clustered: bool = False
+    style_type: Optional[LayerType] = None
 
 
 @dataclass
@@ -407,6 +408,7 @@ for layer in LAYERS_DEFINITION:
                 maxzoom=max_zoom,
                 name=layer.name,
                 style=layer.source,
+                style_type=layer.type,
                 source=f"static{suffix}",
                 source_layer=layer.source,
                 type="static",
