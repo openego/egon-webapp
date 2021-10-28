@@ -23,6 +23,19 @@ def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
 
 
+def get_choropleth_colors_for_legend(source_layer):
+    fill_color = get_color(source_layer)
+    colors = fill_color[2::2]
+    values = fill_color[3::2]
+    ranges = []
+    for i, value in enumerate(values):
+        if i == 0:
+            ranges.append(f"0 - {value}")
+        else:
+            ranges.append(f"{values[i-1]} - {value}")
+    return list(zip(ranges, colors))
+
+
 class LayerType(Enum):
     Fill = 0
     Symbol = 1

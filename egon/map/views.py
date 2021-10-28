@@ -5,7 +5,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 
-from .layers import ALL_LAYERS, REGION_LAYERS, RASTER_LAYERS, ALL_SOURCES, LAYERS_CATEGORIES, POPUPS, LayerType
+from .layers import ALL_LAYERS, REGION_LAYERS, RASTER_LAYERS, ALL_SOURCES, LAYERS_CATEGORIES, POPUPS, LayerType, get_choropleth_colors_for_legend
 from config.settings.base import (
     USE_DISTILLED_MVTS,
     PASSWORD_PROTECTION,
@@ -57,7 +57,7 @@ class MapGLView(TemplateView):
         STORE_COLD_INIT["popup_layers"] = [popup.layer_id for popup in POPUPS]
         STORE_COLD_INIT["region_layers"] = [layer.id for layer in REGION_LAYERS if layer.id.startswith("fill")]
         STORE_COLD_INIT["choropleth_layers"] = {
-            layer.id: [("500-1000", "red"), ("1000-1500", "orange"), ("1500-2000", "yellow")]
+            layer.id: get_choropleth_colors_for_legend(layer.id)
             for layer in ALL_LAYERS if layer.style_type == LayerType.Choropleth
         }
 
