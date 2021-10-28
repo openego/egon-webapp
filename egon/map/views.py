@@ -56,9 +56,10 @@ class MapGLView(TemplateView):
 
         STORE_COLD_INIT["popup_layers"] = [popup.layer_id for popup in POPUPS]
         STORE_COLD_INIT["region_layers"] = [layer.id for layer in REGION_LAYERS if layer.id.startswith("fill")]
-        STORE_COLD_INIT["choropleth_layers"] = [
-            layer.id for layer in ALL_LAYERS if layer.style_type == LayerType.Choropleth
-        ]
+        STORE_COLD_INIT["choropleth_layers"] = {
+            layer.id: [("500-1000", "red"), ("1000-1500", "orange"), ("1500-2000", "yellow")]
+            for layer in ALL_LAYERS if layer.style_type == LayerType.Choropleth
+        }
 
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 

@@ -1,7 +1,9 @@
 // Variables
 
-const detailLayers = Array.from(document.getElementsByClassName("static-layer"));
 const layerInputClass = ".form-check-input";
+const detailLayers = Array.from(document.getElementsByClassName("static-layer"));
+const choroplethLayers = detailLayers.filter(layer => get_layer_id(layer) in store.cold.choropleth_layers);
+const legend = $("#legend");
 
 
 // Event Handler
@@ -11,6 +13,11 @@ map.on("load", function () {
   detailLayers.map(layerForm => {
     layerForm.addEventListener("change", () => {
       PubSub.publish(eventTopics.DETAIL_LAYER_SWITCH_CLICK, {layerForm});
+    });
+  });
+  choroplethLayers.map(layerForm => {
+    layerForm.addEventListener("change", () => {
+      PubSub.publish(eventTopics.CHOROPLETH_LAYER_SWITCH_CLICK, {layerForm});
     });
   });
   $(".layer-setup").find(".js-range-slider").change(function() {
@@ -31,6 +38,7 @@ PubSub.subscribe(eventTopics.STATES_INITIALIZED, hideDetailLayers);
 
 // Layers Detail Panel
 PubSub.subscribe(eventTopics.DETAIL_LAYER_SWITCH_CLICK, checkLayerOfGivenLayerForm);
+PubSub.subscribe(eventTopics.CHOROPLETH_LAYER_SWITCH_CLICK, checkChoroplethLayers);
 PubSub.subscribe(eventTopics.DETAIL_LAYER_SLIDER_CHANGE, filterChanged);
 PubSub.subscribe(eventTopics.DETAIL_LAYER_SELECT_CHANGE, filterChanged);
 
@@ -55,6 +63,21 @@ function showDetailLayers(msg) {
 function checkLayerOfGivenLayerForm(msg, {layerForm}) {
   check_layer(layerForm);
   store.cold.staticState = get_static_state();
+  return logMessage(msg);
+}
+
+function checkChoroplethLayers(msg, {layerForm}) {
+  if ($(layerForm).find(layerInputClass)[0].checked) {
+    const layer_id = get_layer_id(layerForm);
+    const hide_layers = choroplethLayers.filter(layer => get_layer_id(layer) != layer_id);
+    hide_layers.forEach(function(layer_form, i) {
+      $(layer_form).find(layerInputClass)[0].checked = false;
+      turn_off_layer(layer_form);
+    });
+    create_legend(layer_id);
+  } else {
+    legend.hide();
+  }
   return logMessage(msg);
 }
 
@@ -185,4 +208,21 @@ function set_filters(layer, filters, clustered) {
     }
   }
   map.setFilter(layer, map_filters);
+}
+
+function create_legend(layer_id) {
+  legend.empty();
+  store.cold.choropleth_layers[layer_id].forEach((entry, i) => {
+    const item = document.createElement('div');
+    const key = document.createElement('span');
+    key.className = 'legend-key';
+    key.style.backgroundColor = entry[1];
+
+    const value = document.createElement('span');
+    value.innerHTML = entry[0];
+    item.appendChild(key);
+    item.appendChild(value);
+    legend.append(item);
+  });
+  legend.show();
 }
