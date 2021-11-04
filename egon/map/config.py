@@ -24,8 +24,8 @@ Zoom = namedtuple("MinMax", ["min", "max"])
 ZOOM_LEVELS = {
     "country": Zoom(MIN_ZOOM, 6),
     "state": Zoom(6, 8),
-    "district": Zoom(8, 11),
-    "municipality": Zoom(11, MAX_ZOOM + 1),
+    "district": Zoom(8, 10),
+    "municipality": Zoom(10, MAX_ZOOM + 1),
 }
 REGIONS = (
     "country",

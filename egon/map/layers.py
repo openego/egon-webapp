@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass, field
 from itertools import product
 from enum import Enum
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _

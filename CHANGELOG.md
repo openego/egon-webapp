@@ -14,3 +14,4 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Changed
 - prevent zoom, if marker is clicked
+- municipalities starting at zoom level 10
