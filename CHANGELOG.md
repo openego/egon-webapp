@@ -10,6 +10,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 - multiselect dropdown filters
 - layers can be filtered by multiple filters
 - separation of choropleth layers 
+- legend for choropleth layers
 
 ### Changed
 - prevent zoom, if marker is clicked
