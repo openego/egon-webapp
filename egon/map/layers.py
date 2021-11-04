@@ -1,9 +1,8 @@
-
 import json
 from dataclasses import dataclass, field
 from itertools import product
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
@@ -21,6 +20,19 @@ def get_color(source_layer):
 
 def get_opacity(source_layer):
     return LAYER_STYLES[source_layer]["paint"]["fill-opacity"]
+
+
+def get_choropleth_colors_for_legend(source_layer):
+    fill_color = get_color(source_layer)
+    colors = fill_color[2::2]
+    values = fill_color[3::2]
+    ranges = []
+    for i, value in enumerate(values):
+        if i == 0:
+            ranges.append(f"0 - {value}")
+        else:
+            ranges.append(f"{values[i-1]} - {value}")
+    return list(zip(ranges, colors))
 
 
 class LayerType(Enum):
@@ -86,7 +98,7 @@ DEMAND: list = [
             "<br>Eine Siedlung ist ein Gebiet, welches die menschliche Niederlassung in beliebiger Form der "
             "gruppierten Behausung beschreibt. Sie beinhaltet überwiegend Wohngebiete."
         ),
-        popup_fields=["id", "demand"]
+        popup_fields=["id", "demand"],
     ),
 ]
 
@@ -211,11 +223,17 @@ MODEL: list = [
 ]
 
 LAYERS_DEFINITION: list = DEMAND + GENERATION + GRID + MODEL
-LAYERS_CATEGORIES: dict = {
-    "demand": DEMAND,
-    "generation": GENERATION,
-    "grid": GRID,
-    "model": MODEL
+LAYERS_CATEGORIES: dict = {"demand": DEMAND, "generation": GENERATION, "grid": GRID, "model": MODEL}
+
+
+CHOROPLETH_LAYERS = {
+    "demand_cts": {"title": "CTs [MWh]", "colors": get_choropleth_colors_for_legend("demand_cts")},
+    "demand_household": {
+        "title": "Haushalte [MWh]", "colors": get_choropleth_colors_for_legend("demand_household")
+    },
+    "mv_grid_districts": {
+        "title": "Grid Districts [MV]", "colors": get_choropleth_colors_for_legend("mv_grid_districts")
+    },
 }
 
 
@@ -240,6 +258,7 @@ class Layer:
     description: Optional[str] = None
     color: Optional[str] = None
     clustered: bool = False
+    style_type: Optional[LayerType] = None
 
 
 @dataclass
@@ -407,6 +426,7 @@ for layer in LAYERS_DEFINITION:
                 maxzoom=max_zoom,
                 name=layer.name,
                 style=layer.source,
+                style_type=layer.type,
                 source=f"static{suffix}",
                 source_layer=layer.source,
                 type="static",
