@@ -1,9 +1,8 @@
-
 import json
 from dataclasses import dataclass, field
 from itertools import product
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
@@ -99,7 +98,7 @@ DEMAND: list = [
             "<br>Eine Siedlung ist ein Gebiet, welches die menschliche Niederlassung in beliebiger Form der "
             "gruppierten Behausung beschreibt. Sie beinhaltet überwiegend Wohngebiete."
         ),
-        popup_fields=["id", "demand"]
+        popup_fields=["id", "demand"],
     ),
 ]
 
@@ -224,11 +223,17 @@ MODEL: list = [
 ]
 
 LAYERS_DEFINITION: list = DEMAND + GENERATION + GRID + MODEL
-LAYERS_CATEGORIES: dict = {
-    "demand": DEMAND,
-    "generation": GENERATION,
-    "grid": GRID,
-    "model": MODEL
+LAYERS_CATEGORIES: dict = {"demand": DEMAND, "generation": GENERATION, "grid": GRID, "model": MODEL}
+
+
+CHOROPLETH_LAYERS = {
+    "demand_cts": {"title": "CTs [MWh]", "colors": get_choropleth_colors_for_legend("demand_cts")},
+    "demand_household": {
+        "title": "Haushalte [MWh]", "colors": get_choropleth_colors_for_legend("demand_household")
+    },
+    "mv_grid_districts": {
+        "title": "Grid Districts [MV]", "colors": get_choropleth_colors_for_legend("mv_grid_districts")
+    },
 }
 
 

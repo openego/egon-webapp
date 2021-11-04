@@ -212,7 +212,12 @@ function set_filters(layer, filters, clustered) {
 
 function create_legend(layer_id) {
   legend.empty();
-  store.cold.choropleth_layers[layer_id].forEach((entry, i) => {
+  const title_div = document.createElement('div');
+  const title  =document.createElement('span');
+  title.innerHTML = store.cold.choropleth_layers[layer_id].title;
+  title_div.appendChild(title);
+  legend.append(title);
+  store.cold.choropleth_layers[layer_id].colors.forEach((entry, i) => {
     const item = document.createElement('div');
     const key = document.createElement('span');
     key.className = 'legend-key';
