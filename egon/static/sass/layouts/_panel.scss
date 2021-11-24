@@ -109,15 +109,21 @@
       background-position: center center;
     }
 
-    .nav-link.category-tabs__category.active {
+    .nav-link.category-tabs__category.active,
+    .nav-link.category-tabs__category:hover {
       background-color: $egon-blue;
+    }
+
+    .nav-link.category-tabs__category.active::after {
+      font-weight: 700;
     }
 
     #category-demand-tab {
       background-image: url("../images/icons/i_demand_b.svg");
     }
 
-    #category-demand-tab.active {
+    #category-demand-tab.active,
+    #category-demand-tab:hover {
       background-image: url("../images/icons/i_demand_w.svg");
     }
 
@@ -129,7 +135,8 @@
       background-image: url("../images/icons/i_electricity_b.svg");
     }
 
-    #category-generation-tab.active {
+    #category-generation-tab.active,
+    #category-generation-tab:hover {
       background-image: url("../images/icons/i_electricity_w.svg");
     }
 
@@ -141,7 +148,8 @@
       background-image: url("../images/icons/i_grid_b.svg");
     }
 
-    #category-grid-tab.active {
+    #category-grid-tab.active,
+    #category-grid-tab:hover {
       background-image: url("../images/icons/i_grid_w.svg");
     }
 
@@ -153,7 +161,8 @@
       background-image: url("../images/icons/i_data_b.svg");
     }
 
-    #category-model-tab.active {
+    #category-model-tab.active,
+    #category-model-tab:hover {
       background-image: url("../images/icons/i_data_w.svg");
     }
 
