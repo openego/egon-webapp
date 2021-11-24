@@ -65,7 +65,7 @@
 
   .scenario-btns {
     @include flex-row;
-    border: 2px solid $egon-green;
+    border: 2px solid $egon-blue;
     border-radius: $border-radius;
     background-color: $white;
     padding: 2px;
@@ -74,14 +74,14 @@
     button {
       flex: 1;
       font-size: $font-size-small;
-      color: $egon-green;
+      color: $egon-blue;
       background-color: $white;
       border: none;
       border-radius: $border-radius;
     }
 
     button.active {
-      background-color: $egon-green;
+      background-color: $egon-blue;
       color: $white;
     }
   }
