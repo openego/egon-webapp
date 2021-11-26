@@ -84,3 +84,14 @@
   cursor: pointer;
   vertical-align: middle;
 }
+
+// Panel icons
+@mixin panel-tab-icons-after($panel-tab-icons-after-label) {
+  content: $panel-tab-icons-after-label;
+  position: absolute;
+  color: $egon-blue;
+  bottom: -1.5rem;
+  font-size: $font-size-small;
+  left: 50%;
+  transform: translateX(-50%);
+}

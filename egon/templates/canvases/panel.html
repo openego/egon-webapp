@@ -32,16 +32,16 @@
           <div class="category-tabs">
             <ul class="nav nav-pills mb-3" id="category-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active category-tabs__category" id="category-demand-tab" data-bs-toggle="pill" data-bs-target="#category-demand" type="button" role="tab" aria-controls="category-demand" aria-selected="true" title="Demand"></button>
+                <button class="nav-link active category-tabs__category" id="category-demand-tab" data-bs-toggle="pill" data-bs-target="#category-demand" type="button" role="tab" aria-controls="category-demand" aria-selected="true"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-generation-tab" data-bs-toggle="pill" data-bs-target="#category-generation" type="button" role="tab" aria-controls="category-generation" aria-selected="false" title="Generation"></button>
+                <button class="nav-link category-tabs__category" id="category-generation-tab" data-bs-toggle="pill" data-bs-target="#category-generation" type="button" role="tab" aria-controls="category-generation" aria-selected="false"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-grid-tab" data-bs-toggle="pill" data-bs-target="#category-grid" type="button" role="tab" aria-controls="category-grid" aria-selected="false" title="Grids"></button>
+                <button class="nav-link category-tabs__category" id="category-grid-tab" data-bs-toggle="pill" data-bs-target="#category-grid" type="button" role="tab" aria-controls="category-grid" aria-selected="false"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill" data-bs-target="#category-model" type="button" role="tab" aria-controls="category-model" aria-selected="false" title="Data model"></button>
+                <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill" data-bs-target="#category-model" type="button" role="tab" aria-controls="category-model" aria-selected="false"></button>
               </li>
             </ul>
             <div class="tab-content layers" id="category-tabContent">
@@ -96,7 +96,7 @@
     textposition: 'auto',
     hoverinfo: 'none',
     marker: {
-      color: '#8CA4B4'
+      color: '#D1DDE4'
     },
     width: 0.4,
     textfont: {
@@ -111,13 +111,20 @@
     title: {
       text: demandTitle,
       x: 0,
-      xanchor: 'left'
+      xanchor: 'left',
+      font: {
+        family: 'Lato, sans-serif',
+        color: '#616161',
+        size: 14
+      }
     },
     showlegend: false,
-    font: {
-      family: 'Lato, sans-serif',
-      size: 12,
-      color: '#7f7f7f'
+    legend: {
+      font: {
+        family: 'Lato, sans-serif',
+        size: 12,
+        color: '#616161'
+      }
     },
     height: 275,
     margin: {
