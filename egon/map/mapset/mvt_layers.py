@@ -1,5 +1,5 @@
-from . import models
-from .mvt import MVTLayer
+from egon.map import models
+from egon.map.mvt import MVTLayer
 
 REGION_MVT_LAYERS = {
     "country": [

@@ -6,27 +6,8 @@ from django.forms import BooleanField, Form, IntegerField, TextInput, MultiValue
 from django.db.models import Min, Max
 from django_select2.forms import Select2MultipleWidget
 
-from .config import LAYER_STYLES, MAP_SYMBOLS
 from .widgets import SwitchWidget
 from .models import LayerFilterType
-from .layers import LayerType
-
-
-def get_layer_visual(layer):
-    """Returns visualization style switch depending on layer type"""
-    if layer.type == LayerType.Raster:
-        return ""
-    elif layer.type in (LayerType.Fill, LayerType.Line):
-        return f"background-color: {layer.color}"
-    elif layer.type == LayerType.Symbol:
-        image = LAYER_STYLES[layer.source]['layout']['icon-image']
-        image_path = next(x.path for x in MAP_SYMBOLS if x.name == image)
-        return f"background-image: url('/static/{image_path}');background-size: cover;"
-    elif layer.type == LayerType.Choropleth:
-        # Return first and last color of color range:
-        return f"background-color: {LAYER_STYLES[layer.source]['paint']['fill-color'][2]};border-right: 0.5rem solid {LAYER_STYLES[layer.source]['paint']['fill-color'][-1]};"
-    else:
-        raise ValueError(f"Unknown layer type '{layer.type}'")
 
 
 class StaticLayerForm(Form):
@@ -39,17 +20,17 @@ class StaticLayerForm(Form):
     def __init__(self, layer, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layer = layer
-        self.visual = get_layer_visual(layer)
-        self.fields["switch"].widget.attrs["id"] = layer.source
+        self.visual = f"background-color: {layer.color}"
+        self.fields["switch"].widget.attrs["id"] = layer.layer.source
 
-        if hasattr(layer.model, "filters"):
+        if hasattr(layer.layer.model, "filters"):
             self.has_filters = True
-            for filter_ in layer.model.filters:
+            for filter_ in layer.layer.model.filters:
                 if filter_.type == LayerFilterType.Range:
-                    filter_min = layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
-                    filter_max = layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
+                    filter_min = layer.layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
+                    filter_max = layer.layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
                     self.fields[filter_.name] = MultiValueField(
-                        label=getattr(layer.model, filter_.name).field.verbose_name,
+                        label=getattr(layer.layer.model, filter_.name).field.verbose_name,
                         fields=[IntegerField(), IntegerField()],
                         widget=TextInput(
                             attrs={
@@ -65,7 +46,7 @@ class StaticLayerForm(Form):
                     )
                 elif filter_.type == LayerFilterType.Dropdown:
                     filter_values = (
-                        layer.model.vector_tiles.values_list(filter_.name, flat=True)
+                        layer.layer.model.vector_tiles.values_list(filter_.name, flat=True)
                         .order_by(filter_.name)
                         .distinct()
                     )

@@ -2,26 +2,14 @@ import json
 import uuid
 
 from django.conf import settings
-from django.views.generic import TemplateView
 from django.http import JsonResponse
+from django.views.generic import TemplateView
 
-from .layers import (
-    ALL_LAYERS,
-    REGION_LAYERS,
-    ALL_SOURCES,
-    LAYERS_CATEGORIES,
-    POPUPS,
-    CHOROPLETH_LAYERS,
-)
-from config.settings.base import (
-    USE_DISTILLED_MVTS,
-    PASSWORD_PROTECTION,
-    PASSWORD,
-    MAPBOX_TOKEN,
-    MAPBOX_STYLE_LOCATION,
-)
+from config.settings.base import MAPBOX_STYLE_LOCATION, MAPBOX_TOKEN, PASSWORD, PASSWORD_PROTECTION, USE_DISTILLED_MVTS
+
+from .config import CLUSTER_GEOJSON_FILE, MAP_SYMBOLS, SOURCES, STORE_COLD_INIT, STORE_HOT_INIT, ZOOM_LEVELS
 from .forms import StaticLayerForm
-from .config import STORE_COLD_INIT, STORE_HOT_INIT, SOURCES, MAP_SYMBOLS, CLUSTER_GEOJSON_FILE, ZOOM_LEVELS
+from .mapset import setup
 
 
 class MapGLView(TemplateView):
@@ -32,11 +20,9 @@ class MapGLView(TemplateView):
         "mapbox_token": MAPBOX_TOKEN,
         "mapbox_style_location": MAPBOX_STYLE_LOCATION,
         "map_symbols": MAP_SYMBOLS,
-        "all_layers": ALL_LAYERS,
-        "all_sources": ALL_SOURCES,
-        "popups": POPUPS,
+        "map_layers": [layer.get_layer() for layer in setup.ALL_LAYERS],
         "area_switches": {
-            category: [StaticLayerForm(layer) for layer in layers] for category, layers in LAYERS_CATEGORIES.items()
+            category: [StaticLayerForm(layer) for layer in layers] for category, layers in setup.LEGEND.items()
         },
         "use_distilled_mvts": USE_DISTILLED_MVTS,
         "store_hot_init": STORE_HOT_INIT,
@@ -48,6 +34,7 @@ class MapGLView(TemplateView):
         session_id = str(uuid.uuid4())
         context = super(MapGLView, self).get_context_data(**kwargs)
         context["session_id"] = session_id
+        context["map_sources"] = {map_source.name: map_source.get_source(self.request) for map_source in setup.SOURCES}
 
         # Add layer styles
         with open(
@@ -58,14 +45,13 @@ class MapGLView(TemplateView):
 
         # Categorize sources
         categorized_sources = {
-            category: [SOURCES[layer.source] for layer in layers if layer.source in SOURCES]
-            for category, layers in LAYERS_CATEGORIES.items()
+            category: [SOURCES[layer.layer.id] for layer in layers if layer.layer.id in SOURCES]
+            for category, layers in setup.LEGEND.items()
         }
         context["sources"] = categorized_sources
 
-        STORE_COLD_INIT["popup_layers"] = [popup.layer_id for popup in POPUPS]
-        STORE_COLD_INIT["region_layers"] = [layer.id for layer in REGION_LAYERS if layer.id.startswith("fill")]
-        STORE_COLD_INIT["choropleth_layers"] = CHOROPLETH_LAYERS
+        STORE_COLD_INIT["popup_layers"] = setup.POPUPS
+        STORE_COLD_INIT["region_layers"] = [layer.id for layer in setup.REGION_LAYERS if layer.id.startswith("fill")]
 
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 

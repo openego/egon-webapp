@@ -19,6 +19,7 @@ LAYER_STYLES_FILE = os.path.join(os.path.dirname(__file__), "../static/styles/la
 MIN_ZOOM = 5
 MAX_ZOOM = 22
 MAX_DISTILLED_ZOOM = 10
+DEFAULT_CLUSTER_ZOOM = 11
 
 Zoom = namedtuple("MinMax", ["min", "max"])
 ZOOM_LEVELS = {

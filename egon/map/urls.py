@@ -1,17 +1,25 @@
-from django.urls import path
 from django.conf import settings
+from django.urls import path
 from django_distill import distill_path
+from djgeojson.views import GeoJSONLayerView
 
+from egon.map.mapset.mvt_layers import DISTILL_MVT_LAYERS, MVT_LAYERS
+
+from . import views
 from .config import get_tile_coordinates_for_region
 from .mvt import mvt_view_factory
-from .mvt_layers import MVT_LAYERS, DISTILL_MVT_LAYERS
-from . import views
+from .mapset import setup
 
 app_name = "map"
 
 urlpatterns = [
     path("", views.MapGLView.as_view(), name="map"),
     path("clusters", views.get_clusters, name="clusters"),
+]
+
+urlpatterns += [
+    path(f"clusters/{name}.geojson", GeoJSONLayerView.as_view(model=cluster_layer.model))
+    for name, cluster_layer in setup.STATIC_LAYERS.items()
 ]
 
 urlpatterns += [
