@@ -1,18 +1,41 @@
 from itertools import count
 
 from crispy_forms.helper import FormHelper
-from django.forms import BooleanField, Form, IntegerField, TextInput, MultiValueField, MultipleChoiceField
-from django.db.models import Min, Max
+from django.conf import settings
+from django.db.models import Max, Min
+from django.forms import (
+    BooleanField,
+    Form,
+    IntegerField,
+    MultipleChoiceField,
+    MultiValueField,
+    TextInput,
+)
 from django_select2.forms import Select2MultipleWidget
 
-from .widgets import SwitchWidget
-from .models import LayerFilterType
+from . import config, map_config, models, widgets
+
+
+def get_layer_visual(layer: map_config.LegendLayer):
+    """Returns visualization style switch depending on layer type"""
+    if layer.layer.type == "raster":
+        return ""
+    if layer.layer.type in ("fill", "line"):
+        color = layer.get_color()
+        if isinstance(color, list):
+            return f"background-color: {color[2]};border-right: 0.5rem solid {color[-1]};"
+        return f"background-color: {color}"
+    if layer.layer.type == "symbol":
+        image = settings.MAP_ENGINE_LAYER_STYLES[layer.layer.id]["layout"]["icon-image"]
+        image_path = next(x.path for x in config.MAP_SYMBOLS if x.name == image)
+        return f"background-image: url('/static/{image_path}');background-size: cover;"
+    raise ValueError(f"Unknown layer type '{layer.layer.type}'")
 
 
 class StaticLayerForm(Form):
     switch = BooleanField(
         label=False,
-        widget=SwitchWidget(
+        widget=widgets.SwitchWidget(
             switch_class="form-check form-switch",
             switch_input_class="form-check-input",
         ),
@@ -20,16 +43,16 @@ class StaticLayerForm(Form):
 
     counter = count()
 
-    def __init__(self, layer, *args, **kwargs):
+    def __init__(self, layer: map_config.LegendLayer, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layer = layer
-        self.visual = f"background-color: {layer.color}"
+        self.visual = get_layer_visual(layer)
         self.fields["switch"].widget.attrs["id"] = layer.layer.id
 
         if hasattr(layer.layer.model, "filters"):
             self.has_filters = True
             for filter_ in layer.layer.model.filters:
-                if filter_.type == LayerFilterType.Range:
+                if filter_.type == models.LayerFilterType.Range:
                     filter_min = layer.layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
                     filter_max = layer.layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
                     self.fields[filter_.name] = MultiValueField(
@@ -47,7 +70,7 @@ class StaticLayerForm(Form):
                             }
                         ),
                     )
-                elif filter_.type == LayerFilterType.Dropdown:
+                elif filter_.type == models.LayerFilterType.Dropdown:
                     filter_values = (
                         layer.layer.model.vector_tiles.values_list(filter_.name, flat=True)
                         .order_by(filter_.name)
