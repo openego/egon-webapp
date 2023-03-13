@@ -4,14 +4,28 @@ from dataclasses import dataclass
 from typing import Optional
 
 from django.conf import settings
+from django_mapengine import layers, mvt, sources, utils
 
-from egon.map import models
-from egon.map import config
-from django_mapengine import layers, utils, sources, mvt
+from egon.map import config, models
 
 STATIC_LAYERS = {
     "supply_biomass": layers.ClusterModelLayer(
         id="supply_biomass", model=models.SupplyBiomass, type="symbol", source="supply_biomass"
+    ),
+    "supply_run_of_river": layers.ClusterModelLayer(
+        id="supply_run_of_river", model=models.SupplyRunOfRiver, type="symbol", source="supply_run_of_river"
+    ),
+    "supply_wind": layers.ClusterModelLayer(
+        id="supply_wind", model=models.SupplyWindOnshore, type="symbol", source="supply_wind"
+    ),
+    "supply_solar": layers.ClusterModelLayer(
+        id="supply_solar", model=models.SupplySolarGround, type="symbol", source="supply_solar"
+    ),
+    "potential_wind": layers.StaticModelLayer(
+        id="potential_wind", model=models.SupplyPotentialWind, type="fill", source="static"
+    ),
+    "potential_pv": layers.StaticModelLayer(
+        id="potential_pv", model=models.SupplyPotentialPVGround, type="fill", source="static"
     ),
 }
 
@@ -42,6 +56,11 @@ class LegendLayer:
 LEGEND = {
     "Demand": [
         LegendLayer("Biomasse", "", STATIC_LAYERS["supply_biomass"]),
+        LegendLayer("Hydro", "", STATIC_LAYERS["supply_run_of_river"]),
+        LegendLayer("Wind Onshore", "", STATIC_LAYERS["supply_wind"]),
+        LegendLayer("Solar", "", STATIC_LAYERS["supply_solar"]),
+        LegendLayer("Potential Wind", "", STATIC_LAYERS["potential_wind"]),
+        LegendLayer("Potential PV", "", STATIC_LAYERS["potential_pv"]),
     ],
 }
 
@@ -89,6 +108,9 @@ SOURCES += [
         ],
     ),
     sources.ClusterMapSource("supply_biomass", type="geojson", url="clusters/supply_biomass.geojson"),
+    sources.ClusterMapSource("supply_run_of_river", type="geojson", url="clusters/supply_run_of_river.geojson"),
+    sources.ClusterMapSource("supply_wind", type="geojson", url="clusters/supply_wind.geojson"),
+    sources.ClusterMapSource("supply_solar", type="geojson", url="clusters/supply_solar.geojson"),
     sources.MapSource(name="static", type="vector", tiles=["static_mvt/{z}/{x}/{y}/"]),
     sources.MapSource(name="static_distilled", type="vector", tiles=["static/mvts/{z}/{x}/{y}/static.mvt"]),
     sources.MapSource(name="results", type="vector", tiles=["results_mvt/{z}/{x}/{y}/"]),
@@ -134,5 +156,5 @@ STATIC_MVT_LAYERS = {
 
 DYNAMIC_MVT_LAYERS = {}
 
-MVT_LAYERS = dict(**REGION_MVT_LAYERS, **STATIC_MVT_LAYERS, **DYNAMIC_MVT_LAYERS)
-DISTILL_MVT_LAYERS = dict(**REGION_MVT_LAYERS, **STATIC_MVT_LAYERS)
+MVT_LAYERS = {**REGION_MVT_LAYERS, **STATIC_MVT_LAYERS, **DYNAMIC_MVT_LAYERS}
+DISTILL_MVT_LAYERS = {**REGION_MVT_LAYERS, **STATIC_MVT_LAYERS}

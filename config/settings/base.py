@@ -78,11 +78,7 @@ THIRD_PARTY_APPS = [
     "django_select2",
 ]
 
-LOCAL_APPS = [
-    "egon.users.apps.UsersConfig",
-    "egon.map.apps.MapConfig",
-    "django_mapengine"
-]
+LOCAL_APPS = ["egon.users.apps.UsersConfig", "egon.map.apps.MapConfig", "django_mapengine"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -251,6 +247,7 @@ COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"
 # https://github.com/rl-institut/django-mapengine
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
+MAP_ENGINE_MIN_ZOOM = 5
 MAP_ENGINE_ZOOM_LEVELS = {
     "municipality": core.Zoom(8, 12),
 }

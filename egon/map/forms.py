@@ -1,4 +1,3 @@
-
 from itertools import count
 
 from crispy_forms.helper import FormHelper
@@ -12,7 +11,11 @@ from .models import LayerFilterType
 
 class StaticLayerForm(Form):
     switch = BooleanField(
-        label=False, widget=SwitchWidget(switch_class="form-check form-switch", switch_input_class="form-check-input",),
+        label=False,
+        widget=SwitchWidget(
+            switch_class="form-check form-switch",
+            switch_input_class="form-check-input",
+        ),
     )
 
     counter = count()
@@ -21,7 +24,7 @@ class StaticLayerForm(Form):
         super().__init__(*args, **kwargs)
         self.layer = layer
         self.visual = f"background-color: {layer.color}"
-        self.fields["switch"].widget.attrs["id"] = layer.layer.source
+        self.fields["switch"].widget.attrs["id"] = layer.layer.id
 
         if hasattr(layer.layer.model, "filters"):
             self.has_filters = True
