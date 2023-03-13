@@ -4,9 +4,8 @@ from itertools import product
 from enum import Enum
 from typing import List, Optional
 
-from django.db.models import IntegerField, BooleanField, Model, ObjectDoesNotExist
+from django.db.models import IntegerField, BooleanField, Model
 from django.utils.translation import gettext_lazy as _
-from raster.models import RasterLayer as RasterModel
 
 from config.settings.base import USE_DISTILLED_MVTS
 from .config import MAX_ZOOM, MIN_ZOOM, REGIONS, ZOOM_LEVELS, MAX_DISTILLED_ZOOM, LAYER_STYLES
@@ -54,18 +53,6 @@ class VectorLayerData:
     clustered: bool = False
     type: LayerType = LayerType.Fill
     popup_fields: list = field(default_factory=list)
-
-
-@dataclass
-class RasterLayerData:
-    source: str
-    filepath: str
-    legend: str
-    model: RasterModel.__class__
-    name: str
-    name_singular: str
-    description: str
-    type: LayerType = LayerType.Raster
 
 
 DEMAND: list = [
@@ -160,15 +147,6 @@ GENERATION: list = [
         name_singular=_("PV-Potenzial"),
         description=_("Text einfügen"),
     ),
-    RasterLayerData(
-        source="soil_quality",
-        filepath="2_Supply/bgr_sqr1000_high.tif",
-        legend="soil_quality",
-        model=RasterModel,
-        name="Soil Quality",
-        name_singular="Soil Quality",
-        description="Text to come",
-    ),
 ]
 
 GRID: list = [
@@ -228,11 +206,10 @@ LAYERS_CATEGORIES: dict = {"demand": DEMAND, "generation": GENERATION, "grid": G
 
 CHOROPLETH_LAYERS = {
     "demand_cts": {"title": "CTs [MWh]", "colors": get_choropleth_colors_for_legend("demand_cts")},
-    "demand_household": {
-        "title": "Haushalte [MWh]", "colors": get_choropleth_colors_for_legend("demand_household")
-    },
+    "demand_household": {"title": "Haushalte [MWh]", "colors": get_choropleth_colors_for_legend("demand_household")},
     "mv_grid_districts": {
-        "title": "Grid Districts [MV]", "colors": get_choropleth_colors_for_legend("mv_grid_districts")
+        "title": "Grid Districts [MV]",
+        "colors": get_choropleth_colors_for_legend("mv_grid_districts"),
     },
 }
 
@@ -306,25 +283,6 @@ def get_dynamic_sources():
     return sources
 
 
-def get_raster_sources(distilled=False):
-    sources = []
-    for layer in LAYERS_DEFINITION:
-        if not issubclass(layer.model, RasterModel):
-            continue
-        try:
-            raster_id = RasterModel.objects.get(name=layer.source).id
-        except ObjectDoesNotExist:
-            continue
-        sources.append(
-            Source(
-                name=f"{layer.source}",
-                type="raster",
-                tiles=[f"raster/tiles/{raster_id}/{{z}}/{{x}}/{{y}}.png?legend={layer.legend}"],
-            )
-        )
-    return sources
-
-
 if USE_DISTILLED_MVTS:
     SUFFIXES = ["", "_distilled"]
     ALL_SOURCES = (
@@ -334,15 +292,22 @@ if USE_DISTILLED_MVTS:
             if ZOOM_LEVELS[region].min > MAX_DISTILLED_ZOOM
         ]
         + [
-            Source(name=region, type="vector", tiles=[f"static/mvts/{{z}}/{{x}}/{{y}}/{region}.mvt"],)
+            Source(
+                name=region,
+                type="vector",
+                tiles=[f"static/mvts/{{z}}/{{x}}/{{y}}/{region}.mvt"],
+            )
             for region in REGIONS
             if ZOOM_LEVELS[region].min < MAX_DISTILLED_ZOOM
         ]
         + [
             Source(name="static", type="vector", tiles=["static_mvt/{z}/{x}/{y}/"]),
-            Source(name="static_distilled", type="vector", tiles=["static/mvts/{z}/{x}/{y}/static.mvt"],),
+            Source(
+                name="static_distilled",
+                type="vector",
+                tiles=["static/mvts/{z}/{x}/{y}/static.mvt"],
+            ),
         ]
-        + get_raster_sources()
         + get_dynamic_sources()
     )
 else:
@@ -350,7 +315,6 @@ else:
     ALL_SOURCES = (
         [Source(name=region, type="vector", tiles=[f"{region}_mvt/{{z}}/{{x}}/{{y}}/"]) for region in REGIONS]
         + [Source(name="static", type="vector", tiles=["static_mvt/{z}/{x}/{y}/"])]
-        + get_raster_sources()
         + get_dynamic_sources()
     )
 
@@ -393,17 +357,9 @@ REGION_LAYERS = (
     ]
 )
 
-RASTER_LAYERS = [
-    RasterLayer(id=layer.source, source=layer.source, type="raster",)
-    for layer in LAYERS_DEFINITION
-    if issubclass(layer.model, RasterModel)
-]
-
 POPUPS = []
 STATIC_LAYERS = []
 for layer in LAYERS_DEFINITION:
-    if issubclass(layer.model, RasterModel):
-        continue
     if hasattr(layer.model, "setup"):
         continue
     for suffix in SUFFIXES:

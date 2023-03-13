@@ -74,7 +74,6 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "django_distill",
     "django_select2",
-    "raster",
 ]
 
 LOCAL_APPS = [

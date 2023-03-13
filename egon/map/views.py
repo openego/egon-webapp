@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from .layers import (
     ALL_LAYERS,
     REGION_LAYERS,
-    RASTER_LAYERS,
     ALL_SOURCES,
     LAYERS_CATEGORIES,
     POPUPS,
@@ -34,7 +33,6 @@ class MapGLView(TemplateView):
         "mapbox_style_location": MAPBOX_STYLE_LOCATION,
         "map_symbols": MAP_SYMBOLS,
         "all_layers": ALL_LAYERS,
-        "raster_layers": RASTER_LAYERS,
         "all_sources": ALL_SOURCES,
         "popups": POPUPS,
         "area_switches": {
@@ -42,7 +40,7 @@ class MapGLView(TemplateView):
         },
         "use_distilled_mvts": USE_DISTILLED_MVTS,
         "store_hot_init": STORE_HOT_INIT,
-        "zoom_levels": ZOOM_LEVELS
+        "zoom_levels": ZOOM_LEVELS,
     }
 
     def get_context_data(self, **kwargs):
@@ -52,7 +50,10 @@ class MapGLView(TemplateView):
         context["session_id"] = session_id
 
         # Add layer styles
-        with open(settings.APPS_DIR.path("static").path("styles").path("layer_styles.json"), "r",) as regions:
+        with open(
+            settings.APPS_DIR.path("static").path("styles").path("layer_styles.json"),
+            "r",
+        ) as regions:
             context["layer_styles"] = json.loads(regions.read())
 
         # Categorize sources
@@ -72,6 +73,6 @@ class MapGLView(TemplateView):
 
 
 def get_clusters(request):
-    with open(CLUSTER_GEOJSON_FILE, 'r') as geojson_file:
+    with open(CLUSTER_GEOJSON_FILE, "r") as geojson_file:
         clusters = json.load(geojson_file)
         return JsonResponse(clusters)
