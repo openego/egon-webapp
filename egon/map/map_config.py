@@ -27,6 +27,14 @@ STATIC_LAYERS = {
     "potential_pv": layers.StaticModelLayer(
         id="potential_pv", model=models.SupplyPotentialPVGround, type="fill", source="static"
     ),
+    "ehv_line": layers.StaticModelLayer(id="ehv_line", model=models.EHVLine, type="line", source="static"),
+    "hv_line": layers.StaticModelLayer(id="hv_line", model=models.HVLine, type="line", source="static"),
+    "ehv_hv_station": layers.ClusterModelLayer(
+        id="ehv_hv_station", model=models.EHVHVSubstation, type="symbol", source="ehv_hv_station"
+    ),
+    "hv_mv_station": layers.ClusterModelLayer(
+        id="hv_mv_station", model=models.HVMVSubstation, type="symbol", source="hv_mv_station"
+    ),
 }
 
 
@@ -54,13 +62,19 @@ class LegendLayer:
 
 
 LEGEND = {
-    "Demand": [
+    "generation": [
         LegendLayer("Biomasse", "", STATIC_LAYERS["supply_biomass"]),
         LegendLayer("Hydro", "", STATIC_LAYERS["supply_run_of_river"]),
         LegendLayer("Wind Onshore", "", STATIC_LAYERS["supply_wind"]),
         LegendLayer("Solar", "", STATIC_LAYERS["supply_solar"]),
         LegendLayer("Potential Wind", "", STATIC_LAYERS["potential_wind"]),
         LegendLayer("Potential PV", "", STATIC_LAYERS["potential_pv"]),
+    ],
+    "grid": [
+        LegendLayer("EHV Line", "", STATIC_LAYERS["ehv_line"]),
+        LegendLayer("HV Line", "", STATIC_LAYERS["hv_line"]),
+        LegendLayer("EHV/HV Stations", "", STATIC_LAYERS["ehv_hv_station"]),
+        LegendLayer("HV/MV Stations", "", STATIC_LAYERS["hv_mv_station"]),
     ],
 }
 
@@ -111,6 +125,8 @@ SOURCES += [
     sources.ClusterMapSource("supply_run_of_river", type="geojson", url="clusters/supply_run_of_river.geojson"),
     sources.ClusterMapSource("supply_wind", type="geojson", url="clusters/supply_wind.geojson"),
     sources.ClusterMapSource("supply_solar", type="geojson", url="clusters/supply_solar.geojson"),
+    sources.ClusterMapSource("ehv_hv_station", type="geojson", url="clusters/ehv_hv_station.geojson"),
+    sources.ClusterMapSource("hv_mv_station", type="geojson", url="clusters/hv_mv_station.geojson"),
     sources.MapSource(name="static", type="vector", tiles=["static_mvt/{z}/{x}/{y}/"]),
     sources.MapSource(name="static_distilled", type="vector", tiles=["static/mvts/{z}/{x}/{y}/static.mvt"]),
     sources.MapSource(name="results", type="vector", tiles=["results_mvt/{z}/{x}/{y}/"]),
