@@ -1,14 +1,8 @@
-// Events
-
-map.on("load", function () {
-  PubSub.publish(eventTopics.MAP_LOADED);
-});
-
 
 // Subscriptions
 
-PubSub.subscribe(eventTopics.MAP_LOADED, init_states);
 PubSub.subscribe(eventTopics.MAP_LOADED, init_map_location);
+PubSub.subscribe(eventTopics.MAP_LAYERS_LOADED, init_states);
 
 
 // Subscriber Functions

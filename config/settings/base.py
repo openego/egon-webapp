@@ -5,6 +5,8 @@ Base settings to build other settings files upon.
 import environ
 from django.core.exceptions import ValidationError
 
+from django_mapengine import core
+
 ROOT_DIR = environ.Path(__file__) - 3  # (egon/config/settings/base.py - 3 = egon/)
 APPS_DIR = ROOT_DIR.path("egon")
 DATA_DIR = APPS_DIR.path("data")
@@ -79,6 +81,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "egon.users.apps.UsersConfig",
     "egon.map.apps.MapConfig",
+    "django_mapengine"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -243,20 +246,19 @@ COMPRESS_PRECOMPILERS = [("text/x-scss", "django_libsass.SassCompiler")]
 
 COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
+# django-mapengine
+# ------------------------------------------------------------------------------
+# https://github.com/rl-institut/django-mapengine
+
+MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
+MAP_ENGINE_ZOOM_LEVELS = {
+    "municipality": core.Zoom(8, 12),
+}
+MAP_ENGINE_REGIONS = ("municipality",)
+
 # Your stuff...
 # ------------------------------------------------------------------------------
-
-# If given, use local PROJ_LIB environment variable
-if env("PROJ_LIB"):
-    PROJ_LIB = env("PROJ_LIB")
-
-DISTILL = env.bool("DISTILL", False)
-USE_DISTILLED_MVTS = env.bool("USE_DISTILLED_MVTS", True)
-
 PASSWORD_PROTECTION = env.bool("PASSWORD_PROTECTION", False)
 PASSWORD = env.str("PASSWORD", default=None)
 if PASSWORD_PROTECTION and PASSWORD is None:
     raise ValidationError("Password protection is on, but no password is given")
-
-MAPBOX_TOKEN = env.str("MAPBOX_TOKEN", default=None)
-MAPBOX_STYLE_LOCATION = env.str("MAPBOX_STYLE_LOCATION", default=None)

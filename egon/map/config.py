@@ -46,7 +46,8 @@ FILTER_DEFINITION = {}
 
 STORE_COLD_INIT = {
     "version": __version__,
-    "zoom_levels": ZOOM_LEVELS
+    "zoom_levels": ZOOM_LEVELS,
+    "region_filter_layers": [],
 }
 
 
