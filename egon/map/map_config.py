@@ -78,7 +78,7 @@ LEGEND = {
     ],
 }
 
-REGION_LAYERS = layers.get_region_layers()
+REGION_LAYERS = list(layers.get_region_layers())
 RESULT_LAYERS = []
 
 
@@ -93,7 +93,7 @@ POPUPS = ["results"]
 
 if settings.MAP_ENGINE_USE_DISTILLED_MVTS:
     SOURCES = [
-        sources.MapSource(name=region, type="vector", tiles=[f"{region}_mvt/{{z}}/{{x}}/{{y}}/"])
+        sources.MapSource(name=region, type="vector", tiles=[f"map/{region}_mvt/{{z}}/{{x}}/{{y}}/"])
         for region in config.REGIONS
         if config.ZOOM_LEVELS[region].min > config.MAX_DISTILLED_ZOOM
     ] + [
@@ -108,7 +108,7 @@ if settings.MAP_ENGINE_USE_DISTILLED_MVTS:
     ]
 else:
     SOURCES = [
-        sources.MapSource(name=region, type="vector", tiles=[f"{region}_mvt/{{z}}/{{x}}/{{y}}/"])
+        sources.MapSource(name=region, type="vector", tiles=[f"map/{region}_mvt/{{z}}/{{x}}/{{y}}/"])
         for region in config.REGIONS
     ]
 
@@ -121,15 +121,15 @@ SOURCES += [
             f"{{z}}/{{x}}/{{y}}.jpg?key={settings.MAP_ENGINE_TILING_SERVICE_TOKEN}",
         ],
     ),
-    sources.ClusterMapSource("supply_biomass", type="geojson", url="clusters/supply_biomass.geojson"),
-    sources.ClusterMapSource("supply_run_of_river", type="geojson", url="clusters/supply_run_of_river.geojson"),
-    sources.ClusterMapSource("supply_wind", type="geojson", url="clusters/supply_wind.geojson"),
-    sources.ClusterMapSource("supply_solar", type="geojson", url="clusters/supply_solar.geojson"),
-    sources.ClusterMapSource("ehv_hv_station", type="geojson", url="clusters/ehv_hv_station.geojson"),
-    sources.ClusterMapSource("hv_mv_station", type="geojson", url="clusters/hv_mv_station.geojson"),
-    sources.MapSource(name="static", type="vector", tiles=["static_mvt/{z}/{x}/{y}/"]),
+    sources.ClusterMapSource("supply_biomass", type="geojson", url="map/clusters/supply_biomass.geojson"),
+    sources.ClusterMapSource("supply_run_of_river", type="geojson", url="map/clusters/supply_run_of_river.geojson"),
+    sources.ClusterMapSource("supply_wind", type="geojson", url="map/clusters/supply_wind.geojson"),
+    sources.ClusterMapSource("supply_solar", type="geojson", url="map/clusters/supply_solar.geojson"),
+    sources.ClusterMapSource("ehv_hv_station", type="geojson", url="map/clusters/ehv_hv_station.geojson"),
+    sources.ClusterMapSource("hv_mv_station", type="geojson", url="map/clusters/hv_mv_station.geojson"),
+    sources.MapSource(name="static", type="vector", tiles=["map/static_mvt/{z}/{x}/{y}/"]),
     sources.MapSource(name="static_distilled", type="vector", tiles=["static/mvts/{z}/{x}/{y}/static.mvt"]),
-    sources.MapSource(name="results", type="vector", tiles=["results_mvt/{z}/{x}/{y}/"]),
+    sources.MapSource(name="results", type="vector", tiles=["map/results_mvt/{z}/{x}/{y}/"]),
 ]
 
 
@@ -156,14 +156,8 @@ STATIC_MVT_LAYERS = {
     "static": [
         mvt.MVTLayer("demand_cts", models.DemandCts.vector_tiles),
         mvt.MVTLayer("demand_household", models.DemandHousehold.vector_tiles),
-        mvt.MVTLayer("supply_biomass", models.SupplyBiomass.vector_tiles),
-        mvt.MVTLayer("supply_run_of_river", models.SupplyRunOfRiver.vector_tiles),
-        mvt.MVTLayer("supply_wind", models.SupplyWindOnshore.vector_tiles),
-        mvt.MVTLayer("supply_solar", models.SupplySolarGround.vector_tiles),
         mvt.MVTLayer("potential_wind", models.SupplyPotentialWind.vector_tiles),
         mvt.MVTLayer("potential_pv", models.SupplyPotentialPVGround.vector_tiles),
-        mvt.MVTLayer("ehv_line", models.EHVLine.vector_tiles),
-        mvt.MVTLayer("hv_line", models.HVLine.vector_tiles),
         mvt.MVTLayer("ehv_hv_station", models.EHVHVSubstation.vector_tiles),
         mvt.MVTLayer("hv_mv_station", models.HVMVSubstation.vector_tiles),
         mvt.MVTLayer("mv_grid_districts", models.MVGridDistricts.vector_tiles),

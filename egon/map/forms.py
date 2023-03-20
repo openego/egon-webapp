@@ -13,7 +13,7 @@ from django.forms import (
 )
 from django_select2.forms import Select2MultipleWidget
 
-from . import config, map_config, models, widgets
+from . import map_config, models, widgets
 
 
 def get_layer_visual(layer: map_config.LegendLayer):
@@ -27,7 +27,7 @@ def get_layer_visual(layer: map_config.LegendLayer):
         return f"background-color: {color}"
     if layer.layer.type == "symbol":
         image = settings.MAP_ENGINE_LAYER_STYLES[layer.layer.id]["layout"]["icon-image"]
-        image_path = next(x.path for x in config.MAP_SYMBOLS if x.name == image)
+        image_path = next(x.path for x in settings.MAP_ENGINE_IMAGES if x.name == image)
         return f"background-image: url('/static/{image_path}');background-size: cover;"
     raise ValueError(f"Unknown layer type '{layer.layer.type}'")
 

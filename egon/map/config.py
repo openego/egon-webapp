@@ -1,4 +1,3 @@
-
 import os
 import json
 import pathlib
@@ -46,15 +45,13 @@ FILTER_DEFINITION = {}
 
 STORE_COLD_INIT = {
     "version": __version__,
-    "zoom_levels": ZOOM_LEVELS,
-    "region_filter_layers": [],
 }
 
 
 def init_hot_store():
     # Filter booleans have to be stored as str:
     filter_init = {}
-    for filter_, data in FILTER_DEFINITION.items():
+    for _, data in FILTER_DEFINITION.items():
         initial = data["initial"]
         if initial is True:
             initial = "True"
@@ -73,8 +70,8 @@ STORE_HOT_INIT = init_hot_store()
 def init_sources():
     sources = {}
     metadata_path = pathlib.Path(settings.METADATA_DIR)
-    for metafile in [_ for _ in metadata_path.iterdir() if _.suffix == '.json']:
-        with open(metafile, "r") as metadata_raw:
+    for metafile in [_ for _ in metadata_path.iterdir() if _.suffix == ".json"]:
+        with open(metafile, "r", encoding="utf-8") as metadata_raw:
             metadata = json.loads(metadata_raw.read())
             sources[metadata["id"]] = metadata
     return sources
@@ -85,20 +82,11 @@ SOURCES = init_sources()
 
 # STYLES
 
-with open(LAYER_STYLES_FILE, mode="rb",) as f:
+with open(
+    LAYER_STYLES_FILE,
+    mode="rb",
+) as f:
     LAYER_STYLES = json.loads(f.read())
-
-
-# MAP
-# Images which shall be used in mapbox style of type "symbol" have to be declared here:
-MapSymbol = namedtuple("MapImage", ["name", "path"])
-MAP_SYMBOLS = [
-    MapSymbol("biomass", "images/icons/biomass.png"),
-    MapSymbol("solar", "images/icons/solar.png"),
-    MapSymbol("wind", "images/icons/wind.png"),
-    MapSymbol("river", "images/icons/river.png"),
-    MapSymbol("station", "images/icons/station.png"),
-]
 
 
 # DISTILL

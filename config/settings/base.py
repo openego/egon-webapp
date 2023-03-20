@@ -246,12 +246,23 @@ COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"
 # ------------------------------------------------------------------------------
 # https://github.com/rl-institut/django-mapengine
 
+MAP_ENGINE_CENTER_AT_STARTUP = [10.407237624103573, 51.22757621251938]
+MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
+MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
+
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 5
 MAP_ENGINE_ZOOM_LEVELS = {
     "municipality": core.Zoom(8, 12),
 }
-MAP_ENGINE_REGIONS = ("municipality",)
+
+MAP_ENGINE_IMAGES = [
+    core.MapImage("biomass", "images/icons/biomass.png"),
+    core.MapImage("solar", "images/icons/solar.png"),
+    core.MapImage("wind", "images/icons/wind.png"),
+    core.MapImage("river", "images/icons/river.png"),
+    core.MapImage("station", "images/icons/station.png"),
+]
 
 # Your stuff...
 # ------------------------------------------------------------------------------
