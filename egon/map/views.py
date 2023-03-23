@@ -27,13 +27,11 @@ class MapGLView(TemplateView, views.MapEngineMixin):
 
         # Categorize sources
         categorized_sources = {
-            category: [SOURCES[layer.layer.id] for layer in layers if layer.layer.id in SOURCES]
+            category: [SOURCES[layer.get_layer_id()] for layer in layers if layer.get_layer_id() in SOURCES]
             for category, layers in map_config.LEGEND.items()
         }
         context["sources"] = categorized_sources
 
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
-
-        context.update(**self.get_mapengine_context(map_config.SOURCES, map_config.ALL_LAYERS))
 
         return context

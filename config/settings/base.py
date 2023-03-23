@@ -5,7 +5,7 @@ Base settings to build other settings files upon.
 import environ
 from django.core.exceptions import ValidationError
 
-from django_mapengine import core
+from django_mapengine import setup
 
 ROOT_DIR = environ.Path(__file__) - 3  # (egon/config/settings/base.py - 3 = egon/)
 APPS_DIR = ROOT_DIR.path("egon")
@@ -253,15 +253,55 @@ MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 5
 MAP_ENGINE_ZOOM_LEVELS = {
-    "municipality": core.Zoom(8, 12),
+    "country": setup.Zoom(5, 7),
+    "state": setup.Zoom(7, 9),
+    "district": setup.Zoom(9, 11),
+    "municipality": setup.Zoom(11, 13),
 }
 
+MAP_ENGINE_API_MVTS = {
+    "country": [
+        setup.MVTAPI("country", "map", "Country"),
+        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+    ],
+    "state": [
+        setup.MVTAPI("state", "map", "State"),
+        setup.MVTAPI("statelabel", "map", "State", "label_tiles"),
+    ],
+    "district": [
+        setup.MVTAPI("district", "map", "District"),
+        setup.MVTAPI("districtlabel", "map", "District", "label_tiles"),
+    ],
+    "municipality": [
+        setup.MVTAPI("municipality", "map", "Municipality"),
+        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
+    ],
+    "static": [
+        setup.MVTAPI("demand_cts", "map", "DemandCts"),
+        setup.MVTAPI("demand_household", "map", "DemandHousehold"),
+        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
+        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("ehv_line", "map", "EHVLine"),
+        setup.MVTAPI("hv_line", "map", "HVLine"),
+        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
+    ],
+}
+
+MAP_ENGINE_API_CLUSTERS = [
+    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
+    setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
+    setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
+    setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),
+    setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
+    setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
+]
+
 MAP_ENGINE_IMAGES = [
-    core.MapImage("biomass", "images/icons/biomass.png"),
-    core.MapImage("solar", "images/icons/solar.png"),
-    core.MapImage("wind", "images/icons/wind.png"),
-    core.MapImage("river", "images/icons/river.png"),
-    core.MapImage("station", "images/icons/station.png"),
+    setup.MapImage("biomass", "images/icons/biomass.png"),
+    setup.MapImage("solar", "images/icons/solar.png"),
+    setup.MapImage("wind", "images/icons/wind.png"),
+    setup.MapImage("river", "images/icons/river.png"),
+    setup.MapImage("station", "images/icons/station.png"),
 ]
 
 # Your stuff...

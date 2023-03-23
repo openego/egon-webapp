@@ -11,25 +11,26 @@ from django.forms import (
     MultiValueField,
     TextInput,
 )
+from django_mapengine import legend
 from django_select2.forms import Select2MultipleWidget
 
-from . import map_config, models, widgets
+from . import models, widgets
 
 
-def get_layer_visual(layer: map_config.LegendLayer):
+def get_layer_visual(layer: legend.LegendLayer):
     """Returns visualization style switch depending on layer type"""
-    if layer.layer.type == "raster":
+    if layer.style["type"] == "raster":
         return ""
-    if layer.layer.type in ("fill", "line"):
+    if layer.style["type"] in ("fill", "line"):
         color = layer.get_color()
         if isinstance(color, list):
             return f"background-color: {color[2]};border-right: 0.5rem solid {color[-1]};"
         return f"background-color: {color}"
-    if layer.layer.type == "symbol":
-        image = settings.MAP_ENGINE_LAYER_STYLES[layer.layer.id]["layout"]["icon-image"]
+    if layer.style["type"] == "symbol":
+        image = layer.style["layout"]["icon-image"]
         image_path = next(x.path for x in settings.MAP_ENGINE_IMAGES if x.name == image)
         return f"background-image: url('/static/{image_path}');background-size: cover;"
-    raise ValueError(f"Unknown layer type '{layer.layer.type}'")
+    raise ValueError(f"Unknown layer type '{layer.style['type']}'")
 
 
 class StaticLayerForm(Form):
@@ -43,20 +44,20 @@ class StaticLayerForm(Form):
 
     counter = count()
 
-    def __init__(self, layer: map_config.LegendLayer, *args, **kwargs):
+    def __init__(self, layer: legend.LegendLayer, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layer = layer
         self.visual = get_layer_visual(layer)
-        self.fields["switch"].widget.attrs["id"] = layer.layer.id
+        self.fields["switch"].widget.attrs["id"] = layer.get_layer_id()
 
-        if hasattr(layer.layer.model, "filters"):
+        if hasattr(layer.model, "filters"):
             self.has_filters = True
-            for filter_ in layer.layer.model.filters:
+            for filter_ in layer.model.filters:
                 if filter_.type == models.LayerFilterType.Range:
-                    filter_min = layer.layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
-                    filter_max = layer.layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
+                    filter_min = layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
+                    filter_max = layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
                     self.fields[filter_.name] = MultiValueField(
-                        label=getattr(layer.layer.model, filter_.name).field.verbose_name,
+                        label=getattr(layer.model, filter_.name).field.verbose_name,
                         fields=[IntegerField(), IntegerField()],
                         widget=TextInput(
                             attrs={
@@ -72,9 +73,7 @@ class StaticLayerForm(Form):
                     )
                 elif filter_.type == models.LayerFilterType.Dropdown:
                     filter_values = (
-                        layer.layer.model.vector_tiles.values_list(filter_.name, flat=True)
-                        .order_by(filter_.name)
-                        .distinct()
+                        layer.model.vector_tiles.values_list(filter_.name, flat=True).order_by(filter_.name).distinct()
                     )
                     self.fields[filter_.name] = MultipleChoiceField(
                         choices=[(value, value) for value in filter_values],
