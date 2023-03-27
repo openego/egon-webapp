@@ -6,12 +6,14 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ## [Unreleased]
 ### Added
+- use django-mapengine
 - raster layers
 - multiselect dropdown filters
 - layers can be filtered by multiple filters
-- separation of choropleth layers 
+- separation of choropleth layers
 - legend for choropleth layers
 
 ### Changed
+- updated Readme
 - prevent zoom, if marker is clicked
 - municipalities starting at zoom level 10
