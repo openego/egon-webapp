@@ -9,7 +9,7 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path("select2/", include("django_select2.urls")),
-    path("raster/", include("raster.urls")),
+    path("map/", include("django_mapengine.urls")),
     # User management
     # path("users/", include("egon.users.urls", namespace="users")),
     # path("accounts/", include("allauth.urls")),

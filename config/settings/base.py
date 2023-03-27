@@ -5,6 +5,8 @@ Base settings to build other settings files upon.
 import environ
 from django.core.exceptions import ValidationError
 
+from django_mapengine import setup
+
 ROOT_DIR = environ.Path(__file__) - 3  # (egon/config/settings/base.py - 3 = egon/)
 APPS_DIR = ROOT_DIR.path("egon")
 DATA_DIR = APPS_DIR.path("data")
@@ -74,13 +76,9 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "django_distill",
     "django_select2",
-    "raster",
 ]
 
-LOCAL_APPS = [
-    "egon.users.apps.UsersConfig",
-    "egon.map.apps.MapConfig",
-]
+LOCAL_APPS = ["egon.users.apps.UsersConfig", "egon.map.apps.MapConfig", "django_mapengine"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -244,20 +242,71 @@ COMPRESS_PRECOMPILERS = [("text/x-scss", "django_libsass.SassCompiler")]
 
 COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 
+# django-mapengine
+# ------------------------------------------------------------------------------
+# https://github.com/rl-institut/django-mapengine
+
+MAP_ENGINE_CENTER_AT_STARTUP = [10.407237624103573, 51.22757621251938]
+MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
+MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
+
+MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
+MAP_ENGINE_MIN_ZOOM = 5
+MAP_ENGINE_ZOOM_LEVELS = {
+    "country": setup.Zoom(5, 7),
+    "state": setup.Zoom(7, 9),
+    "district": setup.Zoom(9, 11),
+    "municipality": setup.Zoom(11, 13),
+}
+
+MAP_ENGINE_API_MVTS = {
+    "country": [
+        setup.MVTAPI("country", "map", "Country"),
+        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+    ],
+    "state": [
+        setup.MVTAPI("state", "map", "State"),
+        setup.MVTAPI("statelabel", "map", "State", "label_tiles"),
+    ],
+    "district": [
+        setup.MVTAPI("district", "map", "District"),
+        setup.MVTAPI("districtlabel", "map", "District", "label_tiles"),
+    ],
+    "municipality": [
+        setup.MVTAPI("municipality", "map", "Municipality"),
+        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
+    ],
+    "static": [
+        setup.MVTAPI("demand_cts", "map", "DemandCts"),
+        setup.MVTAPI("demand_household", "map", "DemandHousehold"),
+        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
+        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("ehv_line", "map", "EHVLine"),
+        setup.MVTAPI("hv_line", "map", "HVLine"),
+        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
+    ],
+}
+
+MAP_ENGINE_API_CLUSTERS = [
+    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
+    setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
+    setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
+    setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),
+    setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
+    setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
+]
+
+MAP_ENGINE_IMAGES = [
+    setup.MapImage("biomass", "images/icons/biomass.png"),
+    setup.MapImage("solar", "images/icons/solar.png"),
+    setup.MapImage("wind", "images/icons/wind.png"),
+    setup.MapImage("river", "images/icons/river.png"),
+    setup.MapImage("station", "images/icons/station.png"),
+]
+
 # Your stuff...
 # ------------------------------------------------------------------------------
-
-# If given, use local PROJ_LIB environment variable
-if env("PROJ_LIB"):
-    PROJ_LIB = env("PROJ_LIB")
-
-DISTILL = env.bool("DISTILL", False)
-USE_DISTILLED_MVTS = env.bool("USE_DISTILLED_MVTS", True)
-
 PASSWORD_PROTECTION = env.bool("PASSWORD_PROTECTION", False)
 PASSWORD = env.str("PASSWORD", default=None)
 if PASSWORD_PROTECTION and PASSWORD is None:
     raise ValidationError("Password protection is on, but no password is given")
-
-MAPBOX_TOKEN = env.str("MAPBOX_TOKEN", default=None)
-MAPBOX_STYLE_LOCATION = env.str("MAPBOX_STYLE_LOCATION", default=None)

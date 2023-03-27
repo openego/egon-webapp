@@ -115,11 +115,71 @@
       "icon-size": 0.5
     }
   },
+  "supply_biomass_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "supply_biomass_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
   "supply_run_of_river": {
     "type": "symbol",
     "layout": {
       "icon-image": "river",
       "icon-size": 0.5
+    }
+  },
+  "supply_run_of_river_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "supply_run_of_river_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
     }
   },
   "supply_wind": {
@@ -129,11 +189,71 @@
       "icon-size": 0.5
     }
   },
+  "supply_wind_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "supply_wind_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
   "supply_solar": {
     "type": "symbol",
     "layout": {
       "icon-image": "solar",
       "icon-size": 0.5
+    }
+  },
+  "supply_solar_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "supply_solar_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
     }
   },
   "potential_wind": {
@@ -169,11 +289,71 @@
       "icon-size": 0.5
     }
   },
+  "ehv_hv_station_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "ehv_hv_station_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
   "hv_mv_station": {
     "type": "symbol",
     "layout": {
       "icon-image": "station",
       "icon-size": 0.8
+    }
+  },
+  "hv_mv_station_cluster": {
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "hv_mv_station_cluster_count": {
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
     }
   },
   "mv_grid_districts": {

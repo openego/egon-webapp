@@ -5,7 +5,7 @@ description = "EnerSHelf"
 authors = ["Hendrik Huyskens <hendrik.huyskens@rl-institut.de>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.12"
 gunicorn = "^20.0.4"  # https://github.com/benoitc/gunicorn
 # pytz = "^2021.1"  # https://github.com/stub42/pytz
 # python-slugify = "^5.0.2"  # https://github.com/un33k/python-slugify
@@ -20,7 +20,7 @@ psycopg2 = "^2.8.6" # https://github.com/psycopg/psycopg2
 # Django
 # ------------------------------------------------------------------------------
 django = "^3.2.3"  # pyup: < 3.0  # https://www.djangoproject.com/
-django-environ = "^0.4.5"  # https://github.com/joke2k/django-environ
+django-environ = "^0.10.0"  # https://github.com/joke2k/django-environ
 # django-model-utils = "^4.1.1"  # https://github.com/jazzband/django-model-utils
 django-allauth = "^0.44.0"  # https://github.com/pennersr/django-allauth
 django-foundation-formtags = "^0.1.0"
@@ -30,11 +30,11 @@ django-redis = "^4.12.1"  # https://github.com/niwinz/django-redis
 django-distill = "^2.6"
 django-crispy-forms = "^1.11.2"
 django-geojson = "^3.1.0"
+django-mapengine = {git = "https://github.com/rl-institut/django-mapengine.git"}
 
 # Django REST Framework
 djangorestframework = "^3.12.4"  # https://github.com/encode/django-rest-framework
 coreapi = "^2.3.3"  # https://github.com/core-api/python-client
-djangorestframework-mvt = "^0.2.5"
 django-select2 = "^7.7.1"
 geojson = "^2.5.0"
 
@@ -52,7 +52,7 @@ pytest-sugar = "^0.9.4"  # https://github.com/Frozenball/pytest-sugar
 # Code quality
 # ------------------------------------------------------------------------------
 flake8 = "^3.9.2"  # https://github.com/PyCQA/flake8
-black = "^19.10b0"  # https://github.com/ambv/black
+black = "^22.3.0"  # https://github.com/ambv/black
 pylint-django = "^2.4.4"  # https://github.com/PyCQA/pylint-django
 pre-commit = "^2.13.0"  # https://github.com/pre-commit/pre-commit
 
@@ -71,3 +71,24 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+# select = ["ALL"]
+ignore = [
+  "D203",    # 1 blank line required before class docstring
+  "D212",    # Multi-line docstring summary should start at the first line pydocstyle
+  "ANN101",  # Missing type annotation for `self` in method
+  "ANN003",  # Missing type annotation for `**kwargs`
+  "EM102",   # Exception must not use an f-string literal, assign to variable first
+  "TRY003",  # Avoid specifying long messages outside the exception class
+  "S101",    # Use of `assert` detected
+  "UP007",   # Use `X | Y` for type annotations
+  "B905",    # `zip()` without an explicit `strict=` parameter
+]
+fix = true
+show-fixes = true
+unfixable = ["UP007"]

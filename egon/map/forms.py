@@ -1,51 +1,59 @@
-
 from itertools import count
 
 from crispy_forms.helper import FormHelper
-from django.forms import BooleanField, Form, IntegerField, TextInput, MultiValueField, MultipleChoiceField
-from django.db.models import Min, Max
+from django.conf import settings
+from django.db.models import Max, Min
+from django.forms import (
+    BooleanField,
+    Form,
+    IntegerField,
+    MultipleChoiceField,
+    MultiValueField,
+    TextInput,
+)
+from django_mapengine import legend
 from django_select2.forms import Select2MultipleWidget
 
-from .config import LAYER_STYLES, MAP_SYMBOLS
-from .widgets import SwitchWidget
-from .models import LayerFilterType
-from .layers import LayerType
+from . import models, widgets
 
 
-def get_layer_visual(layer):
+def get_layer_visual(layer: legend.LegendLayer):
     """Returns visualization style switch depending on layer type"""
-    if layer.type == LayerType.Raster:
+    if layer.style["type"] == "raster":
         return ""
-    elif layer.type in (LayerType.Fill, LayerType.Line):
-        return f"background-color: {layer.color}"
-    elif layer.type == LayerType.Symbol:
-        image = LAYER_STYLES[layer.source]['layout']['icon-image']
-        image_path = next(x.path for x in MAP_SYMBOLS if x.name == image)
+    if layer.style["type"] in ("fill", "line"):
+        color = layer.get_color()
+        if isinstance(color, list):
+            return f"background-color: {color[2]};border-right: 0.5rem solid {color[-1]};"
+        return f"background-color: {color}"
+    if layer.style["type"] == "symbol":
+        image = layer.style["layout"]["icon-image"]
+        image_path = next(x.path for x in settings.MAP_ENGINE_IMAGES if x.name == image)
         return f"background-image: url('/static/{image_path}');background-size: cover;"
-    elif layer.type == LayerType.Choropleth:
-        # Return first and last color of color range:
-        return f"background-color: {LAYER_STYLES[layer.source]['paint']['fill-color'][2]};border-right: 0.5rem solid {LAYER_STYLES[layer.source]['paint']['fill-color'][-1]};"
-    else:
-        raise ValueError(f"Unknown layer type '{layer.type}'")
+    raise ValueError(f"Unknown layer type '{layer.style['type']}'")
 
 
 class StaticLayerForm(Form):
     switch = BooleanField(
-        label=False, widget=SwitchWidget(switch_class="form-check form-switch", switch_input_class="form-check-input",),
+        label=False,
+        widget=widgets.SwitchWidget(
+            switch_class="form-check form-switch",
+            switch_input_class="form-check-input",
+        ),
     )
 
     counter = count()
 
-    def __init__(self, layer, *args, **kwargs):
+    def __init__(self, layer: legend.LegendLayer, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.layer = layer
         self.visual = get_layer_visual(layer)
-        self.fields["switch"].widget.attrs["id"] = layer.source
+        self.fields["switch"].widget.attrs["id"] = layer.get_layer_id()
 
         if hasattr(layer.model, "filters"):
             self.has_filters = True
             for filter_ in layer.model.filters:
-                if filter_.type == LayerFilterType.Range:
+                if filter_.type == models.LayerFilterType.Range:
                     filter_min = layer.model.vector_tiles.aggregate(Min(filter_.name))[f"{filter_.name}__min"]
                     filter_max = layer.model.vector_tiles.aggregate(Max(filter_.name))[f"{filter_.name}__max"]
                     self.fields[filter_.name] = MultiValueField(
@@ -63,11 +71,9 @@ class StaticLayerForm(Form):
                             }
                         ),
                     )
-                elif filter_.type == LayerFilterType.Dropdown:
+                elif filter_.type == models.LayerFilterType.Dropdown:
                     filter_values = (
-                        layer.model.vector_tiles.values_list(filter_.name, flat=True)
-                        .order_by(filter_.name)
-                        .distinct()
+                        layer.model.vector_tiles.values_list(filter_.name, flat=True).order_by(filter_.name).distinct()
                     )
                     self.fields[filter_.name] = MultipleChoiceField(
                         choices=[(value, value) for value in filter_values],
