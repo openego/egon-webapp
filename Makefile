@@ -17,7 +17,7 @@ build_clusters:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.build_cluster_geojson()"
 
 empty_regions:
-	python manage.py shell --command="from egon.utils import data_processing; data_processing.empty_data(models=data_processing.REGIONS)"
+	python manage.py shell --command="from egon.utils import data_processing; data_processing.empty_data(data_models=data_processing.REGIONS)"
 
 empty_data:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.empty_data()"

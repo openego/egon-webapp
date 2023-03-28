@@ -1,16 +1,8 @@
-
 import os
-import json
-from geojson import FeatureCollection, Feature, Point
 
 from config.settings.base import DATA_DIR
-from raster.models import Legend, RasterLayer as RasterModel
-
-from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 from egon.map import models
-from egon.map.layers import LAYERS_DEFINITION, VectorLayerData
-from egon.map.config import LAYER_STYLES, CLUSTER_GEOJSON_FILE, ZOOM_LEVELS
-
+from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 
 REGIONS = [
     models.Country,
@@ -81,61 +73,7 @@ def load_data(data_models=None, verbose=True):
         instance.save(strict=True, verbose=verbose)
 
 
-def load_raster(layers=None):
-    layers = layers or LAYERS_DEFINITION
-    for layer in layers:
-        if not issubclass(layer.model, RasterModel):
-            continue
-        if RasterModel.objects.filter(name=layer.source).exists():
-            print(f"Skipping data for raster '{layer.name}' - Please empty raster first if you want to update data.")
-            continue
-        print(f"Upload data for raster '{layer.name}'")
-        rm = RasterModel(name=layer.source, rasterfile=layer.filepath)
-        rm.save()
-        if Legend.objects.filter(title=layer.legend).exists():
-            print(
-                f"Skipping legend '{layer.legend}' for raster '{layer.name}' - "
-                f"Please remove raster legend first if you want to update it."
-            )
-            continue
-        legend = Legend(title=layer.legend, json=json.dumps(LAYER_STYLES[layer.legend]))
-        legend.save()
-
-
-def build_cluster_geojson(cluster_layers: list[VectorLayerData] = None):
-    cluster_layers = cluster_layers or LAYERS_DEFINITION
-    features = []
-    for region_model in REGIONS[:-1]:
-        region_name = region_model.__name__.lower()
-        zoom_level = ZOOM_LEVELS[region_name].max
-        for region in region_model.objects.all():
-            point = Point(region.geom.point_on_surface.coords)
-            properties = {"zoom_level": zoom_level}
-            for cluster_layer in cluster_layers:
-                if not hasattr(cluster_layer, "clustered") or not cluster_layer.clustered:
-                    continue
-                cluster_count = len(cluster_layer.model.objects.filter(geom__within=region.geom))
-                properties[cluster_layer.source] = cluster_count
-            feature = Feature(
-                geometry=point,
-                properties=properties
-            )
-            features.append(feature)
-    fc = FeatureCollection(features)
-    with open(CLUSTER_GEOJSON_FILE, 'w') as geojson_file:
-        json.dump(fc, geojson_file)
-
-
 def empty_data(data_models=None):
     data_models = data_models or MODELS
     for model in data_models:
         model.objects.all().delete()
-
-
-def empty_raster(layers=None):
-    layers = layers or LAYERS_DEFINITION
-    for layer in layers:
-        if not issubclass(layer.model, RasterModel):
-            continue
-        RasterModel.objects.filter(name=layer.source).delete()
-        Legend.objects.filter(title=layer.legend).delete()

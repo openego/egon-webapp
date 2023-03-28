@@ -4,7 +4,6 @@ Base settings to build other settings files upon.
 
 import environ
 from django.core.exceptions import ValidationError
-
 from django_mapengine import setup
 
 ROOT_DIR = environ.Path(__file__) - 3  # (egon/config/settings/base.py - 3 = egon/)
@@ -66,19 +65,18 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
-    "django.contrib.admin",
     "django.forms",
 ]
 
 THIRD_PARTY_APPS = [
-    "foundation_formtags",  # Form layouts
     "rest_framework",
     "crispy_forms",
+    "crispy_bootstrap5",
     "django_distill",
     "django_select2",
 ]
 
-LOCAL_APPS = ["egon.users.apps.UsersConfig", "egon.map.apps.MapConfig", "django_mapengine"]
+LOCAL_APPS = ["egon.map.apps.MapConfig", "django_mapengine"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -86,37 +84,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {"sites": "egon.contrib.sites.migrations"}
-
-# AUTHENTICATION
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-]
-# https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-AUTH_USER_MODEL = "users.User"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
-
-# PASSWORDS
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
-PASSWORD_HASHERS = [
-    # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
-    "django.contrib.auth.hashers.Argon2PasswordHasher",
-    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
-    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
-]
-# https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
-AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
 
 # MIDDLEWARE
 # ------------------------------------------------------------------------------
@@ -128,7 +95,6 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -310,3 +276,8 @@ PASSWORD_PROTECTION = env.bool("PASSWORD_PROTECTION", False)
 PASSWORD = env.str("PASSWORD", default=None)
 if PASSWORD_PROTECTION and PASSWORD is None:
     raise ValidationError("Password protection is on, but no password is given")
+
+SELECT2_CACHE_BACKEND = "select2"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

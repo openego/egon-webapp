@@ -1,11 +1,11 @@
-import os
 import json
+import os
 import pathlib
 from collections import namedtuple
 
+from django.conf import settings
 from range_key_dict import RangeKeyDict
 
-from django.conf import settings
 from egon import __version__
 
 # FILES

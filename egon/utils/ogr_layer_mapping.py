@@ -1,12 +1,9 @@
 from django.contrib.gis.db.models import GeometryField
-from django.contrib.gis.gdal import (
-    GDALException,
-    OGRGeomType,
-)
+from django.contrib.gis.gdal import GDALException, OGRGeomType
+from django.contrib.gis.gdal.field import OFTInteger
+from django.contrib.gis.utils.layermapping import LayerMapError, LayerMapping
 from django.core.exceptions import FieldDoesNotExist, ObjectDoesNotExist
 from django.db import models
-from django.contrib.gis.utils.layermapping import LayerMapping, LayerMapError
-from django.contrib.gis.gdal.field import OFTInteger
 
 
 class RelatedModelLayerMapping(LayerMapping):
