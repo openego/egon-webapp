@@ -38,7 +38,7 @@ coreapi = "^2.3.3"  # https://github.com/core-api/python-client
 django-select2 = "^7.7.1"
 geojson = "^2.5.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 Werkzeug = "^2.0.1" # https://github.com/pallets/werkzeug
 ipdb = "^0.13.7"  # https://github.com/gotcha/ipdb
 Sphinx = "^4.0.2"  # https://github.com/sphinx-doc/sphinx
@@ -48,6 +48,9 @@ Sphinx = "^4.0.2"  # https://github.com/sphinx-doc/sphinx
 # mypy = "^0.812"  # https://github.com/python/mypy
 pytest = "^6.2.4"  # https://github.com/pytest-dev/pytest
 pytest-sugar = "^0.9.4"  # https://github.com/Frozenball/pytest-sugar
+coverage = "^7.2.2"
+django-coverage-plugin = "^3.0.0"
+factory-boy = "^3.2.1"
 
 # Code quality
 # ------------------------------------------------------------------------------
@@ -58,11 +61,8 @@ pre-commit = "^2.13.0"  # https://github.com/pre-commit/pre-commit
 
 # Django
 # ------------------------------------------------------------------------------
-# factory-boy = 3.2.0  # https://github.com/FactoryBoy/factory_boy
-
 django-debug-toolbar = "^3.2.1"  # https://github.com/jazzband/django-debug-toolbar
 django-extensions = "^3.1.3"  # https://github.com/django-extensions/django-extensions
-# django-coverage-plugin = "^1.6.0"  # https://github.com/nedbat/django_coverage_plugin
 pytest-django = "^4.3.0"  # https://github.com/pytest-dev/pytest-django
 
 [build-system]
