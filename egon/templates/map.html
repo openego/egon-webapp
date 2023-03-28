@@ -3,14 +3,14 @@
 
 {% block js_head %}
   {% compress js %}
-    <script src="{% static 'js/maplibre-gl.js' %}"></script>
+    <script src="{% static 'vendors/maplibre/js/maplibre-gl.js' %}"></script>
   {% endcompress %}
 {% endblock %}
 
 {% block css %}
   {{ block.super }}
   {% compress css %}
-    <link href="{% static 'css/maplibre-gl.css' %}" rel='stylesheet'/>
+    <link href="{% static 'vendors/maplibre/css/maplibre-gl.css' %}" rel='stylesheet'/>
   {% endcompress %}
 {% endblock %}
 
