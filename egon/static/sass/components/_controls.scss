@@ -1,7 +1,7 @@
 /////////////////////////////////////// SWITCHES ///////////////////////////////////////
 .form-check.form-switch .form-check-input {
   margin-left: 0;
-  
+
   &:checked {
     background-color: $primary-color;
     border-color: $primary-color;
@@ -29,7 +29,7 @@
     background-color: $primary-color;
   }
 
-  .irs-from:before, 
+  .irs-from:before,
   .irs-to:before,
   .irs-single:before {
     border-top-color: $primary-color;

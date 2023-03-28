@@ -1,9 +1,9 @@
-from django.db import connection
-from django.core.exceptions import FieldError
-from rest_framework.serializers import ValidationError
 from django.contrib.gis.db import models
 from django.contrib.gis.db.models.functions import Transform
 from django.contrib.gis.geos import Polygon
+from django.core.exceptions import FieldError
+from django.db import connection
+from rest_framework.serializers import ValidationError
 from rest_framework_gis.tilenames import tile_edges
 
 from egon.map.config import REGION_ZOOMS

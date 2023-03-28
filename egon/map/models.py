@@ -1,11 +1,10 @@
-
 from dataclasses import dataclass
 from enum import Enum
 
 from django.contrib.gis.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .managers import MVTManager, RegionMVTManager, LabelMVTManager, CenterMVTManager
+from .managers import CenterMVTManager, LabelMVTManager, MVTManager, RegionMVTManager
 
 
 class LayerFilterType(Enum):
@@ -20,6 +19,7 @@ class LayerFilter:
 
 
 # REGIONS
+
 
 class Region(models.Model):
     """Base class for all regions - works as connector to other models"""
@@ -85,6 +85,7 @@ class Municipality(RegionModel):
 # LAYER
 
 # DEMAND
+
 
 class DemandModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
@@ -174,6 +175,7 @@ class SupplyPotentialWind(SupplyPotentialModel):
 
 # POWER AND GAS GRIDS
 
+
 class LineModel(models.Model):
     geom = models.MultiLineStringField(srid=4326)
     type = models.CharField(max_length=255)
@@ -230,6 +232,7 @@ class HVMVSubstation(SubstationModel):
 
 # DATA MODEL
 
+
 class MVGridDistricts(models.Model):
     geom = models.MultiPolygonField(srid=4326)
     area = models.FloatField()
@@ -240,7 +243,4 @@ class MVGridDistricts(models.Model):
     data_folder = "4_Data_model"
     data_file = "egon_grid_mv_grid_districts"
     layer = "egon_grid_mv_grid_districts"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "area": "area"
-    }
+    mapping = {"geom": "MULTIPOLYGON", "area": "area"}

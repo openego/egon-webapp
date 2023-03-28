@@ -1,10 +1,8 @@
 import os
 
 from config.settings.base import DATA_DIR
-
-from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 from egon.map import models
-
+from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 
 REGIONS = [
     models.Country,
