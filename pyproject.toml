@@ -29,6 +29,7 @@ django-libsass = "^0.8"
 django-redis = "^4.12.1"  # https://github.com/niwinz/django-redis
 django-distill = "^2.6"
 django-crispy-forms = "^1.11.2"
+crispy-bootstrap5 = "^0.7"
 django-geojson = "^3.1.0"
 django-mapengine = {git = "https://github.com/rl-institut/django-mapengine.git"}
 

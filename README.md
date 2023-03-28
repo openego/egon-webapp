@@ -89,7 +89,7 @@ Please follow tutorials for this or ask your local IT-expert.
    export: `export DJANGO_READ_DOT_ENV_FILE=True`. You can persist the env export by
    putting it for example into your bashrc file (terminal restart needed afterwards):
     ```bash
-    echo -e "\n# Use .env file for Digiplan in local dev environment\nexport DJANGO_READ_DOT_ENV_FILE=True" >> ~/.bashrc
+    echo -e "\n# Use .env file for Egon in local dev environment\nexport DJANGO_READ_DOT_ENV_FILE=True" >> ~/.bashrc
     ```
 4. Create in your local Postgres Database Management System a database like defined in
    your `.env` file (e.g. via `pgAdmin` or `psql`)
@@ -155,32 +155,31 @@ Following steps are necessary to refresh/load data on production server:
 docker-compose -f production.yml run --rm django python manage.py migrate
 docker-compose -f production.yml run --rm django make empty_data empty_regions
 docker-compose -f production.yml run --rm django make load_regions load_data
-docker-compose -f production.yml run --rm django make build_cluster
 ```
 
-In order to increase loading speed of vector tiles, the tiles can be prerenderd. This is
+In order to increase loading speed of vector tiles, the tiles can be pre-rendered. This is
 done by using distilled vector tiles.
 You can create those vector tiles by using the following commands:
 (Note: You have to recreate distilled vector tiles after each data update in order to
 see changes on the map)
 
 ```
-docker-compose -f production.yml run --name digiplan_distill -e DISTILL=True django /bin/bash -c "python manage.py collectstatic --noinput; python manage.py distill-local --force --exclude-staticfiles ./distill"
-docker cp digiplan_distill:/app/distill/ ./digiplan/static/mvts/
+docker-compose -f production.yml run --name egon_distill -e DISTILL=True django /bin/bash -c "python manage.py collectstatic --noinput; python manage.py distill-local --force --exclude-staticfiles ./distill"
+docker cp egon_distill:/app/distill/ ./egon/static/mvts/
 # commit and push, afterwards remove temp container:
-docker rm -f digiplan_distill
+docker rm -f egon_distill
 ```
 
 # Adding new (static) layers
 
 In order to add new layers to the application following steps must be made:
 
-- add geopackages containing vector layer data into folder _digiplan/data_.
+- add geopackages containing vector layer data into folder _egon/data_.
 - create a Django model in `egon/map/models.py` with following minimum requirements:
 
     - it must contain a `GeometryField` (Point/Polygon) named `geom`,
     - it must contain the default Django `Manager` as attribute `objects`,
-    - it must contain a `MVTManager` derived from `digiplan/map/managers.py`.
+    - it must contain a `MVTManager` derived from `egon/map/managers.py`.
       Normally, a `StaticMVTManager` (which activates filtering of vector tiles by given
       zoom level) should be chosen.
 
