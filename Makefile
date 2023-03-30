@@ -32,4 +32,11 @@ load_fixtures:
 	bash egon/utils/load_fixtures.sh
 
 distill:
-	python manage.py distill-local --force --exclude-staticfiles ./distill
+	python manage.py distill-local --force --exclude-staticfiles ./egon/static/mvts
+
+check_distill_coordinates:
+	python manage.py shell --command="from egon.utils import distill; print(distill.check_distill_coordinates())"
+
+
+local_env_file:
+	python merge_local_dotenvs_in_dotenv.py
