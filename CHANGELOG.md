@@ -14,6 +14,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 - legend for choropleth layers
 
 ### Changed
+- update setup
 - updated Readme
 - prevent zoom, if marker is clicked
 - municipalities starting at zoom level 10
