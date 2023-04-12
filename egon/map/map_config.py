@@ -1,27 +1,28 @@
 """Actual map setup is done here."""
 
+from django.utils.translation import gettext_lazy as _
 from django_mapengine import legend
 
 LEGEND = {
     "demand": [
-        legend.LegendLayer("Cts", "", layer_id="demand_cts"),
-        legend.LegendLayer("Households", "", layer_id="demand_household"),
+        legend.LegendLayer(_("Commercial, Trade, Services"), "", layer_id="demand_cts"),
+        legend.LegendLayer(_("Households"), "", layer_id="demand_household"),
     ],
     "generation": [
-        legend.LegendLayer("Biomasse", "", layer_id="supply_biomass"),
-        legend.LegendLayer("Hydro", "", layer_id="supply_run_of_river"),
-        legend.LegendLayer("Wind Onshore", "", layer_id="supply_wind"),
-        legend.LegendLayer("Solar", "", layer_id="supply_solar"),
-        legend.LegendLayer("Potential Wind", "", layer_id="potential_wind"),
-        legend.LegendLayer("Potential PV", "", layer_id="potential_pv"),
+        legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),
+        legend.LegendLayer(_("Hydro"), "", layer_id="supply_run_of_river"),
+        legend.LegendLayer(_("Wind Onshore"), "", layer_id="supply_wind"),
+        legend.LegendLayer(_("Solar"), "", layer_id="supply_solar"),
+        legend.LegendLayer(_("Potential Wind"), "", layer_id="potential_wind"),
+        legend.LegendLayer(_("Potential PV"), "", layer_id="potential_pv"),
     ],
     "grid": [
-        legend.LegendLayer("EHV Line", "", layer_id="ehv_line"),
-        legend.LegendLayer("HV Line", "", layer_id="hv_line"),
-        legend.LegendLayer("EHV/HV Stations", "", layer_id="ehv_hv_station"),
-        legend.LegendLayer("HV/MV Stations", "", layer_id="hv_mv_station"),
+        legend.LegendLayer(_("EHV Line"), "", layer_id="ehv_line"),
+        legend.LegendLayer(_("HV Line"), "", layer_id="hv_line"),
+        legend.LegendLayer(_("EHV/HV Stations"), "", layer_id="ehv_hv_station"),
+        legend.LegendLayer(_("HV/MV Stations"), "", layer_id="hv_mv_station"),
     ],
     "model": [
-        legend.LegendLayer("MV Grid Districts", "", layer_id="mv_grid_districts"),
+        legend.LegendLayer(_("MV Grid Districts"), "", layer_id="mv_grid_districts"),
     ],
 }
