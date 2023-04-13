@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-12 14:46+0000\n"
+"POT-Creation-Date: 2023-04-13 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,8 +27,8 @@ msgid "German"
 msgstr "Deutsch"
 
 #: egon/map/map_config.py:8
-msgid "Commercial, Trade, Services"
-msgstr "Gewerbe, Handel, Dienstleistungen"
+msgid "CTS"
+msgstr "GHD"
 
 #: egon/map/map_config.py:9
 msgid "Households"
@@ -94,11 +94,11 @@ msgstr "Kreis"
 msgid "Municipality"
 msgstr "Gemeinde"
 
-#: egon/templates/canvases/map.html:12
+#: egon/templates/canvases/map.html:10
 msgid "About"
 msgstr "Über uns"
 
-#: egon/templates/canvases/map.html:15 egon/templates/canvases/panel.html:72
+#: egon/templates/canvases/map.html:13 egon/templates/canvases/panel.html:72
 msgid "Contact"
 msgstr "Kontakt"
 

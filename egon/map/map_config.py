@@ -5,7 +5,7 @@ from django_mapengine import legend
 
 LEGEND = {
     "demand": [
-        legend.LegendLayer(_("Commercial, Trade, Services"), "", layer_id="demand_cts"),
+        legend.LegendLayer(_("CTS"), "", layer_id="demand_cts"),
         legend.LegendLayer(_("Households"), "", layer_id="demand_household"),
     ],
     "generation": [

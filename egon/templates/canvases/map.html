@@ -3,8 +3,6 @@
 <section class="map-wrap">
   <nav class="top-nav">
     <div class="top-nav__search">
-      <label for="searchLocationInput" class="form-label visually-hidden">Search region...</label>
-      <input type="search" class="form-control" id="searchLocationInput" placeholder="Search region...">
     </div>
     <div class="top-nav__links">
       <ul>
@@ -13,6 +11,14 @@
         </li>
         <li>
           <a href="#">{% translate "Contact" %}</a>
+        </li>
+        <li class="top-nav__lang">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% if LANGUAGE_CODE == "de" %}
+            <a href="/en/" class="btn btn-sm btn-outline-secondary">English</a>
+          {% else %}
+            <a href="/de/" class="btn btn-sm btn-outline-secondary">Deutsch</a>
+          {% endif %}
         </li>
       </ul>
     </div>

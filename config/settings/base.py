@@ -287,6 +287,7 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
+MAP_ENGINE_CHOROPLETHS = []
 
 # Your stuff...
 # ------------------------------------------------------------------------------
