@@ -6,6 +6,8 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ## [Unreleased]
 ### Added
+- add a view tests on project level
+- add i18n support
 - use django-mapengine
 - raster layers
 - multiselect dropdown filters

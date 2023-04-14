@@ -1,11 +1,15 @@
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.urls import include, path
 from django.views import defaults as default_views
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("", include("egon.map.urls", namespace="map")),
     path("select2/", include("django_select2.urls")),
+)
+
+urlpatterns += [
     path("map/", include("django_mapengine.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
