@@ -263,6 +263,7 @@ MAP_ENGINE_API_MVTS = {
     "static": [
         setup.MVTAPI("demand_cts", "map", "DemandCts"),
         setup.MVTAPI("demand_household", "map", "DemandHousehold"),
+        setup.MVTAPI("demand.egon_district_heating_areas", "map", "DemandHeatingHhCts"),
         setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),

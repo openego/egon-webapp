@@ -7,6 +7,7 @@ LEGEND = {
     "demand": [
         legend.LegendLayer(_("CTS"), "", layer_id="demand_cts"),
         legend.LegendLayer(_("Households"), "", layer_id="demand_household"),
+        legend.LegendLayer(_("Heating Households and CTS"), "", layer_id="demand.egon_district_heating_areas"),
     ],
     "generation": [
         legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),

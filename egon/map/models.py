@@ -111,6 +111,11 @@ class DemandHousehold(DemandModel):
     layer = "egon_demand_electricity_household_2035"
 
 
+class DemandHeatingHhCts(DemandModel):
+    data_file = "demand.egon_district_heating_areas"
+    layer = "demand.egon_district_heating_areas"
+
+
 class SupplyModel(models.Model):
     geom = models.PointField(srid=4326)
     carrier = models.CharField(max_length=255)
@@ -241,6 +246,6 @@ class MVGridDistricts(models.Model):
     vector_tiles = MVTManager(columns=["id", "area"])
 
     data_folder = "4_Data_model"
-    data_file = "egon_grid_mv_grid_districts"
-    layer = "egon_grid_mv_grid_districts"
+    data_file = "grid.egon_mv_grid_district"
+    layer = "grid.egon_mv_grid_district"
     mapping = {"geom": "MULTIPOLYGON", "area": "area"}

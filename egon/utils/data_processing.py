@@ -14,6 +14,7 @@ REGIONS = [
 MODELS = [
     models.DemandCts,
     models.DemandHousehold,
+    models.DemandHeatingHhCts,
     models.SupplyBiomass,
     models.SupplyRunOfRiver,
     models.SupplySolarGround,
