@@ -83,10 +83,7 @@ class Municipality(RegionModel):
 
 
 # LAYER
-
 # DEMAND
-
-
 class DemandModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
     demand = models.IntegerField()
@@ -100,20 +97,35 @@ class DemandModel(models.Model):
         "demand": "demand",
     }
 
+    class Meta:
+        abstract = True
+
 
 class DemandCts(DemandModel):
     data_file = "egon_demand_electricity_cts_2035"
     layer = "egon_demand_electricity_cts_2035"
+
+    class Meta:
+        verbose_name = _("Demand CTS")
+        verbose_name_plural = _("Demands CTS")
 
 
 class DemandHousehold(DemandModel):
     data_file = "egon_demand_electricity_household_2035"
     layer = "egon_demand_electricity_household_2035"
 
+    class Meta:
+        verbose_name = _("Demand Household")
+        verbose_name_plural = _("Demands Household")
+
 
 class DemandHeatingHhCts(DemandModel):
     data_file = "demand.egon_district_heating_areas"
     layer = "demand.egon_district_heating_areas"
+
+    class Meta:
+        verbose_name = _("Demand Heating Household and CTS")
+        verbose_name_plural = _("Demand Heating Household and CTS")
 
 
 class SupplyModel(models.Model):
