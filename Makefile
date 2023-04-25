@@ -10,6 +10,9 @@ load_regions:
 load_data:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.load_data()"
 
+load_csv:
+	python manage.py shell --command="from egon.utils import data_processing; data_processing.load_csv()"
+
 load_raster:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.load_raster()"
 

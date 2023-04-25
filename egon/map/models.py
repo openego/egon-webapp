@@ -83,6 +83,38 @@ class Municipality(RegionModel):
 
 
 # LAYER
+
+
+# DATA MODEL
+class MVGridDistricts(models.Model):
+    geom = models.MultiPolygonField(srid=4326)
+    area = models.FloatField()
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id", "area"])
+
+    data_folder = "4_Data_model"
+    data_file = "grid.egon_mv_grid_district"
+    layer = "grid.egon_mv_grid_district"
+    mapping = {"geom": "MULTIPOLYGON", "area": "area", "id": "bus_id"}
+
+
+class TransportMitDemand(models.Model):
+    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
+    demand = models.IntegerField()
+    layer = "transport_mit_demand"
+    data_file = "demand.transport_mit_demand"
+
+    objects = models.Manager()
+    vector_tiles = CenterMVTManager(columns=["id", "demand", "lat", "lon"])
+
+    data_folder = "1_Demand"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "demand": "demand",
+    }
+
+
 # DEMAND
 class DemandModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
@@ -245,19 +277,3 @@ class EHVHVSubstation(SubstationModel):
 class HVMVSubstation(SubstationModel):
     data_file = "egon_grid_hvmv_substation"
     layer = "egon_grid_hvmv_substation"
-
-
-# DATA MODEL
-
-
-class MVGridDistricts(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    area = models.FloatField()
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "area"])
-
-    data_folder = "4_Data_model"
-    data_file = "grid.egon_mv_grid_district"
-    layer = "grid.egon_mv_grid_district"
-    mapping = {"geom": "MULTIPOLYGON", "area": "area"}

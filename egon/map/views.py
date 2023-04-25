@@ -1,5 +1,7 @@
 import json
 
+from django.conf import settings
+from django.http import HttpRequest, response
 from django.views.generic import TemplateView
 from django_mapengine import views
 
@@ -8,6 +10,7 @@ from config.settings.base import PASSWORD, PASSWORD_PROTECTION
 from . import map_config
 from .config import SOURCES, STORE_COLD_INIT, STORE_HOT_INIT
 from .forms import StaticLayerForm
+from .models import TransportMitDemand
 
 
 class MapGLView(TemplateView, views.MapEngineMixin):
@@ -35,3 +38,27 @@ class MapGLView(TemplateView, views.MapEngineMixin):
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 
         return context
+
+
+# pylint: disable=W0613
+def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response.JsonResponse:  # noqa: ARG001
+    """Read scenario results from database, aggregate data and send back data.
+
+    Parameters
+    ----------
+    request : HttpRequest
+        Request can contain optional values (i.e. language)
+    lookup : str
+        which result/calculation shall be shown in choropleth?
+    scenario : str
+        defines the scenario to look up values for (i.e. status quo or user scenario)
+
+    Returns
+    -------
+    JsonResponse
+        Containing key-value pairs of municipality_ids and values and related color style
+    """
+    queryset = TransportMitDemand.objects.values("mv_grid_district", "demand")
+    values = {val["mv_grid_district"]: val["demand"] for val in queryset}
+    fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
+    return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 0.7}})

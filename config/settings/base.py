@@ -268,6 +268,8 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
         setup.MVTAPI("hv_line", "map", "HVLine"),
+    ],
+    "mv_grid_districts": [
         setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
     ],
 }
@@ -288,7 +290,9 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
-MAP_ENGINE_CHOROPLETHS = []
+MAP_ENGINE_CHOROPLETHS = [
+    setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
+]
 
 # Your stuff...
 # ------------------------------------------------------------------------------
