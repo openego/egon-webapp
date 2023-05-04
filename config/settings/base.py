@@ -236,17 +236,18 @@ MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 5
-MAP_ENGINE_ZOOM_LEVELS = {
-    "country": setup.Zoom(5, 7),
-    "state": setup.Zoom(7, 9),
-    "district": setup.Zoom(9, 11),
-    "municipality": setup.Zoom(11, 13),
-}
+MAP_ENGINE_ZOOM_LEVELS = {}
 
 MAP_ENGINE_API_MVTS = {
-    "country": [
+    "static": [
+        setup.MVTAPI("demand_cts", "map", "DemandCts"),
+        setup.MVTAPI("demand.egon_district_heating_areas", "map", "DemandHeatingHhCts"),
+        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
+        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("ehv_line", "map", "EHVLine"),
+        setup.MVTAPI("hv_line", "map", "HVLine"),
         setup.MVTAPI("country", "map", "Country"),
-        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+        # setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
     ],
     "state": [
         setup.MVTAPI("state", "map", "State"),
@@ -258,16 +259,7 @@ MAP_ENGINE_API_MVTS = {
     ],
     "municipality": [
         setup.MVTAPI("municipality", "map", "Municipality"),
-        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
-    ],
-    "static": [
-        setup.MVTAPI("demand_cts", "map", "DemandCts"),
-        setup.MVTAPI("demand_household", "map", "DemandHousehold"),
-        setup.MVTAPI("demand.egon_district_heating_areas", "map", "DemandHeatingHhCts"),
-        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
-        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
-        setup.MVTAPI("ehv_line", "map", "EHVLine"),
-        setup.MVTAPI("hv_line", "map", "HVLine"),
+        # setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
     ],
     "mv_grid_districts": [
         setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
@@ -292,6 +284,15 @@ MAP_ENGINE_IMAGES = [
 ]
 MAP_ENGINE_CHOROPLETHS = [
     setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
+    setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
+]
+
+MAP_ENGINE_POPUPS = [
+    setup.Popup(
+        "mv_grid_districts",
+        False,
+        ["transport_mit_demand"],
+    )
 ]
 
 # Your stuff...

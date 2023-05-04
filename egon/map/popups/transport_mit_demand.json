@@ -1,0 +1,15 @@
+{
+  "category": "Demand",
+  "subcategory": "Transport",
+  "layername": "MIT demand",
+  "geo-reference": "grid.egon_mv_grid_district",
+  "column_data": "annual_demand",
+  "unit": "MWh",
+  "data": {
+    "annual_demand": null,
+    "mv_grid_district" : null,
+    "id": null
+  },
+  "infotext": "-",
+  "dataset_url": "?"
+}

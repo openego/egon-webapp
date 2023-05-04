@@ -101,18 +101,45 @@ class MVGridDistricts(models.Model):
 
 class TransportMitDemand(models.Model):
     mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
-    demand = models.IntegerField()
+    annual_demand = models.FloatField(verbose_name=_("Annual Demand (in MWh)"))
+    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
+    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
+
+    choropleth_data_field = "annual_demand"
+    geom_data_field = "mv_grid_district"
+    popup_fields = ("annual_demand", "min", "max")
     layer = "transport_mit_demand"
     data_file = "demand.transport_mit_demand"
 
     objects = models.Manager()
-    vector_tiles = CenterMVTManager(columns=["id", "demand", "lat", "lon"])
+    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
 
     data_folder = "1_Demand"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "demand": "demand",
-    }
+    data_file = "egona2035.demand.transport_mit_demand"
+
+    class Meta:
+        verbose_name = _("Transport MIT Demand")
+        verbose_name_plural = _("Transport MIT Demands")
+
+
+class DemandHousehold(models.Model):
+    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
+    sum = models.FloatField(verbose_name=_("Sum (in MWh)"))
+    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
+    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
+
+    choropleth_data_field = "sum"
+    geom_data_field = "mv_grid_district"
+    popup_fields = ("sum", "min", "max")
+    layer = "egon_demand_electricity_household_2035"
+    data_file = "egon2035.demand.electricity_households"
+
+    objects = models.Manager()
+    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
+
+    class Meta:
+        verbose_name = _("Demand Household")
+        verbose_name_plural = _("Demands Household")
 
 
 # DEMAND
@@ -140,15 +167,6 @@ class DemandCts(DemandModel):
     class Meta:
         verbose_name = _("Demand CTS")
         verbose_name_plural = _("Demands CTS")
-
-
-class DemandHousehold(DemandModel):
-    data_file = "egon_demand_electricity_household_2035"
-    layer = "egon_demand_electricity_household_2035"
-
-    class Meta:
-        verbose_name = _("Demand Household")
-        verbose_name_plural = _("Demands Household")
 
 
 class DemandHeatingHhCts(DemandModel):

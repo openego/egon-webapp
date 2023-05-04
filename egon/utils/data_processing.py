@@ -31,9 +31,7 @@ MODELS = [
     models.MVGridDistricts,
 ]
 
-CSV_MODELS = [
-    models.TransportMitDemand,
-]
+CSV_MODELS = [models.TransportMitDemand, models.DemandHousehold]
 
 
 def load_regions(regions=None, verbose=True):
@@ -95,10 +93,22 @@ def load_csv():
 
         # Read the CSV file into a pandas DataFrame
         dataframe = pandas.read_csv(data_path, sep=",")
-        for index, row in dataframe.iterrows():
-            models.TransportMitDemand.objects.create(
-                mv_grid_district=MVGridDistricts.objects.get(id=row["bus_id"]), demand=int(row["charging_demand"])
-            )
+        if model == models.TransportMitDemand:
+            for index, row in dataframe.iterrows():
+                model.objects.create(
+                    mv_grid_district=MVGridDistricts.objects.get(id=row["mv_grid_district_id"]),
+                    annual_demand=row["annual_demand"],
+                    min=row["min"],
+                    max=row["max"],
+                )
+        if model == models.DemandHousehold:
+            for index, row in dataframe.iterrows():
+                model.objects.create(
+                    mv_grid_district=MVGridDistricts.objects.get(id=row["mv_grid_district_id"]),
+                    sum=row["sum"],
+                    min=row["min"],
+                    max=row["max"],
+                )
 
 
 def empty_data(data_models=None):
