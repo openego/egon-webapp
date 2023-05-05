@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='mvgriddistricts',
             name='bus_id',
-            field=models.IntegerField(default=None),
+            field=models.IntegerField(default=None, null=True),
             preserve_default=False,
         ),
     ]
