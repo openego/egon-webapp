@@ -1,13 +1,14 @@
 /* globals activateChoropleth, deactivateChoropleth */
 
-const layerSwitch = document.getElementById("transport_mit_demand");
+const layerSwitches = document.querySelectorAll(".form-check-input");
 
-layerSwitch.addEventListener("change", function() {
-   PubSub.publish(mapEvent.CHOROPLETH_SELECTED, layerSwitch.value);
-   if (this.checked) {
-      activateChoropleth(null, "transport_mit_demand");
-   }
-   else {
-      deactivateChoropleth(null, "transport_mit_demand");
-   }
+layerSwitches.forEach(layerSwitch => {
+  layerSwitch.addEventListener("change", function() {
+    PubSub.publish(mapEvent.CHOROPLETH_SELECTED, layerSwitch.value);
+    if (this.checked) {
+      activateChoropleth(null, layerSwitch.id);
+    } else {
+      deactivateChoropleth(null, layerSwitch.id);
+    }
+  });
 });

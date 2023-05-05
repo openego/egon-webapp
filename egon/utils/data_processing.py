@@ -15,8 +15,8 @@ REGIONS = [
 ]
 
 MODELS = [
+    models.MVGridDistricts,
     models.DemandCts,
-    models.DemandHousehold,
     models.DemandHeatingHhCts,
     models.SupplyBiomass,
     models.SupplyRunOfRiver,
@@ -28,7 +28,6 @@ MODELS = [
     models.EHVHVSubstation,
     models.HVLine,
     models.HVMVSubstation,
-    models.MVGridDistricts,
 ]
 
 CSV_MODELS = [models.TransportMitDemand, models.DemandHousehold]
@@ -96,7 +95,7 @@ def load_csv():
         if model == models.TransportMitDemand:
             for index, row in dataframe.iterrows():
                 model.objects.create(
-                    mv_grid_district=MVGridDistricts.objects.get(id=row["mv_grid_district_id"]),
+                    mv_grid_district=MVGridDistricts.objects.get(id=row["bus_id"]),
                     annual_demand=row["annual_demand"],
                     min=row["min"],
                     max=row["max"],

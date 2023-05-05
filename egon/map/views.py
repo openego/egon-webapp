@@ -12,7 +12,7 @@ from config.settings.base import PASSWORD, PASSWORD_PROTECTION
 from . import map_config
 from .config import SOURCES, STORE_COLD_INIT, STORE_HOT_INIT
 from .forms import StaticLayerForm
-from .models import TransportMitDemand
+from .models import DemandHousehold, TransportMitDemand
 
 
 class MapGLView(TemplateView, views.MapEngineMixin):
@@ -102,7 +102,10 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     queryset = model.objects.values(model.geom_data_field, model.choropleth_data_field)
     values = {val[model.geom_data_field]: val[model.choropleth_data_field] for val in queryset}
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
-    return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 0.7}})
+    return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})
 
 
-LOOKUPS: dict[str, str] = {"transport_mit_demand": TransportMitDemand}
+LOOKUPS: dict[str, str] = {
+    "transport_mit_demand": TransportMitDemand,
+    "egon_demand_electricity_household_2035": DemandHousehold,
+}

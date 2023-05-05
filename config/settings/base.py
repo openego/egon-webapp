@@ -288,11 +288,7 @@ MAP_ENGINE_CHOROPLETHS = [
 ]
 
 MAP_ENGINE_POPUPS = [
-    setup.Popup(
-        "mv_grid_districts",
-        False,
-        ["transport_mit_demand"],
-    )
+    setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"])
 ]
 
 # Your stuff...

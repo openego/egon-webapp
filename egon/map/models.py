@@ -88,15 +88,14 @@ class Municipality(RegionModel):
 # DATA MODEL
 class MVGridDistricts(models.Model):
     geom = models.MultiPolygonField(srid=4326)
-    area = models.FloatField()
 
     objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "area"])
+    vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "4_Data_model"
     data_file = "grid.egon_mv_grid_district"
-    layer = "grid.egon_mv_grid_district"
-    mapping = {"geom": "MULTIPOLYGON", "area": "area", "id": "bus_id"}
+    layer = "mv_grid_district"
+    mapping = {"geom": "MULTIPOLYGON", "id": "bus_id"}
 
 
 class TransportMitDemand(models.Model):
@@ -115,7 +114,7 @@ class TransportMitDemand(models.Model):
     vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
 
     data_folder = "1_Demand"
-    data_file = "egona2035.demand.transport_mit_demand"
+    data_file = "egon2035.demand.transport_mit_demand"
 
     class Meta:
         verbose_name = _("Transport MIT Demand")
@@ -132,6 +131,7 @@ class DemandHousehold(models.Model):
     geom_data_field = "mv_grid_district"
     popup_fields = ("sum", "min", "max")
     layer = "egon_demand_electricity_household_2035"
+    data_folder = "1_Demand"
     data_file = "egon2035.demand.electricity_households"
 
     objects = models.Manager()
