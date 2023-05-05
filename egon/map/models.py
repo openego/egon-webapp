@@ -142,42 +142,6 @@ class DemandHousehold(models.Model):
         verbose_name_plural = _("Demands Household")
 
 
-# DEMAND
-class DemandModel(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    demand = models.IntegerField()
-
-    objects = models.Manager()
-    vector_tiles = CenterMVTManager(columns=["id", "demand", "lat", "lon"])
-
-    data_folder = "1_Demand"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "demand": "demand",
-    }
-
-    class Meta:
-        abstract = True
-
-
-class DemandCts(DemandModel):
-    data_file = "egon_demand_electricity_cts_2035"
-    layer = "egon_demand_electricity_cts_2035"
-
-    class Meta:
-        verbose_name = _("Demand CTS")
-        verbose_name_plural = _("Demands CTS")
-
-
-class DemandHeatingHhCts(DemandModel):
-    data_file = "demand.egon_district_heating_areas"
-    layer = "demand.egon_district_heating_areas"
-
-    class Meta:
-        verbose_name = _("Demand Heating Household and CTS")
-        verbose_name_plural = _("Demand Heating Household and CTS")
-
-
 class SupplyModel(models.Model):
     geom = models.PointField(srid=4326)
     carrier = models.CharField(max_length=255)

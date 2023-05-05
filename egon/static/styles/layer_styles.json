@@ -141,25 +141,6 @@
       "text-halo-blur": 1.5
     }
   },
-  "demand_cts": {
-    "type": "fill",
-    "paint": {
-      "fill-color": [
-        "step",
-        ["get","demand"],
-        "#00eda0", 500,
-        "#00eda0", 1000,
-        "#0ed976", 5000,
-        "#0eb24c", 10000,
-        "#0d8d3c", 50000,
-        "#0c4e2a", 100000,
-        "#031a1c", 500000,
-        "hsl(348, 100%, 37%)", 1000000,
-        "#0d0026"
-      ],
-      "fill-opacity": 0.8
-    }
-  },
   "transport_mit_demand": {
     "type": "fill",
     "paint": {
@@ -194,25 +175,6 @@
         "#e31a1c", 500000,
         "hsl(348, 100%, 37%)", 1000000,
         "#bd0026"
-      ],
-      "fill-opacity": 0.8
-    }
-  },
-  "demand.egon_district_heating_areas": {
-    "type": "fill",
-    "paint": {
-      "fill-color": [
-        "step",
-        ["get","demand"],
-        "#00eda0", 500,
-        "#00eda0", 1000,
-        "#0ed976", 5000,
-        "#0eb24c", 10000,
-        "#0d8d3c", 50000,
-        "#0c4e2a", 100000,
-        "#031a1c", 500000,
-        "hsl(348, 100%, 37%)", 1000000,
-        "#0d0026"
       ],
       "fill-opacity": 0.8
     }
