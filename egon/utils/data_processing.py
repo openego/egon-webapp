@@ -16,8 +16,6 @@ REGIONS = [
 
 MODELS = [
     models.MVGridDistricts,
-    models.DemandCts,
-    models.DemandHeatingHhCts,
     models.SupplyBiomass,
     models.SupplyRunOfRiver,
     models.SupplySolarGround,
