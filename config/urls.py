@@ -6,7 +6,6 @@ from django.views import defaults as default_views
 
 urlpatterns = i18n_patterns(
     path("", include("egon.map.urls", namespace="map")),
-    path("select2/", include("django_select2.urls")),
 )
 
 urlpatterns += [
