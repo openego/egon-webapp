@@ -91,7 +91,6 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_distill",
-    "django_select2",
 ]
 
 LOCAL_APPS = ["egon.map.apps.MapConfig", "django_mapengine"]
@@ -236,17 +235,16 @@ MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 5
-MAP_ENGINE_ZOOM_LEVELS = {
-    "country": setup.Zoom(5, 7),
-    "state": setup.Zoom(7, 9),
-    "district": setup.Zoom(9, 11),
-    "municipality": setup.Zoom(11, 13),
-}
+MAP_ENGINE_ZOOM_LEVELS = {}
 
 MAP_ENGINE_API_MVTS = {
-    "country": [
+    "static": [
+        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
+        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("ehv_line", "map", "EHVLine"),
+        setup.MVTAPI("hv_line", "map", "HVLine"),
         setup.MVTAPI("country", "map", "Country"),
-        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+        # setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
     ],
     "state": [
         setup.MVTAPI("state", "map", "State"),
@@ -258,15 +256,9 @@ MAP_ENGINE_API_MVTS = {
     ],
     "municipality": [
         setup.MVTAPI("municipality", "map", "Municipality"),
-        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
+        # setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
     ],
-    "static": [
-        setup.MVTAPI("demand_cts", "map", "DemandCts"),
-        setup.MVTAPI("demand_household", "map", "DemandHousehold"),
-        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
-        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
-        setup.MVTAPI("ehv_line", "map", "EHVLine"),
-        setup.MVTAPI("hv_line", "map", "HVLine"),
+    "mv_grid_districts": [
         setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
     ],
 }
@@ -287,7 +279,14 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
-MAP_ENGINE_CHOROPLETHS = []
+MAP_ENGINE_CHOROPLETHS = [
+    setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
+    setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
+]
+
+MAP_ENGINE_POPUPS = [
+    setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"])
+]
 
 # Your stuff...
 # ------------------------------------------------------------------------------
@@ -295,8 +294,6 @@ PASSWORD_PROTECTION = env.bool("PASSWORD_PROTECTION", False)
 PASSWORD = env.str("PASSWORD", default=None)
 if PASSWORD_PROTECTION and PASSWORD is None:
     raise ValidationError("Password protection is on, but no password is given")
-
-SELECT2_CACHE_BACKEND = "select2"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"

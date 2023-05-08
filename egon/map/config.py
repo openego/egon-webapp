@@ -9,6 +9,8 @@ from range_key_dict import RangeKeyDict
 from egon import __version__
 
 # FILES
+MAP_DIR = settings.APPS_DIR.path("map")
+POPUPS_DIR = MAP_DIR.path("popups")
 
 CLUSTER_GEOJSON_FILE = settings.DATA_DIR.path("cluster.geojson")
 LAYER_STYLES_FILE = os.path.join(os.path.dirname(__file__), "../static/styles/layer_styles.json")

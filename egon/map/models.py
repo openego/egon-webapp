@@ -84,31 +84,62 @@ class Municipality(RegionModel):
 
 # LAYER
 
-# DEMAND
 
-
-class DemandModel(models.Model):
+# DATA MODEL
+class MVGridDistricts(models.Model):
     geom = models.MultiPolygonField(srid=4326)
-    demand = models.IntegerField()
 
     objects = models.Manager()
-    vector_tiles = CenterMVTManager(columns=["id", "demand", "lat", "lon"])
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "4_Data_model"
+    data_file = "grid.egon_mv_grid_district"
+    layer = "mv_grid_district"
+    mapping = {"geom": "MULTIPOLYGON", "id": "bus_id"}
+
+
+class TransportMitDemand(models.Model):
+    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
+    annual_demand = models.FloatField(verbose_name=_("Annual Demand (in MWh)"))
+    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
+    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
+
+    choropleth_data_field = "annual_demand"
+    geom_data_field = "mv_grid_district"
+    popup_fields = ("annual_demand", "min", "max")
+    layer = "transport_mit_demand"
+    data_file = "demand.transport_mit_demand"
+
+    objects = models.Manager()
+    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
 
     data_folder = "1_Demand"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "demand": "demand",
-    }
+    data_file = "egon2035.demand.transport_mit_demand"
+
+    class Meta:
+        verbose_name = _("Transport MIT Demand")
+        verbose_name_plural = _("Transport MIT Demands")
 
 
-class DemandCts(DemandModel):
-    data_file = "egon_demand_electricity_cts_2035"
-    layer = "egon_demand_electricity_cts_2035"
+class DemandHousehold(models.Model):
+    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
+    sum = models.FloatField(verbose_name=_("Sum (in MWh)"))
+    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
+    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
 
-
-class DemandHousehold(DemandModel):
-    data_file = "egon_demand_electricity_household_2035"
+    choropleth_data_field = "sum"
+    geom_data_field = "mv_grid_district"
+    popup_fields = ("sum", "min", "max")
     layer = "egon_demand_electricity_household_2035"
+    data_folder = "1_Demand"
+    data_file = "egon2035.demand.electricity_households"
+
+    objects = models.Manager()
+    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
+
+    class Meta:
+        verbose_name = _("Demand Household")
+        verbose_name_plural = _("Demands Household")
 
 
 class SupplyModel(models.Model):
@@ -228,19 +259,3 @@ class EHVHVSubstation(SubstationModel):
 class HVMVSubstation(SubstationModel):
     data_file = "egon_grid_hvmv_substation"
     layer = "egon_grid_hvmv_substation"
-
-
-# DATA MODEL
-
-
-class MVGridDistricts(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-    area = models.FloatField()
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "area"])
-
-    data_folder = "4_Data_model"
-    data_file = "egon_grid_mv_grid_districts"
-    layer = "egon_grid_mv_grid_districts"
-    mapping = {"geom": "MULTIPOLYGON", "area": "area"}

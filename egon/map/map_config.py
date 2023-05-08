@@ -5,8 +5,8 @@ from django_mapengine import legend
 
 LEGEND = {
     "demand": [
-        legend.LegendLayer(_("CTS"), "", layer_id="demand_cts"),
-        legend.LegendLayer(_("Households"), "", layer_id="demand_household"),
+        legend.LegendLayer(_("Electricity Households"), "", layer_id="egon_demand_electricity_household_2035"),
+        legend.LegendLayer(_("Transport MIT Demand"), "", layer_id="transport_mit_demand"),
     ],
     "generation": [
         legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),
@@ -24,5 +24,8 @@ LEGEND = {
     ],
     "model": [
         legend.LegendLayer(_("MV Grid Districts"), "", layer_id="mv_grid_districts"),
+        legend.LegendLayer(_("Municipalities"), "", layer_id="municipality"),
+        legend.LegendLayer(_("Districts"), "", layer_id="district"),
+        legend.LegendLayer(_("States"), "", layer_id="state"),
     ],
 }

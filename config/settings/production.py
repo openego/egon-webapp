@@ -34,11 +34,6 @@ CACHES = {
             "IGNORE_EXCEPTIONS": True,
         },
     },
-    "select2": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": env("REDIS_URL") + "/2",
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-    },
 }
 
 # SECURITY

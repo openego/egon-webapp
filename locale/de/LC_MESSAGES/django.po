@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 09:09+0000\n"
+"POT-Creation-Date: 2023-04-14 07:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,47 +34,51 @@ msgstr "GHD"
 msgid "Households"
 msgstr "Haushalte"
 
-#: egon/map/map_config.py:12
+#: egon/map/map_config.py:10
+msgid "Heating Households and CTS"
+msgstr "Wärme Haushalte und GHD"
+
+#: egon/map/map_config.py:13
 msgid "Biomasse"
 msgstr "Biomasse"
 
-#: egon/map/map_config.py:13
+#: egon/map/map_config.py:14
 msgid "Hydro"
 msgstr "Wasserkraft"
 
-#: egon/map/map_config.py:14
+#: egon/map/map_config.py:15
 msgid "Wind Onshore"
 msgstr "Windkraft (onshore)"
 
-#: egon/map/map_config.py:15
+#: egon/map/map_config.py:16
 msgid "Solar"
 msgstr "Solar"
 
-#: egon/map/map_config.py:16
+#: egon/map/map_config.py:17
 msgid "Potential Wind"
 msgstr "Windkraft-Potential"
 
-#: egon/map/map_config.py:17
+#: egon/map/map_config.py:18
 msgid "Potential PV"
 msgstr "PV-Potential"
 
-#: egon/map/map_config.py:20
+#: egon/map/map_config.py:21
 msgid "EHV Line"
 msgstr "Höchstspannungsleitungen (EHV)"
 
-#: egon/map/map_config.py:21
+#: egon/map/map_config.py:22
 msgid "HV Line"
 msgstr "Hochspannungsleitung (HV)"
 
-#: egon/map/map_config.py:22
+#: egon/map/map_config.py:23
 msgid "EHV/HV Stations"
 msgstr "EHV/HV Umspannwerk"
 
-#: egon/map/map_config.py:23
+#: egon/map/map_config.py:24
 msgid "HV/MV Stations"
 msgstr "HV/MW Umspannwerk"
 
-#: egon/map/map_config.py:26
+#: egon/map/map_config.py:27
 msgid "MV Grid Districts"
 msgstr "Mittelspannungsnetzbereiche"
 
