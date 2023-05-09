@@ -82,6 +82,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.admin",
     # "django.contrib.humanize", # Handy template tags
     "django.forms",
 ]
@@ -91,6 +92,7 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_distill",
+    "import_export",
 ]
 
 LOCAL_APPS = ["egon.map.apps.MapConfig", "django_mapengine"]
@@ -112,6 +114,7 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -261,6 +264,9 @@ MAP_ENGINE_API_MVTS = {
     "mv_grid_districts": [
         setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
     ],
+    "mv_grid_district_data": [
+        setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
+    ],
 }
 
 MAP_ENGINE_API_CLUSTERS = [
@@ -282,10 +288,12 @@ MAP_ENGINE_IMAGES = [
 MAP_ENGINE_CHOROPLETHS = [
     setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
     setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
+    setup.Choropleth("supply_pv_ground_mounted_installed_capacity_2035_el_capacity", layers=["mv_grid_district_data"]),
 ]
 
 MAP_ENGINE_POPUPS = [
-    setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"])
+    setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"]),
+    setup.Popup("mv_grid_district_data", False, ["supply_pv_ground_mounted_installed_capacity_2035_el_capacity"]),
 ]
 
 # Your stuff...

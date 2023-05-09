@@ -7,6 +7,9 @@ LEGEND = {
     "demand": [
         legend.LegendLayer(_("Electricity Households"), "", layer_id="egon_demand_electricity_household_2035"),
         legend.LegendLayer(_("Transport MIT Demand"), "", layer_id="transport_mit_demand"),
+        legend.LegendLayer(
+            _("Ground mounted PV"), "", layer_id="supply_pv_ground_mounted_installed_capacity_2035_el_capacity"
+        ),
     ],
     "generation": [
         legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),
@@ -24,6 +27,7 @@ LEGEND = {
     ],
     "model": [
         legend.LegendLayer(_("MV Grid Districts"), "", layer_id="mv_grid_districts"),
+        legend.LegendLayer(_("MV Grid District Data"), "", layer_id="mv_grid_district_data"),
         legend.LegendLayer(_("Municipalities"), "", layer_id="municipality"),
         legend.LegendLayer(_("Districts"), "", layer_id="district"),
         legend.LegendLayer(_("States"), "", layer_id="state"),

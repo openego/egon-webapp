@@ -1,20 +1,20 @@
 <div id="js-popup" class="popup">
 
   <div class="popup__header">
-    <h1 id="js-popup__title" class="popup__title">{{ title }}</h1>
+    <h4 id="js-popup__title" class="popup__title">{{ title }}</h4>
   </div>
+  <div id="js-popup__description" class="popup__description">{{ description }}</div>
 
   <div id="js-popup__key-values" class="popup__key-values">
     {% block key_values %}
       <span class="key-values__municipality">
         {% for key, value in data.items %}
-            <span class="key-values">{{ key }}: {{ value|default_if_none:""|floatformat:2 }}</span><br>
+            <span class="key-values">{{ key }}: {{ value|default_if_none:"" }}</span><br>
         {% endfor %}
       </span>
     {% endblock %}
   </div>
 
-  <div id="js-popup__description" class="popup__description">{{ description }}</div>
 
   {% if sources %}
     <div id="js-popup__sources" class="popup__sources">

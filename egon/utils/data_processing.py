@@ -15,6 +15,7 @@ REGIONS = [
 ]
 
 MODELS = [
+    models.MVGridDistrictData,
     models.MVGridDistricts,
     models.SupplyBiomass,
     models.SupplyRunOfRiver,

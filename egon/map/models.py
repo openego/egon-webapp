@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from django.contrib.gis.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CenterMVTManager, LabelMVTManager, MVTManager, RegionMVTManager
@@ -83,6 +84,147 @@ class Municipality(RegionModel):
 
 
 # LAYER
+
+
+class MVGridDistrictData(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    area = models.FloatField(null=True)
+
+    # Demand Electricity Households
+    demand_electricity_households_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_electricity_households_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+    demand_electricity_households_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+
+    demand_electricity_households_100RE_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_electricity_households_100RE_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+    demand_electricity_households_100RE_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+
+    # Demand Transport mit Number of EV
+    transport_mit_number_of_evs_2035_ev_count = models.IntegerField(
+        verbose_name=_("Number of electric vehicles"), null=True
+    )
+    transport_mit_number_of_evs_2035_bev_mini = models.IntegerField(verbose_name=_("Number of compact EV"), null=True)
+    transport_mit_number_of_evs_2035_bev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range EV"), null=True
+    )
+    transport_mit_number_of_evs_2035_bev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class EV"), null=True
+    )
+    transport_mit_number_of_evs_2035_phev_mini = models.IntegerField(
+        verbose_name=_("Number of compact PHEV"), null=True
+    )
+    transport_mit_number_of_evs_2035_phev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range PHEV"), null=True
+    )
+    transport_mit_number_of_evs_2035_phev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class PHEV"), null=True
+    )
+
+    transport_mit_number_of_evs_100RE_ev_count = models.IntegerField(
+        verbose_name=_("Number of electric vehicles"), null=True
+    )
+    transport_mit_number_of_evs_100RE_bev_mini = models.IntegerField(verbose_name=_("Number of compact EV"), null=True)
+    transport_mit_number_of_evs_100RE_bev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range EV"), null=True
+    )
+    transport_mit_number_of_evs_100RE_bev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class EV"), null=True
+    )
+    transport_mit_number_of_evs_100RE_phev_mini = models.IntegerField(
+        verbose_name=_("Number of compact PHEV"), null=True
+    )
+    transport_mit_number_of_evs_100RE_phev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range PHEV"), null=True
+    )
+    transport_mit_number_of_evs_100RE_phev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class PHEV"), null=True
+    )
+
+    # Demand Transport mit Number of EV
+    supply_pv_ground_mounted_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_ground_mounted_installed_capacity_2035_unit_count = models.IntegerField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    supply_pv_ground_mounted_installed_capacity_100RE_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_ground_mounted_installed_capacity_100RE_unit_count = models.IntegerField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_file = "MERGED_grid.egon_mv_grid_district"
+    layer = "MEGA_grid.egon_mv_grid_district"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "id": "bus_id",
+        "demand_electricity_households_2035_sum": "demand_electricity_households_2035_sum",
+        "demand_electricity_households_2035_min": "demand_electricity_households_2035_min",
+        "demand_electricity_households_2035_max": "demand_electricity_households_2035_max",
+        "demand_electricity_households_100RE_sum": "demand_electricity_households_100RE_sum",
+        "demand_electricity_households_100RE_min": "demand_electricity_households_100RE_min",
+        "demand_electricity_households_100RE_max": "demand_electricity_households_100RE_max",
+        "transport_mit_number_of_evs_2035_ev_count": "transport_mit_number_of_evs_2035_ev_count",
+        "transport_mit_number_of_evs_2035_bev_mini": "transport_mit_number_of_evs_2035_bev_mini",
+        "transport_mit_number_of_evs_2035_bev_medium": "transport_mit_number_of_evs_2035_bev_medium",
+        "transport_mit_number_of_evs_2035_bev_luxury": "transport_mit_number_of_evs_2035_bev_luxury",
+        "transport_mit_number_of_evs_2035_phev_mini": "transport_mit_number_of_evs_2035_phev_mini",
+        "transport_mit_number_of_evs_2035_phev_medium": "transport_mit_number_of_evs_2035_phev_medium",
+        "transport_mit_number_of_evs_2035_phev_luxury": "transport_mit_number_of_evs_2035_phev_luxury",
+        "transport_mit_number_of_evs_100RE_ev_count": "transport_mit_number_of_evs_100RE_ev_count",
+        "transport_mit_number_of_evs_100RE_bev_mini": "transport_mit_number_of_evs_100RE_bev_mini",
+        "transport_mit_number_of_evs_100RE_bev_medium": "transport_mit_number_of_evs_100RE_bev_medium",
+        "transport_mit_number_of_evs_100RE_bev_luxury": "transport_mit_number_of_evs_100RE_bev_luxury",
+        "transport_mit_number_of_evs_100RE_phev_mini": "transport_mit_number_of_evs_100RE_phev_mini",
+        "transport_mit_number_of_evs_100RE_phev_medium": "transport_mit_number_of_evs_100RE_phev_medium",
+        "transport_mit_number_of_evs_100RE_phev_luxury": "transport_mit_number_of_evs_100RE_phev_luxury",
+        "supply_pv_ground_mounted_installed_capacity_2035_el_capacity": "supply_pv_ground_mounted_installed_capacity"
+        "_2035_el_capacity",
+        "supply_pv_ground_mounted_installed_capacity_2035_unit_count": "supply_pv_ground_mounted_installed_capacity"
+        "_2035_unit_count",
+        "supply_pv_ground_mounted_installed_capacity_100RE_el_capacity": "supply_pv_ground_mounted_installed_capacity"
+        "_100RE_el_capacity",
+        "supply_pv_ground_mounted_installed_capacity_100RE_unit_count": "supply_pv_ground_mounted_installed_capacity"
+        "_100RE_unit_count",
+    }
+
+
+class MapLayer(models.Model):
+    scenario = models.CharField(
+        max_length=5,
+        choices=[("2035", "2035"), ("100RE", "100RE")],
+        default="2035",
+    )
+    layer_identifier = models.CharField(max_length=64)
+    layer_name = models.CharField(max_length=64)
+    choropleth_field = models.CharField(max_length=64)
+    color_palette = models.CharField(max_length=64, null=True, blank=True)
+    num_colors = models.IntegerField(null=True, blank=True)
+    popup_fields = ArrayField(models.CharField(max_length=64))
+    popup_title = models.CharField(max_length=64)
+    popup_description = models.CharField(max_length=1024)
+    display_category = models.CharField(
+        max_length=16,
+        choices=[
+            ("demand", _("Demand")),
+            ("supply", _("Supply")),
+            ("grids", _("Grids")),
+            ("data_model", _("Data Model")),
+        ],
+        default="demand",
+    )
+
+    def __str__(self):
+        return self.get_display_category_display() + ": " + self.layer_name + " (" + self.scenario + ")"
+
+    class Meta:
+        verbose_name = _("Map Layer")
+        verbose_name_plural = _("Map Layers")
 
 
 # DATA MODEL
