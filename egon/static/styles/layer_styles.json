@@ -141,7 +141,7 @@
       "text-halo-blur": 1.5
     }
   },
-  "transport_mit_demand": {
+  "transport_mit_number_of_evs_2035_ev_count": {
     "type": "fill",
     "paint": {
       "fill-color": [

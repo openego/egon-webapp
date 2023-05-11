@@ -286,14 +286,20 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("station", "images/icons/station.png"),
 ]
 MAP_ENGINE_CHOROPLETHS = [
-    setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
     setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
+    setup.Choropleth("supply_pv_ground_mounted_installed_capacity_2035_el_capacity", layers=["mv_grid_district_data"]),
+    setup.Choropleth("supply_pv_ground_mounted_installed_capacity_2035_el_capacity", layers=["mv_grid_district_data"]),
+    setup.Choropleth("transport_mit_number_of_evs_2035_ev_count", layers=["mv_grid_district_data"]),
     setup.Choropleth("supply_pv_ground_mounted_installed_capacity_2035_el_capacity", layers=["mv_grid_district_data"]),
 ]
 
 MAP_ENGINE_POPUPS = [
     setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"]),
-    setup.Popup("mv_grid_district_data", False, ["supply_pv_ground_mounted_installed_capacity_2035_el_capacity"]),
+    setup.Popup(
+        "mv_grid_district_data",
+        False,
+        ["supply_pv_ground_mounted_installed_capacity_2035_el_capacity", "transport_mit_number_of_evs_2035_ev_count"],
+    ),
 ]
 
 # Your stuff...

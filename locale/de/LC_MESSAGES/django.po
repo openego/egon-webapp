@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-14 07:05+0000\n"
+"POT-Creation-Date: 2023-05-09 12:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,83 +26,203 @@ msgstr "Englisch"
 msgid "German"
 msgstr "Deutsch"
 
-#: egon/map/map_config.py:8
-msgid "CTS"
-msgstr "GHD"
-
 #: egon/map/map_config.py:9
-msgid "Households"
+#, fuzzy
+#| msgid "Households"
+msgid "Electricity Households"
 msgstr "Haushalte"
 
-#: egon/map/map_config.py:10
-msgid "Heating Households and CTS"
-msgstr "Wärme Haushalte und GHD"
+#: egon/map/map_config.py:10 egon/map/models.py:262
+msgid "Transport MIT Demand"
+msgstr ""
 
-#: egon/map/map_config.py:13
+#: egon/map/map_config.py:12
+msgid "Ground mounted PV"
+msgstr ""
+
+#: egon/map/map_config.py:17
 msgid "Biomasse"
 msgstr "Biomasse"
 
-#: egon/map/map_config.py:14
+#: egon/map/map_config.py:18
 msgid "Hydro"
 msgstr "Wasserkraft"
 
-#: egon/map/map_config.py:15
+#: egon/map/map_config.py:19
 msgid "Wind Onshore"
 msgstr "Windkraft (onshore)"
 
-#: egon/map/map_config.py:16
+#: egon/map/map_config.py:20
 msgid "Solar"
 msgstr "Solar"
 
-#: egon/map/map_config.py:17
+#: egon/map/map_config.py:21
 msgid "Potential Wind"
 msgstr "Windkraft-Potential"
 
-#: egon/map/map_config.py:18
+#: egon/map/map_config.py:22
 msgid "Potential PV"
 msgstr "PV-Potential"
 
-#: egon/map/map_config.py:21
+#: egon/map/map_config.py:25
 msgid "EHV Line"
 msgstr "Höchstspannungsleitungen (EHV)"
 
-#: egon/map/map_config.py:22
+#: egon/map/map_config.py:26
 msgid "HV Line"
 msgstr "Hochspannungsleitung (HV)"
 
-#: egon/map/map_config.py:23
+#: egon/map/map_config.py:27
 msgid "EHV/HV Stations"
 msgstr "EHV/HV Umspannwerk"
 
-#: egon/map/map_config.py:24
+#: egon/map/map_config.py:28
 msgid "HV/MV Stations"
 msgstr "HV/MW Umspannwerk"
 
-#: egon/map/map_config.py:27
+#: egon/map/map_config.py:31
 msgid "MV Grid Districts"
 msgstr "Mittelspannungsnetzbereiche"
 
-#: egon/map/models.py:28
+#: egon/map/map_config.py:32
+msgid "MV Grid District Data"
+msgstr "Mittelspannungsnetzbereiche Daten"
+
+#: egon/map/map_config.py:33
+msgid "Municipalities"
+msgstr "Gemeinden"
+
+#: egon/map/map_config.py:34
+msgid "Districts"
+msgstr "Kreise"
+
+#: egon/map/map_config.py:35
+msgid "States"
+msgstr "Bundesländer"
+
+#: egon/map/models.py:29
 msgid "Country"
 msgstr "Land"
 
-#: egon/map/models.py:29
+#: egon/map/models.py:30
 msgid "State"
 msgstr "Bundesland"
 
-#: egon/map/models.py:30
+#: egon/map/models.py:31
 msgid "District"
 msgstr "Kreis"
 
-#: egon/map/models.py:31
+#: egon/map/models.py:32
 msgid "Municipality"
 msgstr "Gemeinde"
+
+#: egon/map/models.py:94 egon/map/models.py:98
+msgid "Annual Demand (MWh)"
+msgstr "Jährlicher Verbrauch (MWh)"
+
+#: egon/map/models.py:95 egon/map/models.py:99
+msgid "Minimal hourly demand (MW)"
+msgstr ""
+
+#: egon/map/models.py:96 egon/map/models.py:100
+msgid "Maximal hourly demand (MW)"
+msgstr ""
+
+#: egon/map/models.py:104 egon/map/models.py:124
+msgid "Number of electric vehicles"
+msgstr "Anzahl elektrischer Fahrzeuge"
+
+#: egon/map/models.py:106 egon/map/models.py:126
+msgid "Number of compact EV"
+msgstr "Anzahl elektrische Fahrzeuge Kompaktklasse"
+
+#: egon/map/models.py:108 egon/map/models.py:128
+msgid "Number of mid-range EV"
+msgstr ""
+
+#: egon/map/models.py:111 egon/map/models.py:131
+msgid "Number of luxury-class EV"
+msgstr ""
+
+#: egon/map/models.py:114 egon/map/models.py:134
+msgid "Number of compact PHEV"
+msgstr ""
+
+#: egon/map/models.py:117 egon/map/models.py:137
+msgid "Number of mid-range PHEV"
+msgstr ""
+
+#: egon/map/models.py:120 egon/map/models.py:140
+msgid "Number of luxury-class PHEV"
+msgstr ""
+
+#: egon/map/models.py:145 egon/map/models.py:152
+msgid "Installed capacity (MW)"
+msgstr ""
+
+#: egon/map/models.py:148 egon/map/models.py:155
+msgid "Number of power plants"
+msgstr ""
+
+#: egon/map/models.py:214
+msgid "Demand"
+msgstr "Nachfrage"
+
+#: egon/map/models.py:215
+msgid "Supply"
+msgstr "Erzeugung"
+
+#: egon/map/models.py:216
+msgid "Grids"
+msgstr "Netz"
+
+#: egon/map/models.py:217
+msgid "Data Model"
+msgstr "Datenmodell"
+
+#: egon/map/models.py:226
+msgid "Map Layer"
+msgstr ""
+
+#: egon/map/models.py:227
+msgid "Map Layers"
+msgstr ""
+
+#: egon/map/models.py:245
+msgid "Annual Demand (in MWh)"
+msgstr ""
+
+#: egon/map/models.py:246 egon/map/models.py:269
+msgid "Minimal value (in MWh)"
+msgstr ""
+
+#: egon/map/models.py:247 egon/map/models.py:270
+msgid "Maximal value (in MWh)"
+msgstr ""
+
+#: egon/map/models.py:263
+msgid "Transport MIT Demands"
+msgstr ""
+
+#: egon/map/models.py:268
+msgid "Sum (in MWh)"
+msgstr ""
+
+#: egon/map/models.py:283
+msgid "Nachfrage Demand Household"
+msgstr "Haushalte"
+
+#: egon/map/models.py:284
+#, fuzzy
+#| msgid "Households"
+msgid "Demands Household"
+msgstr "Haushalte"
 
 #: egon/templates/canvases/map.html:10
 msgid "About"
 msgstr "Über uns"
 
-#: egon/templates/canvases/map.html:13 egon/templates/canvases/panel.html:72
+#: egon/templates/canvases/map.html:13 egon/templates/canvases/panel.html:71
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -114,10 +234,10 @@ msgstr "Szenarien"
 msgid "Results"
 msgstr "Ergebnisse"
 
-#: egon/templates/canvases/panel.html:75
+#: egon/templates/canvases/panel.html:74
 msgid "Imprint"
 msgstr "Impressum"
 
-#: egon/templates/canvases/panel.html:78
+#: egon/templates/canvases/panel.html:77
 msgid "Data Privacy"
 msgstr "Datenschutzhinweise"

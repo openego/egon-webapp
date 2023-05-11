@@ -119,7 +119,6 @@ class MVGridDistrictData(models.Model):
     transport_mit_number_of_evs_2035_phev_luxury = models.IntegerField(
         verbose_name=_("Number of luxury-class PHEV"), null=True
     )
-
     transport_mit_number_of_evs_100RE_ev_count = models.IntegerField(
         verbose_name=_("Number of electric vehicles"), null=True
     )

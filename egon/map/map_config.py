@@ -5,11 +5,10 @@ from django_mapengine import legend
 
 LEGEND = {
     "demand": [
-        legend.LegendLayer(_("Electricity Households"), "", layer_id="egon_demand_electricity_household_2035"),
-        legend.LegendLayer(_("Transport MIT Demand"), "", layer_id="transport_mit_demand"),
         legend.LegendLayer(
-            _("Ground mounted PV"), "", layer_id="supply_pv_ground_mounted_installed_capacity_2035_el_capacity"
+            _("Electricity Households"), "Descriptions", layer_id="egon_demand_electricity_household_2035"
         ),
+        legend.LegendLayer(_("Number of electric vehicles"), "", layer_id="transport_mit_number_of_evs_2035_ev_count"),
     ],
     "generation": [
         legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),
