@@ -53,6 +53,8 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
         Name is used to lookup data and chart functions
     region: int
         ID of region selected on map. Data and chart for popup is calculated for related region.
+    scenario: int
+        Name of the current scenario
 
     Returns
     -------
@@ -74,7 +76,7 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
             data_verbose[verbose_name] = value
         data["data"] = data_verbose
     else:
-        map_layer = MapLayer.objects.get(layer_identifier=lookup)
+        map_layer = MapLayer.objects.get(layer_identifier=lookup, scenario="2035")
         data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
         raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
@@ -119,7 +121,7 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
         queryset = model.objects.values(model.geom_data_field, model.choropleth_data_field)
         values = {val[model.geom_data_field]: val[model.choropleth_data_field] for val in queryset}
     else:
-        choropleth_data_field = MapLayer.objects.get(layer_identifier=lookup).choropleth_field
+        choropleth_data_field = MapLayer.objects.get(layer_identifier=lookup, scenario="2035").choropleth_field
         queryset = MVGridDistrictData.objects.values("id", choropleth_data_field)
         values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
