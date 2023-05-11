@@ -141,7 +141,7 @@
       "text-halo-blur": 1.5
     }
   },
-  "transport_mit_number_of_evs_2035_ev_count": {
+  "transport_mit_number_of_evs_ev_count": {
     "type": "fill",
     "paint": {
       "fill-color": [
@@ -160,7 +160,7 @@
       "fill-opacity": 0.8
     }
   },
-  "supply_pv_ground_mounted_installed_capacity_2035_el_capacity": {
+  "supply_pv_ground_mounted_installed_capacity_el_capacity": {
     "type": "fill",
     "paint": {
       "fill-color": [

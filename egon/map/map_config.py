@@ -8,7 +8,7 @@ LEGEND = {
         legend.LegendLayer(
             _("Electricity Households"), "Descriptions", layer_id="egon_demand_electricity_household_2035"
         ),
-        legend.LegendLayer(_("Number of electric vehicles"), "", layer_id="transport_mit_number_of_evs_2035_ev_count"),
+        legend.LegendLayer(_("Number of electric vehicles"), "", layer_id="transport_mit_number_of_evs_ev_count"),
     ],
     "generation": [
         legend.LegendLayer(_("Biomasse"), "", layer_id="supply_biomass"),
@@ -17,6 +17,9 @@ LEGEND = {
         legend.LegendLayer(_("Solar"), "", layer_id="supply_solar"),
         legend.LegendLayer(_("Potential Wind"), "", layer_id="potential_wind"),
         legend.LegendLayer(_("Potential PV"), "", layer_id="potential_pv"),
+        legend.LegendLayer(
+            _("Ground Mounted PV"), "", layer_id="supply_pv_ground_mounted_installed_capacity_el_capacity"
+        ),
     ],
     "grid": [
         legend.LegendLayer(_("EHV Line"), "", layer_id="ehv_line"),
