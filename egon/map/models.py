@@ -5,7 +5,7 @@ from django.contrib.gis.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
 
-from .managers import CenterMVTManager, LabelMVTManager, MVTManager, RegionMVTManager
+from .managers import LabelMVTManager, MVTManager, RegionMVTManager
 
 
 class LayerFilterType(Enum):
@@ -225,63 +225,6 @@ class MapLayer(models.Model):
     class Meta:
         verbose_name = _("Map Layer")
         verbose_name_plural = _("Map Layers")
-
-
-# DATA MODEL
-class MVGridDistricts(models.Model):
-    geom = models.MultiPolygonField(srid=4326)
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id"])
-
-    data_folder = "4_Data_model"
-    data_file = "grid.egon_mv_grid_district"
-    layer = "mv_grid_district"
-    mapping = {"geom": "MULTIPOLYGON", "id": "bus_id"}
-
-
-class TransportMitDemand(models.Model):
-    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
-    annual_demand = models.FloatField(verbose_name=_("Annual Demand (in MWh)"))
-    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
-    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
-
-    choropleth_data_field = "annual_demand"
-    geom_data_field = "mv_grid_district"
-    popup_fields = ("annual_demand", "min", "max")
-    layer = "transport_mit_demand"
-    data_file = "demand.transport_mit_demand"
-
-    objects = models.Manager()
-    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
-
-    data_folder = "1_Demand"
-    data_file = "egon2035.demand.transport_mit_demand"
-
-    class Meta:
-        verbose_name = _("Transport MIT Demand")
-        verbose_name_plural = _("Transport MIT Demands")
-
-
-class DemandHousehold(models.Model):
-    mv_grid_district = models.ForeignKey(MVGridDistricts, on_delete=models.CASCADE)
-    sum = models.FloatField(verbose_name=_("Sum (in MWh)"))
-    min = models.FloatField(verbose_name=_("Minimal value (in MWh)"))
-    max = models.FloatField(verbose_name=_("Maximal value (in MWh)"))
-
-    choropleth_data_field = "sum"
-    geom_data_field = "mv_grid_district"
-    popup_fields = ("sum", "min", "max")
-    layer = "egon_demand_electricity_household_2035"
-    data_folder = "1_Demand"
-    data_file = "egon2035.demand.electricity_households"
-
-    objects = models.Manager()
-    vector_tiles = CenterMVTManager(columns=["id", "lat", "lon"])
-
-    class Meta:
-        verbose_name = _("Demand Household")
-        verbose_name_plural = _("Demands Household")
 
 
 class SupplyModel(models.Model):

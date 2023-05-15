@@ -27,8 +27,8 @@ class MapGLView(TemplateView, views.MapEngineMixin):
 
         # Categorize sources
         context["layers"] = (
-            MapLayer.objects.all()
-            .values("category", "name", "identifier", "geom_layer", "description")
+            MapLayer.objects.all().values("category", "name", "identifier", "geom_layer", "description")
+            # needs to be ordered by category for "regroup" (in template)
             .order_by("category")
         )
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
