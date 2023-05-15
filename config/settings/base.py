@@ -237,13 +237,12 @@ MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
 MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
-MAP_ENGINE_MIN_ZOOM = 5
+MAP_ENGINE_MIN_ZOOM = 4
+
+# needs to be empty to disable centration- and moveto-behavior onclick
 MAP_ENGINE_ZOOM_LEVELS = {}
 
 MAP_ENGINE_API_MVTS = {
-    "mv_grid_districts": [
-        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
-    ],
     "mv_grid_district_data": [
         setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
     ],
@@ -286,13 +285,11 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("station", "images/icons/station.png"),
 ]
 MAP_ENGINE_CHOROPLETHS = [
-    setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
     setup.Choropleth("supply_pv_ground_mounted_installed_capacity_el_capacity", layers=["mv_grid_district_data"]),
     setup.Choropleth("transport_mit_number_of_evs_ev_count", layers=["mv_grid_district_data"]),
 ]
 
 MAP_ENGINE_POPUPS = [
-    setup.Popup("mv_grid_districts", False, ["egon_demand_electricity_household_2035"]),
     setup.Popup(
         "mv_grid_district_data",
         False,

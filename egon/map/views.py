@@ -9,10 +9,8 @@ from django_mapengine import views
 
 from config.settings.base import PASSWORD, PASSWORD_PROTECTION
 
-from . import map_config
-from .config import SOURCES, STORE_COLD_INIT, STORE_HOT_INIT
-from .forms import StaticLayerForm
-from .models import DemandHousehold, MapLayer, MVGridDistrictData, TransportMitDemand
+from .config import STORE_COLD_INIT, STORE_HOT_INIT
+from .models import MapLayer, MVGridDistrictData
 
 
 class MapGLView(TemplateView, views.MapEngineMixin):
@@ -20,9 +18,6 @@ class MapGLView(TemplateView, views.MapEngineMixin):
     extra_context = {
         "password_protected": PASSWORD_PROTECTION,
         "password": PASSWORD,
-        "area_switches": {
-            category: [StaticLayerForm(layer) for layer in layers] for category, layers in map_config.LEGEND.items()
-        },
         "store_hot_init": STORE_HOT_INIT,
     }
 
@@ -31,12 +26,11 @@ class MapGLView(TemplateView, views.MapEngineMixin):
         context = super().get_context_data(**kwargs)
 
         # Categorize sources
-        categorized_sources = {
-            category: [SOURCES[layer.get_layer_id()] for layer in layers if layer.get_layer_id() in SOURCES]
-            for category, layers in map_config.LEGEND.items()
-        }
-        context["sources"] = categorized_sources
-
+        context["layers"] = (
+            MapLayer.objects.all()
+            .values("category", "name", "identifier", "geom_layer", "description")
+            .order_by("category")
+        )
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 
         return context
@@ -62,34 +56,20 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
         containing HTML to render popup and chart options to be used in E-Chart.
     """
     # data = calculations.create_data(lookup, region)
-    if lookup in LOOKUPS:
-        model = LOOKUPS[lookup]
-        data = {"title": model._meta.verbose_name}
-        raw_data = model.objects.filter(mv_grid_district=region).values(*model.popup_fields)[0]
+    map_layer = MapLayer.objects.get(identifier=lookup, scenario="2035")
+    data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
+    raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
-        # Get the model's verbose field names
-        verbose_field_names = {field.name: field.verbose_name for field in model._meta.get_fields()}
-        # Replace field names in data with verbose names
-        data_verbose = {}
-        for field_name, value in raw_data.items():
-            verbose_name = verbose_field_names.get(field_name, field_name)
-            data_verbose[verbose_name] = value
-        data["data"] = data_verbose
-    else:
-        map_layer = MapLayer.objects.get(layer_identifier=lookup, scenario="2035")
-        data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
-        raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
-
-        # Get the model's verbose field names
-        verbose_field_names = {field.name: field.verbose_name for field in MVGridDistrictData._meta.get_fields()}
-        # Replace field names in data with verbose names
-        data_verbose = {}
-        for field_name, value in raw_data.items():
-            verbose_name = verbose_field_names.get(field_name, field_name)
-            if type(value) == float:
-                value = round(value, 2)
-            data_verbose[verbose_name] = value
-        data["data"] = data_verbose
+    # Get the model's verbose field names
+    verbose_field_names = {field.name: field.verbose_name for field in MVGridDistrictData._meta.get_fields()}
+    # Replace field names in data with verbose names
+    data_verbose = {}
+    for field_name, value in raw_data.items():
+        verbose_name = verbose_field_names.get(field_name, field_name)
+        if type(value) == float:
+            value = round(value, 2)
+        data_verbose[verbose_name] = value
+    data["data"] = data_verbose
 
     try:
         html = render_to_string(f"popups/{lookup}.html", context=data)
@@ -116,20 +96,10 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     JsonResponse
         Containing key-value pairs of municipality_ids and values and related color style
     """
-    if lookup in LOOKUPS:
-        model = LOOKUPS[lookup]
-        queryset = model.objects.values(model.geom_data_field, model.choropleth_data_field)
-        values = {val[model.geom_data_field]: val[model.choropleth_data_field] for val in queryset}
-    else:
-        choropleth_data_field = MapLayer.objects.get(layer_identifier=lookup, scenario="2035").choropleth_field
-        queryset = MVGridDistrictData.objects.values("id", choropleth_data_field)
-        values = {val["id"]: val[choropleth_data_field] for val in queryset}
+    map_layer = MapLayer.objects.get(identifier=lookup, scenario="2035")
+    choropleth_data_field = map_layer.choropleth_field
+    queryset = MVGridDistrictData.objects.values("id", choropleth_data_field)
+    values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
     return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})
-
-
-LOOKUPS: dict[str, str] = {
-    "transport_mit_demand": TransportMitDemand,
-    "egon_demand_electricity_household_2035": DemandHousehold,
-}

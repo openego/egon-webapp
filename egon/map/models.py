@@ -199,21 +199,22 @@ class MapLayer(models.Model):
         choices=[("2035", "2035"), ("100RE", "100RE")],
         default="2035",
     )
-    layer_identifier = models.CharField(max_length=64)
-    layer_name = models.CharField(max_length=64)
-    choropleth_field = models.CharField(max_length=64)
-    color_palette = models.CharField(max_length=64, null=True, blank=True)
-    num_colors = models.IntegerField(null=True, blank=True)
-    popup_fields = ArrayField(models.CharField(max_length=64))
-    popup_title = models.CharField(max_length=64)
-    popup_description = models.CharField(max_length=1024)
-    display_category = models.CharField(
+    identifier = models.CharField(max_length=64)
+    layer_style = models.JSONField(null=True, blank=True)
+    geom_layer = models.CharField(max_length=64, blank=True, null=True)
+    name = models.CharField(max_length=64)
+    description = models.CharField(max_length=256, blank=True, null=True)
+    choropleth_field = models.CharField(max_length=64, blank=True, null=True)
+    popup_fields = ArrayField(models.CharField(max_length=64), null=True, blank=True)
+    popup_title = models.CharField(max_length=64, null=True, blank=True)
+    popup_description = models.CharField(max_length=1024, null=True, blank=True)
+    category = models.CharField(
         max_length=16,
         choices=[
             ("demand", _("Demand")),
             ("supply", _("Supply")),
             ("grids", _("Grids")),
-            ("data_model", _("Data Model")),
+            ("model", _("Data Model")),
         ],
         default="demand",
     )
@@ -341,6 +342,8 @@ class SupplyPotentialPVGround(SupplyPotentialModel):
 
 
 class SupplyPotentialWind(SupplyPotentialModel):
+    geom_data_field = "geom"
+    choropleth_data_field = ""
     data_file = "egon_supply_re_potential_areas_wind"
     layer = "egon_supply_re_potential_areas_wind"
 
