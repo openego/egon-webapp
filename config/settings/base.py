@@ -241,6 +241,12 @@ MAP_ENGINE_MIN_ZOOM = 5
 MAP_ENGINE_ZOOM_LEVELS = {}
 
 MAP_ENGINE_API_MVTS = {
+    "mv_grid_districts": [
+        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
+    ],
+    "mv_grid_district_data": [
+        setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
+    ],
     "static": [
         setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
@@ -259,13 +265,7 @@ MAP_ENGINE_API_MVTS = {
     ],
     "municipality": [
         setup.MVTAPI("municipality", "map", "Municipality"),
-        # setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
-    ],
-    "mv_grid_districts": [
-        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
-    ],
-    "mv_grid_district_data": [
-        setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
+        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
     ],
 }
 

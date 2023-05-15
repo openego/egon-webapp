@@ -117,6 +117,56 @@
       ],
       "text-radial-offset": 2,
       "text-field": "{name}",
+      "text-size": {
+            "stops": [
+                [0, 0],
+                [7, 0],
+                [8, 12],
+                [10, 14]
+
+            ]
+        },
+      "text-font": [
+        "Flexo Medium"
+      ],
+      "text-letter-spacing": 0.04
+    },
+    "paint": {
+      "text-color": [
+        "case",
+        [
+          "boolean",
+          [
+            "feature-state",
+            "hover"
+          ],
+          false
+        ],
+        "#222222",
+        "#000000"
+      ],
+      "text-halo-color": "hsl(0, 0%, 100%)",
+      "text-halo-width": 0.85,
+      "text-halo-blur": 1.5
+    }
+  },
+  "municipalitylabel": {
+    "type": "symbol",
+    "layout": {
+      "text-variable-anchor": [
+        "center",
+        "top"
+      ],
+      "text-radial-offset": 2,
+      "text-field": "{name}",
+      "text-size": {
+            "stops": [
+                [0, 0],
+                [9, 0],
+                [11, 14]
+
+            ]
+        },
       "text-font": [
         "Flexo Medium"
       ],
