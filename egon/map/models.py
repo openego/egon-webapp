@@ -200,11 +200,12 @@ class MapLayer(models.Model):
         default="2035",
     )
     identifier = models.CharField(max_length=64)
-    layer_style = models.JSONField(null=True, blank=True)
     geom_layer = models.CharField(max_length=64, blank=True, null=True)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=256, blank=True, null=True)
     choropleth_field = models.CharField(max_length=64, blank=True, null=True)
+    choropleth_color_palette = models.CharField(max_length=64, default="YlGnBu")
+    choropleth_num_colors = models.IntegerField(default=6, null=True, blank=True)
     popup_fields = ArrayField(models.CharField(max_length=64), null=True, blank=True)
     popup_title = models.CharField(max_length=64, null=True, blank=True)
     popup_description = models.CharField(max_length=1024, null=True, blank=True)
@@ -218,9 +219,12 @@ class MapLayer(models.Model):
         ],
         default="demand",
     )
+    sub_category = models.CharField(
+        max_length=64, null=True, blank=True, help_text="Create subcategories for the display in the frontend."
+    )
 
     def __str__(self):
-        return self.get_display_category_display() + ": " + self.layer_name + " (" + self.scenario + ")"
+        return self.get_category_display() + ": " + self.name + " (" + self.scenario + ")"
 
     class Meta:
         verbose_name = _("Map Layer")

@@ -287,13 +287,18 @@ MAP_ENGINE_IMAGES = [
 MAP_ENGINE_CHOROPLETHS = [
     setup.Choropleth("supply_pv_ground_mounted_installed_capacity_el_capacity", layers=["mv_grid_district_data"]),
     setup.Choropleth("transport_mit_number_of_evs_ev_count", layers=["mv_grid_district_data"]),
+    setup.Choropleth("demand_electricity_households_2035_sum", layers=["mv_grid_district_data"]),
 ]
 
 MAP_ENGINE_POPUPS = [
     setup.Popup(
         "mv_grid_district_data",
         False,
-        ["supply_pv_ground_mounted_installed_capacity_el_capacity", "transport_mit_number_of_evs_ev_count"],
+        [
+            "supply_pv_ground_mounted_installed_capacity_el_capacity",
+            "transport_mit_number_of_evs_ev_count",
+            "demand_electricity_households_2035_sum",
+        ],
     ),
 ]
 

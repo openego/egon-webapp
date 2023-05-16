@@ -27,10 +27,11 @@ class MapGLView(TemplateView, views.MapEngineMixin):
 
         # Categorize sources
         context["layers"] = (
-            MapLayer.objects.all().values("category", "name", "identifier", "geom_layer", "description")
+            MapLayer.objects.all().values("category", "name", "identifier", "geom_layer", "description", "sub_category")
             # needs to be ordered by category for "regroup" (in template)
             .order_by("category")
         )
+        print(context["layers"])
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 
         return context
@@ -102,4 +103,5 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
+    print(fill_color)
     return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})

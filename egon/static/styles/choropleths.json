@@ -3,10 +3,6 @@
     "color_palette": "YlGnBu",
     "num_colors": 6
   },
-  "egon_demand_electricity_household_2035": {
-    "color_palette": "BuPu",
-    "num_colors": 6
-  },
   "supply_pv_ground_mounted_installed_capacity_el_capacity": {
     "color_palette": "BuPu",
     "num_colors": 6
