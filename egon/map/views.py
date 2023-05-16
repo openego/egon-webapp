@@ -29,7 +29,7 @@ class MapGLView(TemplateView, views.MapEngineMixin):
         context["layers"] = (
             MapLayer.objects.all().values("category", "name", "identifier", "geom_layer", "description", "sub_category")
             # needs to be ordered by category for "regroup" (in template)
-            .order_by("category")
+            .order_by("category", "sub_category")
         )
         print(context["layers"])
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)

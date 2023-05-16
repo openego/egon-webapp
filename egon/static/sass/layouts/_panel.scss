@@ -128,7 +128,7 @@
     }
 
     #category-demand-tab::after {
-      @include panel-tab-icons-after("Demand");
+      @include panel-tab-icons-after("Nachfrage");
     }
 
     #category-generation-tab {
@@ -141,7 +141,7 @@
     }
 
     #category-generation-tab::after {
-      @include panel-tab-icons-after("Generation");
+      @include panel-tab-icons-after("Erzeugung");
     }
 
     #category-grid-tab {
@@ -154,7 +154,7 @@
     }
 
     #category-grid-tab::after {
-      @include panel-tab-icons-after("Grids");
+      @include panel-tab-icons-after("Netze");
     }
 
     #category-model-tab {
@@ -167,7 +167,7 @@
     }
 
     #category-model-tab::after {
-      @include panel-tab-icons-after("Data\0000a0model");
+      @include panel-tab-icons-after("Verwaltungsebenen");
     }
   }
 

@@ -245,8 +245,10 @@ MAP_ENGINE_ZOOM_LEVELS = {}
 MAP_ENGINE_API_MVTS = {
     "mv_grid_district_data": [
         setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
+        setup.MVTAPI("mv_grid_district_data_line", "map", "MVGridDistrictData"),
     ],
     "static": [
+        setup.MVTAPI("supply_biomass", "map", "SupplyBiomass"),
         setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
@@ -269,7 +271,6 @@ MAP_ENGINE_API_MVTS = {
 }
 
 MAP_ENGINE_API_CLUSTERS = [
-    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
     setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
     setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
     setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),

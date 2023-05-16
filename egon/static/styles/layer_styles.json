@@ -442,18 +442,16 @@
   "mv_grid_district_data": {
     "type": "fill",
     "paint": {
-      "fill-color": [
-        "step",
-        ["get","area"],
-        "#00eda0", 100000,
-        "#00eda0", 1000000,
-        "#00d976", 10000000,
-        "#001a1c", 100000000,
-        "hsl(348, 100%, 37%)", 1000000000,
-        "#bd0026"
-      ],
-      "fill-opacity": 0.8,
-      "fill-outline-color": "#00ffff"
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "#f03b20"
+    }
+  },
+  "mv_grid_district_data_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgb(115,62,136)",
+      "line-width": [3,0.8]
     }
   },
   "soil_quality": {
