@@ -67,6 +67,9 @@
                         {% for layer in sub_cat.list %}
                           <form class="layers__item static-layer">
                             <div class="name">
+                            <div class="name__visual"
+                                 style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}, {{ layer.colors|last }});{% endif %}">
+                            </div>
                               <span class="name__text" data-source="{{ layer.identifier }}">{{ layer.name }}</span>
                               {% if layer.description %}
                               <span class="name__info has-tip right" aria-haspopup="true" data-allow-html="true"
