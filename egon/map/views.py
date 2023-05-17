@@ -56,7 +56,6 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
     JsonResponse
         containing HTML to render popup and chart options to be used in E-Chart.
     """
-    # data = calculations.create_data(lookup, region)
     map_layer = MapLayer.objects.get(identifier=lookup, scenario="2035")
     data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
     raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
@@ -103,5 +102,4 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
-    print(fill_color)
     return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})

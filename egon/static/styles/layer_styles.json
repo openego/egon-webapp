@@ -3,19 +3,22 @@
     "type": "line",
     "paint": {
       "line-color": "rgb(115,62,136)",
-      "line-width": [
-        "case",
-        [
-          "boolean",
-          [
-            "feature-state",
-            "hover"
-          ],
-          false
-        ],
-        3,
-        0.25
-      ]
+      "line-width": [3,0.8]
+    }
+  },
+  "countrylabel": {
+    "type": "symbol",
+    "layout": {
+      "text-variable-anchor": [
+        "center",
+        "top"
+      ],
+      "text-radial-offset": 2,
+      "text-field": "{name}",
+      "text-font": [
+        "Flexo Medium"
+      ],
+      "text-letter-spacing": 0.04
     }
   },
     "state": {
@@ -444,13 +447,13 @@
     "paint": {
       "fill-color": "#ffffff",
       "fill-opacity": 0.3,
-      "fill-outline-color": "#f03b20"
+      "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
   "mv_grid_district_data_line": {
     "type": "line",
     "paint": {
-      "line-color": "rgb(115,62,136)",
+      "line-color": "rgba(115,62,136,0.2)",
       "line-width": [3,0.8]
     }
   },

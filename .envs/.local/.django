@@ -12,7 +12,7 @@ REDIS_URL=redis://redis:6379/0
 # Mapbox
 # ------------------------------------------------------------------------------
 
-TILING_SERVICE_TOKEN=jSyGr8JxIp5azGUcuRcf
-TILING_SERVICE_STYLE_ID=81fd2153-4c08-40a7-a88a-19fcaa985d17
+TILING_SERVICE_TOKEN=GWZONJhjMFBnGpzoP3UY
+TILING_SERVICE_STYLE_ID=50f05aa1-d313-4a6c-b520-22f2d669b543
 
 USE_DISTILLED_MVTS=False

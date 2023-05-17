@@ -248,13 +248,14 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("mv_grid_district_data_line", "map", "MVGridDistrictData"),
     ],
     "static": [
-        setup.MVTAPI("supply_biomass", "map", "SupplyBiomass"),
         setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
         setup.MVTAPI("hv_line", "map", "HVLine"),
+    ],
+    "country": [
         setup.MVTAPI("country", "map", "Country"),
-        # setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
     ],
     "state": [
         setup.MVTAPI("state", "map", "State"),
@@ -271,6 +272,7 @@ MAP_ENGINE_API_MVTS = {
 }
 
 MAP_ENGINE_API_CLUSTERS = [
+    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
     setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
     setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
     setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),
@@ -289,6 +291,7 @@ MAP_ENGINE_CHOROPLETHS = [
     setup.Choropleth("supply_pv_ground_mounted_installed_capacity_el_capacity", layers=["mv_grid_district_data"]),
     setup.Choropleth("transport_mit_number_of_evs_ev_count", layers=["mv_grid_district_data"]),
     setup.Choropleth("demand_electricity_households_2035_sum", layers=["mv_grid_district_data"]),
+    setup.Choropleth("demand_electricity_households_100RE_sum", layers=["mv_grid_district_data"]),
 ]
 
 MAP_ENGINE_POPUPS = [
