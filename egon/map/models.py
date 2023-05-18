@@ -196,7 +196,7 @@ class MVGridDistrictData(models.Model):
 class MapLayer(models.Model):
     scenario = models.CharField(
         max_length=5,
-        choices=[("2035", "2035"), ("100RE", "100RE")],
+        choices=[("2035", "2035"), ("100RE", "100RE"), (_("both"), "both")],
         default="2035",
     )
     identifier = models.CharField(max_length=64)

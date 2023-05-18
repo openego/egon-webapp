@@ -28,12 +28,19 @@ class MapGLView(TemplateView, views.MapEngineMixin):
         # Categorize sources
         context["layers"] = (
             MapLayer.objects.all().values(
-                "category", "name", "identifier", "geom_layer", "description", "sub_category", "colors", "icon"
+                "category",
+                "name",
+                "identifier",
+                "geom_layer",
+                "description",
+                "sub_category",
+                "colors",
+                "icon",
+                "scenario",
             )
-            # needs to be ordered by category for "regroup" (in template)
+            # needs to be ordered by category and subcategory for "regroup" (in template)
             .order_by("category", "sub_category")
         )
-        print(context["layers"])
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 
         return context
@@ -50,15 +57,13 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
         Name is used to lookup data and chart functions
     region: int
         ID of region selected on map. Data and chart for popup is calculated for related region.
-    scenario: int
-        Name of the current scenario
 
     Returns
     -------
     JsonResponse
         containing HTML to render popup and chart options to be used in E-Chart.
     """
-    map_layer = MapLayer.objects.get(identifier=lookup, scenario="2035")
+    map_layer = MapLayer.objects.get(identifier=lookup)
     data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
     raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
@@ -98,7 +103,7 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     JsonResponse
         Containing key-value pairs of municipality_ids and values and related color style
     """
-    map_layer = MapLayer.objects.get(identifier=lookup, scenario="2035")
+    map_layer = MapLayer.objects.get(identifier=lookup)
     choropleth_data_field = map_layer.choropleth_field
     queryset = MVGridDistrictData.objects.values("id", choropleth_data_field)
     values = {val["id"]: val[choropleth_data_field] for val in queryset}

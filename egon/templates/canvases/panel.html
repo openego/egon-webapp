@@ -18,9 +18,9 @@
     </div>
     <div class="panel__tabs">
       <div>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <div class="nav nav-tabs" id="nav-tabMain" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios"
-                  type="button" role="tab" aria-controls="nav-home"
+                  type="button" role="tab" aria-controls="nav-scenarios"
                   aria-selected="true">{% translate "Scenarios" %}</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button"
                   role="tab" aria-controls="nav-profile" aria-selected="false">{% translate "Results" %}</button>
@@ -33,6 +33,9 @@
             <button type="button" class="active" id="2035">eGon2035</button>
             <button type="button" id="100RE">eGon100RE</button>
           </div>
+
+
+
           <div class="category-tabs">
             <ul class="nav nav-pills mb-3" id="category-tab" role="tablist">
               <li class="nav-item" role="presentation">
@@ -65,7 +68,7 @@
                     {% for sub_cat in sub_category_list %}
                       <h5>{{ sub_cat.grouper }}</h5>
                         {% for layer in sub_cat.list %}
-                          <form class="layers__item static-layer">
+                          <form class="layers__item static-layer" data-scenario="{{ layer.scenario }}" {% if layer.scenario == "100RE" %}style="display: none;"{%  endif %}>
                             <div class="name">
                             <div class="name__visual"
                                  style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}, {{ layer.colors|last }});{% endif %}">
@@ -92,11 +95,12 @@
                 </div>
               {% endfor %}
             </div>
-          </div>
-        </div>
-
-      </div>
+          </div></div>
     </div>
+        <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
+          Results....
+        </div>
+      </div>
   </section>
   <footer class="footer">
     <ul>
