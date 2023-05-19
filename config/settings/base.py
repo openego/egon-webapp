@@ -85,6 +85,7 @@ DJANGO_APPS = [
     "django.contrib.admin",
     # "django.contrib.humanize", # Handy template tags
     "django.forms",
+    "django.contrib.gis",
 ]
 
 THIRD_PARTY_APPS = [
@@ -235,9 +236,10 @@ COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"
 MAP_ENGINE_CENTER_AT_STARTUP = [10.407237624103573, 51.22757621251938]
 MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
 MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
+MAP_ENGINE_LAYERS_AT_STARTUP = ["state", "supply_pv_ground_mounted_installed_capacity_2035_el_capacity"]
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
-MAP_ENGINE_MIN_ZOOM = 4
+MAP_ENGINE_MIN_ZOOM = 3
 
 # needs to be empty to disable centration- and moveto-behavior onclick
 MAP_ENGINE_ZOOM_LEVELS = {}
@@ -287,24 +289,11 @@ MAP_ENGINE_IMAGES = [
     setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
-MAP_ENGINE_CHOROPLETHS = [
-    setup.Choropleth("supply_pv_ground_mounted_installed_capacity_2035_el_capacity", layers=["mv_grid_district_data"]),
-    setup.Choropleth("transport_mit_number_of_evs_2035_ev_count", layers=["mv_grid_district_data"]),
-    setup.Choropleth("demand_electricity_households_2035_sum", layers=["mv_grid_district_data"]),
-    setup.Choropleth("demand_electricity_households_100RE_sum", layers=["mv_grid_district_data"]),
-]
 
-MAP_ENGINE_POPUPS = [
-    setup.Popup(
-        "mv_grid_district_data",
-        False,
-        [
-            "supply_pv_ground_mounted_installed_capacity_el_capacity",
-            "transport_mit_number_of_evs_ev_count",
-            "demand_electricity_households_2035_sum",
-        ],
-    ),
-]
+MAP_ENGINE_MAPLAYER_MODEL = "MapLayer"
+# not needed when using MAPLAYER_MODEL
+MAP_ENGINE_CHOROPLETHS = []
+MAP_ENGINE_POPUPS = []
 
 # Your stuff...
 # ------------------------------------------------------------------------------
