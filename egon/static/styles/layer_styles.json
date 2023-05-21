@@ -13,6 +13,7 @@
         "center",
         "top"
       ],
+      "icon-allow-overlap": true,
       "text-radial-offset": 2,
       "text-field": "{name}",
       "text-font": [
@@ -85,6 +86,7 @@
         "center",
         "top"
       ],
+      "icon-allow-overlap": true,
       "text-radial-offset": 2,
       "text-field": "{name}",
       "text-font": [
@@ -118,6 +120,7 @@
         "center",
         "top"
       ],
+      "icon-allow-overlap": true,
       "text-radial-offset": 2,
       "text-field": "{name}",
       "text-size": {
@@ -160,6 +163,7 @@
         "center",
         "top"
       ],
+      "icon-allow-overlap": true,
       "text-radial-offset": 2,
       "text-field": "{name}",
       "text-size": {
@@ -194,36 +198,73 @@
       "text-halo-blur": 1.5
     }
   },
-  "supply_biomass": {
+  "biomass": {
     "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
     "layout": {
       "icon-image": "biomass",
-      "icon-size": 0.5
+      "icon-size": 0.5,
+      "icon-allow-overlap": false
+    },
+    "paint": {
+      "icon-color": "green"
     }
   },
-  "supply_biomass_cluster": {
+  "biomass_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
     "paint": {
-      "circle-color": [
-        "step",
-        ["get", "point_count"],
-        "#51bbd6",
-        100,
-        "#f1f075",
-        750,
-        "#f28cb1"
-      ],
+      "circle-color": "#52C41A",
       "circle-radius": [
         "step",
         ["get", "point_count"],
+        15,
+        125,
         20,
-        100,
-        30,
-        750,
-        40
+        950,
+        25
       ]
     }
   },
-  "supply_biomass_cluster_count": {
+  "biomass_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 11
+    }
+  },
+  "hydro": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "hydro",
+      "icon-size": 0.8,
+      "icon-allow-overlap": false
+    },
+    "paint": {
+      "icon-color": "blue"
+    }
+  },
+  "hydro_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#9CC4D9",
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        15,
+        125,
+        20,
+        950,
+        25
+      ]
+    }
+  },
+  "hydro_cluster_count": {
+    "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
       "text-field": "{point_count_abbreviated}",
@@ -231,73 +272,36 @@
       "text-size": 12
     }
   },
-  "supply_run_of_river": {
+  "wind": {
     "type": "symbol",
-    "layout": {
-      "icon-image": "river",
-      "icon-size": 0.5
-    }
-  },
-  "supply_run_of_river_cluster": {
-    "paint": {
-      "circle-color": [
-        "step",
-        ["get", "point_count"],
-        "#51bbd6",
-        100,
-        "#f1f075",
-        750,
-        "#f28cb1"
-      ],
-      "circle-radius": [
-        "step",
-        ["get", "point_count"],
-        20,
-        100,
-        30,
-        750,
-        40
-      ]
-    }
-  },
-  "supply_run_of_river_cluster_count": {
-    "filter": ["has", "point_count"],
-    "layout": {
-      "text-field": "{point_count_abbreviated}",
-      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-      "text-size": 12
-    }
-  },
-  "supply_wind": {
-    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
     "layout": {
       "icon-image": "wind",
-      "icon-size": 0.5
+      "icon-size": 0.8,
+      "icon-allow-overlap": false
+    },
+    "paint": {
+      "icon-color": "blue"
     }
   },
-  "supply_wind_cluster": {
+  "wind_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
     "paint": {
-      "circle-color": [
-        "step",
-        ["get", "point_count"],
-        "#51bbd6",
-        100,
-        "#f1f075",
-        750,
-        "#f28cb1"
-      ],
+      "circle-color": "#6A89CC",
       "circle-radius": [
         "step",
         ["get", "point_count"],
+        15,
+        125,
         20,
-        100,
-        30,
-        750,
-        40
+        950,
+        25
       ]
     }
   },
-  "supply_wind_cluster_count": {
+  "wind_cluster_count": {
+    "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
       "text-field": "{point_count_abbreviated}",
@@ -305,36 +309,74 @@
       "text-size": 12
     }
   },
-  "supply_solar": {
+  "pvroof": {
     "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
     "layout": {
       "icon-image": "solar",
-      "icon-size": 0.5
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
+    },
+    "paint": {
+      "icon-color": "yellow",
+      "icon-halo-color": "red"
     }
   },
-  "supply_solar_cluster": {
+  "pvroof_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
     "paint": {
-      "circle-color": [
-        "step",
-        ["get", "point_count"],
-        "#51bbd6",
-        100,
-        "#f1f075",
-        750,
-        "#f28cb1"
-      ],
+      "circle-color": "#FFD660",
       "circle-radius": [
         "step",
         ["get", "point_count"],
         20,
-        100,
+        15,
         30,
-        750,
+        50,
         40
       ]
     }
   },
-  "supply_solar_cluster_count": {
+  "pvroof_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "pvground": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "solar",
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
+    },
+    "paint": {
+      "icon-color": "yellow"
+    }
+  },
+  "pvground_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#F6B93B",
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        15,
+        125,
+        20,
+        950,
+        25
+      ]
+    }
+  },
+  "pvground_cluster_count": {
+    "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
       "text-field": "{point_count_abbreviated}",

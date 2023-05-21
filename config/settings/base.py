@@ -236,7 +236,7 @@ COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"
 MAP_ENGINE_CENTER_AT_STARTUP = [10.407237624103573, 51.22757621251938]
 MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
 MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
-MAP_ENGINE_LAYERS_AT_STARTUP = ["state", "supply_pv_ground_mounted_installed_capacity_2035_el_capacity"]
+MAP_ENGINE_LAYERS_AT_STARTUP = []
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 3
@@ -274,10 +274,10 @@ MAP_ENGINE_API_MVTS = {
 }
 
 MAP_ENGINE_API_CLUSTERS = [
-    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
-    setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
-    setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
-    setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),
+    setup.ClusterAPI("biomass", "map", "SupplyBiomass"),
+    setup.ClusterAPI("hydro", "map", "SupplyRunOfRiver"),
+    setup.ClusterAPI("wind", "map", "SupplyWindOnshore"),
+    setup.ClusterAPI("pvground", "map", "SupplySolarGround"),
     setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
     setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
 ]

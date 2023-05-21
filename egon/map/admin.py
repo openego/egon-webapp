@@ -4,7 +4,7 @@ from django.contrib.gis import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from .models import MapLayer, MVGridDistrictData
+from .models import MapLayer, MVGridDistrictData, SupplyRunOfRiver, SupplySolarGround
 
 
 class MVGridDistrictDataResource(resources.ModelResource):
@@ -27,3 +27,5 @@ class MVGridDistrictLayerAdmin(ImportExportModelAdmin):
 
 admin.site.register(MVGridDistrictData, MVGridDistrictDataAdmin)
 admin.site.register(MapLayer, MVGridDistrictLayerAdmin)
+admin.site.register(SupplySolarGround)
+admin.site.register(SupplyRunOfRiver)
