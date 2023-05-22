@@ -499,6 +499,36 @@
       "line-width": [3,0.8]
     }
   },
+  "h2_voronoi": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "h2_voronoi_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgba(115,62,136,0.2)",
+      "line-width": [3,0.8]
+    }
+  },
+  "ch4_voronoi": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "ch4_voronoi_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgba(115,62,136,0.2)",
+      "line-width": [3,0.8]
+    }
+  },
   "soil_quality": {
     "continuous": "True",
     "from": [0, 0, 0],

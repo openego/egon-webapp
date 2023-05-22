@@ -13,6 +13,8 @@ REGIONS = [
 
 MODELS = [
     models.MVGridDistrictData,
+    models.CH4Voronoi,
+    models.H2Voronoi,
     models.SupplyBiomass,
     models.SupplyRunOfRiver,
     models.SupplySolarGround,

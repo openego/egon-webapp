@@ -249,6 +249,14 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
         setup.MVTAPI("mv_grid_district_data_line", "map", "MVGridDistrictData"),
     ],
+    "h2_voronoi": [
+        setup.MVTAPI("h2_voronoi", "map", "H2Voronoi"),
+        setup.MVTAPI("h2_voronoi_line", "map", "H2Voronoi"),
+    ],
+    "ch4_voronoi": [
+        setup.MVTAPI("ch4_voronoi", "map", "CH4Voronoi"),
+        setup.MVTAPI("ch4_voronoi_line", "map", "CH4Voronoi"),
+    ],
     "static": [
         setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
         setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),

@@ -84,6 +84,38 @@ class Municipality(RegionModel):
 
 
 # LAYER
+class CH4Voronoi(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    scn_name = models.CharField(max_length=64)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "scn_name": "scn_name",
+    }
+
+    data_file = "grid.egon_gas_voronoi_ch4"
+    layer = "grid.egon_gas_voronoi_ch4"
+
+
+class H2Voronoi(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    scn_name = models.CharField(max_length=64)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "scn_name": "scn_name",
+    }
+
+    data_file = "grid.egon_gas_voronoi_h2_grid"
+    layer = "grid.egon_gas_voronoi_h2_grid"
 
 
 class MVGridDistrictData(models.Model):
