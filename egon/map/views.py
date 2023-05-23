@@ -64,7 +64,10 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
         containing HTML to render popup and chart options to be used in E-Chart.
     """
     map_layer = MapLayer.objects.get(identifier=lookup)
-    data = {"title": map_layer.popup_title, "description": map_layer.popup_description}
+    data = {
+        "title": map_layer.popup_title or map_layer.name,
+        "description": map_layer.popup_description or map_layer.description or "",
+    }
     raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
     # Get the model's verbose field names

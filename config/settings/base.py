@@ -239,7 +239,7 @@ MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
 MAP_ENGINE_LAYERS_AT_STARTUP = []
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
-MAP_ENGINE_MIN_ZOOM = 3
+MAP_ENGINE_MIN_ZOOM = 2
 
 # needs to be empty to disable centration- and moveto-behavior onclick
 MAP_ENGINE_ZOOM_LEVELS = {}
