@@ -125,7 +125,7 @@ class MVGridDistrictData(models.Model):
     demand_electricity_households_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
     demand_electricity_households_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
     demand_electricity_households_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
-    demand_population_2035_sum = models.FloatField(verbose_name=_(""), null=True)
+    demand_population_2035_sum = models.FloatField(verbose_name=_("Population"), null=True)
     demand_electricity_households_100re_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
     demand_electricity_households_100re_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
     demand_electricity_households_100re_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
@@ -167,50 +167,94 @@ class MVGridDistrictData(models.Model):
     transport_mit_number_of_evs_100re_phev_luxury = models.IntegerField(
         verbose_name=_("Number of luxury-class PHEV"), null=True
     )
-
     supply_pv_ground_mounted_installed_capacity_2035_el_capacity = models.FloatField(
         verbose_name=_("Installed capacity (MW)"), null=True
     )
     supply_pv_ground_mounted_installed_capacity_2035_unit_count = models.IntegerField(
         verbose_name=_("Number of power plants"), null=True
     )
-
     supply_pv_ground_mounted_installed_capacity_100re_el_capacity = models.FloatField(
         verbose_name=_("Installed capacity (MW)"), null=True
     )
     supply_pv_ground_mounted_installed_capacity_100re_unit_count = models.IntegerField(
         verbose_name=_("Number of power plants"), null=True
     )
-    demand_transport_mit_demand_2035_annual_demand = models.FloatField(verbose_name=_(""), null=True)
-    demand_transport_mit_demand_2035_max = models.FloatField(verbose_name=_(""), null=True)
-    demand_transport_mit_demand_2035_min = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_2035_charging_demand = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_2035_flex_demand = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_2035_flex_share = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_biomass_fired_power_plants_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_biomass_fired_power_plants_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_gas_fired_power_plants_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_gas_fired_power_plants_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_hydro_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_hydro_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_other_power_plants_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_other_other_power_plants_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_installed_capacity_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_installed_capacity_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_potential_production_2035_feedin = models.FloatField(verbose_name=_(""), null=True)
-    supply_wind_onshore_installed_capacity_2035_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_wind_onshore_installed_capacity_2035_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    demand_transport_mit_demand_100re_annual_demand = models.FloatField(verbose_name=_(""), null=True)
-    demand_transport_mit_demand_100re_max = models.FloatField(verbose_name=_(""), null=True)
-    demand_transport_mit_demand_100re_min = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_100re_charging_demand = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_100re_flex_demand = models.FloatField(verbose_name=_(""), null=True)
-    flex_pot_electricity_electromobility_100re_flex_share = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_installed_capacity_100re_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_installed_capacity_100re_unit_count = models.FloatField(verbose_name=_(""), null=True)
-    supply_pv_roof_top_potential_production_100re_feedin = models.FloatField(verbose_name=_(""), null=True)
-    supply_wind_onshore_installed_capacity_100re_el_capacity = models.FloatField(verbose_name=_(""), null=True)
-    supply_wind_onshore_installed_capacity_100re_unit_count = models.FloatField(verbose_name=_(""), null=True)
+    demand_transport_mit_demand_2035_annual_demand = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_transport_mit_demand_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_transport_mit_demand_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+    flex_pot_electricity_electromobility_2035_charging_demand = models.FloatField(
+        verbose_name=_("Charging demand (MWh)"), null=True
+    )
+    flex_pot_electricity_electromobility_2035_flex_demand = models.FloatField(
+        verbose_name=_("Flexible demand (MW)"), null=True
+    )
+    flex_pot_electricity_electromobility_2035_flex_share = models.FloatField(
+        verbose_name=_("Share of flexible demand (%)"), null=True
+    )
+    supply_other_biomass_fired_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_biomass_fired_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_other_gas_fired_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_gas_fired_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_other_hydro_2035_el_capacity = models.FloatField(verbose_name=_("Installed capacity (MW)"), null=True)
+    supply_other_hydro_2035_unit_count = models.FloatField(verbose_name=_("Number of power plants"), null=True)
+    supply_other_other_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_other_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_pv_roof_top_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_roof_top_installed_capacity_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_pv_roof_top_potential_production_2035_feedin = models.FloatField(
+        verbose_name=_("Potential production feedin"), null=True
+    )
+    supply_wind_onshore_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_wind_onshore_installed_capacity_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    demand_transport_mit_demand_100re_annual_demand = models.FloatField(
+        verbose_name=_("Annual Demand (MWh)"), null=True
+    )
+    demand_transport_mit_demand_100re_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_transport_mit_demand_100re_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+    flex_pot_electricity_electromobility_100re_charging_demand = models.FloatField(
+        verbose_name=_("Charging demand (MWh)"), null=True
+    )
+    flex_pot_electricity_electromobility_100re_flex_demand = models.FloatField(
+        verbose_name=_("Flexible demand (MW)"), null=True
+    )
+    flex_pot_electricity_electromobility_100re_flex_share = models.FloatField(
+        verbose_name=_("Share of flexible demand (%)"), null=True
+    )
+    supply_pv_roof_top_installed_capacity_100re_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_roof_top_installed_capacity_100re_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_pv_roof_top_potential_production_100re_feedin = models.FloatField(
+        verbose_name=_("Potential production feedin"), null=True
+    )
+    supply_wind_onshore_installed_capacity_100re_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_wind_onshore_installed_capacity_100re_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
