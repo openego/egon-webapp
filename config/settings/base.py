@@ -268,6 +268,9 @@ MAP_ENGINE_API_MVTS = {
     "gas_potential_natural_gas_production": [
         setup.MVTAPI("gas_potential_natural_gas_production", "map", "GasPotentialNaturalGasProduction")
     ],
+    "gas_methane_for_industry": [setup.MVTAPI("gas_methane_for_industry", "map", "GasCH4Industry")],
+    "gas_hydrogen_for_industry": [setup.MVTAPI("gas_hydrogen_for_industry", "map", "GasH2Industry")],
+    "transport_heavy-duty_transport": [setup.MVTAPI("transport_heavy-duty_transport", "map", "TransportHeavyDuty")],
     "static": [
         setup.MVTAPI("wind_onshore_potential_areas", "map", "WindOnshorePotentialArea"),
         setup.MVTAPI("pv_ground-mounted_potential_areas_agriculture", "map", "PVGroundMountedPotentialAreaAgriculture"),

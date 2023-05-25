@@ -1,5 +1,6 @@
 import json
 
+from django.apps import apps
 from django.conf import settings
 from django.http import HttpRequest, response
 from django.template.exceptions import TemplateDoesNotExist
@@ -68,7 +69,8 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
         "title": map_layer.popup_title or map_layer.name,
         "description": map_layer.popup_description or map_layer.description or "",
     }
-    raw_data = MVGridDistrictData.objects.filter(id=region).values(*map_layer.popup_fields)[0]
+    data_model = apps.get_model(app_label="map", model_name=map_layer.data_model)
+    raw_data = data_model.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
     # Get the model's verbose field names
     verbose_field_names = {field.name: field.verbose_name for field in MVGridDistrictData._meta.get_fields()}
@@ -107,8 +109,9 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
         Containing key-value pairs of municipality_ids and values and related color style
     """
     map_layer = MapLayer.objects.get(identifier=lookup)
+    data_model = apps.get_model(app_label="map", model_name=map_layer.data_model)
     choropleth_data_field = map_layer.choropleth_field
-    queryset = MVGridDistrictData.objects.values("id", choropleth_data_field)
+    queryset = data_model.objects.values("id", choropleth_data_field)
     values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))

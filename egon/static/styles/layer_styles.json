@@ -638,5 +638,29 @@
     "continuous": "True",
     "from": [0, 0, 0],
     "to": [200, 140, 0]
+  },
+  "transport_heavy-duty_transport": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "gas_methane_for_industry": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "gas_hydrogen_for_industry": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
   }
 }

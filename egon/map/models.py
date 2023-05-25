@@ -137,6 +137,7 @@ class MapLayer(models.Model):
     sub_category = models.CharField(
         max_length=64, null=True, blank=True, help_text="The sub-category for the display in the frontend."
     )
+    data_model = models.CharField(max_length=64, help_text="The name of the model that holds the data.")
 
     data_file = "maplayer"
 
@@ -322,7 +323,7 @@ class MVGridDistrictData(models.Model):
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
 
-    data_folder = "4_Data_model"
+    data_folder = "5_Data_model"
     data_file = "2023-05-16_grid.egon_mv_grid_district"
     layer = "NEWEST_MEGA_grid.egon_mv_grid_district"
     mapping = {
@@ -410,7 +411,7 @@ class GasPotentialBiogasProduction(SupplyPotentialModel):
 
 
 class GasPotentialNaturalGasProduction(SupplyPotentialModel):
-    p_nom = models.FloatField(verbose_name=_("P nom"), null=True)
+    p_nom = models.FloatField(verbose_name=_("P nom (MWh)"), null=True)
     data_file = "egon2035.supply.gas_potential_natural_gas_production_"
     layer = data_file
     mapping = {
