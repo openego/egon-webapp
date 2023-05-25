@@ -13,6 +13,9 @@ load_data:
 load_raster:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.load_raster()"
 
+load_csv:
+	python manage.py shell --command="from egon.utils import data_processing; data_processing.load_csv()"
+
 build_clusters:
 	python manage.py shell --command="from egon.utils import data_processing; data_processing.build_cluster_geojson()"
 

@@ -20,8 +20,6 @@ class LayerFilter:
 
 
 # REGIONS
-
-
 class Region(models.Model):
     """Base class for all regions - works as connector to other models"""
 
@@ -84,38 +82,103 @@ class Municipality(RegionModel):
 
 
 # LAYER
-class CH4Voronoi(models.Model):
-    geom = models.MultiPolygonField(srid=4326, null=True)
-    scn_name = models.CharField(max_length=64)
+class MapLayer(models.Model):
+    scenario = models.CharField(
+        max_length=5,
+        choices=[("2035", "2035"), ("100RE", "100RE"), (_("both"), "both")],
+        help_text="Identifies the scenario. Use 'both' if there is no difference.",
+    )
+    identifier = models.CharField(
+        max_length=64, help_text="Only used internally to be able to activte layer with javascript."
+    )
+    geom_layer = models.CharField(
+        max_length=64, blank=True, null=True, help_text="The identifier of the layer that holds the geom."
+    )
+    name = models.CharField(max_length=64, help_text="The name used for display in the frontend.")
+    description = models.CharField(
+        max_length=256,
+        blank=True,
+        null=True,
+        help_text="The description that can be found in the frontend, when clicking on the info-icon.",
+    )
+    colors = ArrayField(
+        models.CharField(max_length=64),
+        null=True,
+        blank=True,
+        help_text="One ore multiple (for choropleths) colors for the display in the frontend.",
+    )
+    icon = models.CharField(max_length=32, null=True, blank=True, help_text="If an icon should be displayed.")
+    choropleth_field = models.CharField(
+        max_length=64, blank=True, null=True, help_text="The field that holds the data for the choropleth."
+    )
+    popup_fields = ArrayField(
+        models.CharField(max_length=64),
+        null=True,
+        blank=True,
+        help_text="The comma-seperated field(s), that should be displayed inside the popup.",
+    )
+    popup_title = models.CharField(
+        max_length=64, null=True, blank=True, help_text="The title of the popup. Defaults to 'name'."
+    )
+    popup_description = models.CharField(
+        max_length=1024, null=True, blank=True, help_text="The description of the popup. Defaults to 'description'."
+    )
+    category = models.CharField(
+        max_length=16,
+        choices=[
+            ("demand", _("Demand")),
+            ("supply", _("Supply")),
+            ("grids", _("Grids")),
+            ("model", _("Data Model")),
+        ],
+        default="demand",
+        help_text="The main category in the left panel in the frontend.",
+    )
+    sub_category = models.CharField(
+        max_length=64, null=True, blank=True, help_text="The sub-category for the display in the frontend."
+    )
+
+    data_file = "maplayer"
+
+    def __str__(self):
+        return self.get_category_display() + ": " + self.name + " (" + self.scenario + ")"
+
+    class Meta:
+        verbose_name = _("Map Layer")
+        verbose_name_plural = _("Map Layers")
+
+
+# DEMAND
+class DemandModel(models.Model):
+    geom = models.MultiPolygonField(srid=4326)
+    annual_demand = models.FloatField(null=True)
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
 
-    data_folder = "3_Power_and_gas_grids"
+    data_folder = "1_Demand"
     mapping = {
         "geom": "MULTIPOLYGON",
-        "scn_name": "scn_name",
+        "annual_demand": "annual_demand",
     }
 
-    data_file = "grid.egon_gas_voronoi_ch4"
-    layer = "grid.egon_gas_voronoi_ch4"
+    class Meta:
+        abstract = True
 
 
-class H2Voronoi(models.Model):
-    geom = models.MultiPolygonField(srid=4326, null=True)
-    scn_name = models.CharField(max_length=64)
+class GasCH4Industry(DemandModel):
+    data_file = "egon2035.demand.gas_methane_for_industry"
+    layer = data_file
 
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id"])
 
-    data_folder = "3_Power_and_gas_grids"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "scn_name": "scn_name",
-    }
+class GasH2Industry(DemandModel):
+    data_file = "egon2035.demand.gas_hydrogen_for_industry"
+    layer = data_file
 
-    data_file = "grid.egon_gas_voronoi_h2_grid"
-    layer = "grid.egon_gas_voronoi_h2_grid"
+
+class TransportHeavyDuty(DemandModel):
+    data_file = "egon2035.demand.transport_heavy-duty_transport"
+    layer = data_file
 
 
 class MVGridDistrictData(models.Model):
@@ -259,6 +322,7 @@ class MVGridDistrictData(models.Model):
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
 
+    data_folder = "4_Data_model"
     data_file = "2023-05-16_grid.egon_mv_grid_district"
     layer = "NEWEST_MEGA_grid.egon_mv_grid_district"
     mapping = {
@@ -322,108 +386,7 @@ class MVGridDistrictData(models.Model):
     }
 
 
-class MapLayer(models.Model):
-    scenario = models.CharField(
-        max_length=5,
-        choices=[("2035", "2035"), ("100RE", "100RE"), (_("both"), "both")],
-        default="2035",
-        help_text="Identifies the scenario. Use 'both' if there is no difference.",
-    )
-    identifier = models.CharField(
-        max_length=64, help_text="Only used internally to be able to activte layer with javascript."
-    )
-    geom_layer = models.CharField(
-        max_length=64, blank=True, null=True, help_text="The identifier of the layer that holds the geom."
-    )
-    name = models.CharField(max_length=64, help_text="The name used for display in the frontend.")
-    description = models.CharField(
-        max_length=256,
-        blank=True,
-        null=True,
-        help_text="The description that can be found in the frontend, when clicking on the info-icon.",
-    )
-    colors = ArrayField(
-        models.CharField(max_length=64),
-        null=True,
-        blank=True,
-        help_text="One ore multiple (for choropleths) colors for the display in the frontend.",
-    )
-    icon = models.CharField(max_length=32, null=True, blank=True, help_text="If an icon should be displayed.")
-    choropleth_field = models.CharField(
-        max_length=64, blank=True, null=True, help_text="The field that holds the data for the choropleth."
-    )
-    popup_fields = ArrayField(
-        models.CharField(max_length=64),
-        null=True,
-        blank=True,
-        help_text="The comma-seperated field(s), that should be displayed inside the popup.",
-    )
-    popup_title = models.CharField(
-        max_length=64, null=True, blank=True, help_text="The title of the popup. Defaults to 'name'."
-    )
-    popup_description = models.CharField(
-        max_length=1024, null=True, blank=True, help_text="The description of the popup. Defaults to 'description'."
-    )
-    category = models.CharField(
-        max_length=16,
-        choices=[
-            ("demand", _("Demand")),
-            ("supply", _("Supply")),
-            ("grids", _("Grids")),
-            ("model", _("Data Model")),
-        ],
-        default="demand",
-        help_text="The main category in the left panel in the frontend.",
-    )
-    sub_category = models.CharField(
-        max_length=64, null=True, blank=True, help_text="The sub-category for the display in the frontend."
-    )
-
-    def __str__(self):
-        return self.get_category_display() + ": " + self.name + " (" + self.scenario + ")"
-
-    class Meta:
-        verbose_name = _("Map Layer")
-        verbose_name_plural = _("Map Layers")
-
-
-class SupplyModel(models.Model):
-    geom = models.PointField(srid=4326)
-    carrier = models.CharField(max_length=255)
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "carrier"])
-
-    data_folder = "2_Supply"
-    mapping = {
-        "geom": "POINT",
-        "carrier": "carrier",
-    }
-
-    class Meta:
-        abstract = True
-
-
-class SupplyBiomass(SupplyModel):
-    data_file = "egon_supply_power_plants_biomass"
-    layer = "egon_supply_power_plants_biomass"
-
-
-class SupplyRunOfRiver(SupplyModel):
-    data_file = "egon_supply_power_plants_run_of_river"
-    layer = "egon_supply_power_plants_run_of_river"
-
-
-class SupplySolarGround(SupplyModel):
-    data_file = "egon_supply_power_plants_solar_ground"
-    layer = "egon_supply_power_plants_solar_ground"
-
-
-class SupplyWindOnshore(SupplyModel):
-    data_file = "egon_supply_power_plants_wind_onshore"
-    layer = "egon_supply_power_plants_wind_onshore"
-
-
+# POTENTIALS
 class SupplyPotentialModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
 
@@ -431,36 +394,165 @@ class SupplyPotentialModel(models.Model):
     vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "2_Supply"
-    mapping = {
-        "geom": "MULTIPOLYGON",
-    }
 
     class Meta:
         abstract = True
 
 
-class SupplyPotentialPVGround(SupplyPotentialModel):
-    data_file = "egon_supply_re_potential_areas_pvground"
-    layer = "egon_supply_re_potential_areas_pvground"
+class GasPotentialBiogasProduction(SupplyPotentialModel):
+    p_nom = models.FloatField(verbose_name=_("P nom"), null=True)
+    data_file = "egon2035.supply.gas_potential_biogas_production"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "p_nom": "p_nom",
+    }
 
 
-class SupplyPotentialWind(SupplyPotentialModel):
-    geom_data_field = "geom"
-    choropleth_data_field = ""
-    data_file = "egon_supply_re_potential_areas_wind"
-    layer = "egon_supply_re_potential_areas_wind"
+class GasPotentialNaturalGasProduction(SupplyPotentialModel):
+    p_nom = models.FloatField(verbose_name=_("P nom"), null=True)
+    data_file = "egon2035.supply.gas_potential_natural_gas_production_"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "p_nom": "p_nom",
+    }
+
+
+class PVGroundMountedPotentialAreaAgriculture(SupplyPotentialModel):
+    area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
+    data_file = "egon2035.supply.pv_ground-mounted_potential_areas_agriculture"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "area_km2": "area_km2",
+    }
+
+
+class PVGroundMountedPotentialAreaHighways_Railroads(SupplyPotentialModel):
+    area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
+    data_file = "egon2035.supply.pv_ground-mounted_potential_areas_highways_&_railroad"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "area_km2": "area_km2",
+    }
+
+
+class WindOnshorePotentialArea(SupplyPotentialModel):
+    area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
+    data_file = "egon2035.supply.wind_onshore_potential_areas"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "area_km2": "area_km2",
+    }
+
+
+# POWER PLANTS
+class SupplyPlantModel(models.Model):
+    geom = models.PointField(srid=4326)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "2_Supply"
+
+    class Meta:
+        abstract = True
+
+
+class SupplyBiomass(SupplyPlantModel):
+    data_file = "egon_supply_power_plants_biomass"
+    layer = "egon_supply_power_plants_biomass"
+
+    mapping = {
+        "geom": "POINT",
+    }
+
+
+class SupplyRunOfRiver(SupplyPlantModel):
+    data_file = "egon_supply_power_plants_run_of_river"
+    layer = "egon_supply_power_plants_run_of_river"
+
+    mapping = {
+        "geom": "POINT",
+    }
+
+
+class WindOffshoreWindPark(SupplyPlantModel):
+    el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
+    voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
+    data_file = "egon2035.supply.wind_offshore_wind_parks"
+    layer = data_file
+    mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
+
+
+class WindOnshoreWindPark(SupplyPlantModel):
+    el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
+    voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
+    data_file = "egon2035.supply.wind_onshore_wind_parks"
+    layer = data_file
+    mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
+
+
+class PVGroundMountedPVPlant(SupplyPlantModel):
+    el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
+    voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
+    data_file = "egon2035.supply.pv_ground-mounted_pv_plants"
+    layer = data_file
+    mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
+
+
+class PVRoofTopPVPlant(SupplyPlantModel):
+    el_capacity = models.FloatField(_("Electrical Capacity"))
+    voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
+
+    data_file = "egon2035.supply.pv_roof-top_pv_plants"
+    layer = data_file
+    mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
 
 # POWER AND GAS GRIDS
+class CH4Voronoi(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    scn_name = models.CharField(max_length=64)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "scn_name": "scn_name",
+    }
+
+    data_file = "grid.egon_gas_voronoi_ch4"
+    layer = "grid.egon_gas_voronoi_ch4"
+
+
+class H2Voronoi(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    scn_name = models.CharField(max_length=64)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "3_Power_and_gas_grids"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "scn_name": "scn_name",
+    }
+
+    data_file = "grid.egon_gas_voronoi_h2_grid"
+    layer = "grid.egon_gas_voronoi_h2_grid"
 
 
 class LineModel(models.Model):
     geom = models.MultiLineStringField(srid=4326)
-    type = models.CharField(max_length=255)
-    carrier = models.CharField(max_length=255)
 
     objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "type", "carrier"])
+    vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "3_Power_and_gas_grids"
     mapping = {
@@ -473,21 +565,19 @@ class LineModel(models.Model):
 
 class EHVLine(LineModel):
     data_file = "egon_grid_ehv_line_2035"
-    layer = "egon_grid_ehv_line_2035"
+    layer = data_file
 
 
 class HVLine(LineModel):
     data_file = "egon_grid_hv_line_2035"
-    layer = "egon_grid_hv_line_2035"
+    layer = data_file
 
 
 class SubstationModel(models.Model):
     geom = models.PointField(srid=4326)
-    voltage = models.CharField(max_length=255)
-    power_type = models.CharField(max_length=255)
 
     objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id", "voltage", "power_type"])
+    vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "3_Power_and_gas_grids"
     mapping = {
@@ -499,10 +589,10 @@ class SubstationModel(models.Model):
 
 
 class EHVHVSubstation(SubstationModel):
-    data_file = "egon_grid_ehvhv_substation"
-    layer = "egon_grid_ehvhv_substation"
+    data_file = "egon2035.grids.electricity_ehv_hv_stations"
+    layer = "egon2035.grids.electricity_ehv_hv_stations"
 
 
 class HVMVSubstation(SubstationModel):
-    data_file = "egon_grid_hvmv_substation"
-    layer = "egon_grid_hvmv_substation"
+    data_file = "egon2035.grids.electricity_hv_mv_stations"
+    layer = "egon2035.grids.electricity_hv_mv_stations"

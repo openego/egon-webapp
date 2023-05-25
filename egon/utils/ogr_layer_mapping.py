@@ -54,19 +54,18 @@ class RelatedModelLayerMapping(LayerMapping):
 
                 try:
                     if coord_dim == 3:
-                        gtype = OGRGeomType(ogr_name + "25D")
+                        OGRGeomType(ogr_name + "25D")
                     else:
-                        gtype = OGRGeomType(ogr_name)
+                        OGRGeomType(ogr_name)
                 except GDALException:
                     raise LayerMapError('Invalid mapping for GeometryField "%s".' % field_name)
 
                 # Making sure that the OGR Layer's Geometry is compatible.
-                ltype = self.layer.geom_type
-                if not (ltype.name.startswith(gtype.name) or self.make_multi(ltype, model_field)):
-                    raise LayerMapError(
-                        "Invalid mapping geometry; model has %s%s, "
-                        "layer geometry type is %s." % (fld_name, "(dim=3)" if coord_dim == 3 else "", ltype)
-                    )
+                # if not (ltype.name.startswith(gtype.name) or self.make_multi(ltype, model_field)):
+                #    raise LayerMapError(
+                #        "Invalid mapping geometry; model has %s%s, "
+                #        "layer geometry type is %s." % (fld_name, "(dim=3)" if coord_dim == 3 else "", ltype)
+                #    )
 
                 # Setting the `geom_field` attribute w/the name of the model field
                 # that is a Geometry.  Also setting the coordinate dimension

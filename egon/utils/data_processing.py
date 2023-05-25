@@ -12,19 +12,32 @@ REGIONS = [
 ]
 
 MODELS = [
-    models.MVGridDistrictData,
-    models.CH4Voronoi,
-    models.H2Voronoi,
+    # Demand
+    models.GasCH4Industry,
+    models.GasH2Industry,
+    models.TransportHeavyDuty,
+    # Potentials
+    models.GasPotentialBiogasProduction,
+    models.GasPotentialNaturalGasProduction,
+    models.PVGroundMountedPotentialAreaAgriculture,
+    models.PVGroundMountedPotentialAreaHighways_Railroads,
+    models.WindOnshorePotentialArea,
+    # PowerPlants
     models.SupplyBiomass,
     models.SupplyRunOfRiver,
-    models.SupplySolarGround,
-    models.SupplyWindOnshore,
-    models.SupplyPotentialPVGround,
-    models.SupplyPotentialWind,
+    models.WindOffshoreWindPark,
+    models.WindOnshoreWindPark,
+    models.PVRoofTopPVPlant,
+    models.PVGroundMountedPVPlant,
+    # GRIDS
+    models.CH4Voronoi,
+    models.H2Voronoi,
     models.EHVLine,
     models.EHVHVSubstation,
     models.HVLine,
     models.HVMVSubstation,
+    # DATAMODEL
+    models.MVGridDistrictData,
 ]
 
 

@@ -34,7 +34,7 @@ django-distill = "^2.6"
 django-crispy-forms = "^1.11.2"
 crispy-bootstrap5 = "^0.7"
 django-geojson = "^3.1.0"
-django-mapengine = {git = "https://github.com/rl-institut/django-mapengine.git"}
+django-mapengine = {git = "https://github.com/rl-institut/django-mapengine.git", branch = "optional_map_layer_model"}
 
 # Django REST Framework
 djangorestframework = "^3.12.4"  # https://github.com/encode/django-rest-framework

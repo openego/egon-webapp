@@ -242,7 +242,12 @@ MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
 MAP_ENGINE_MIN_ZOOM = 2
 
 # needs to be empty to disable centration- and moveto-behavior onclick
-MAP_ENGINE_ZOOM_LEVELS = {}
+MAP_ENGINE_ZOOM_LEVELS = {
+    # "country": setup.Zoom(2, 7),
+    # "state": setup.Zoom(7, 9),
+    # "district": setup.Zoom(9, 11),
+    # "municipality": setup.Zoom(11, 13),
+}
 
 MAP_ENGINE_API_MVTS = {
     "mv_grid_district_data": [
@@ -257,9 +262,20 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("ch4_voronoi", "map", "CH4Voronoi"),
         setup.MVTAPI("ch4_voronoi_line", "map", "CH4Voronoi"),
     ],
+    "gas_potential_biogas_production": [
+        setup.MVTAPI("gas_potential_biogas_production", "map", "GasPotentialBiogasProduction")
+    ],
+    "gas_potential_natural_gas_production": [
+        setup.MVTAPI("gas_potential_natural_gas_production", "map", "GasPotentialNaturalGasProduction")
+    ],
     "static": [
-        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
-        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("wind_onshore_potential_areas", "map", "WindOnshorePotentialArea"),
+        setup.MVTAPI("pv_ground-mounted_potential_areas_agriculture", "map", "PVGroundMountedPotentialAreaAgriculture"),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_highways_railroad",
+            "map",
+            "PVGroundMountedPotentialAreaHighways_Railroads",
+        ),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
         setup.MVTAPI("hv_line", "map", "HVLine"),
     ],
@@ -284,10 +300,12 @@ MAP_ENGINE_API_MVTS = {
 MAP_ENGINE_API_CLUSTERS = [
     setup.ClusterAPI("biomass", "map", "SupplyBiomass"),
     setup.ClusterAPI("hydro", "map", "SupplyRunOfRiver"),
-    setup.ClusterAPI("wind", "map", "SupplyWindOnshore"),
-    setup.ClusterAPI("pvground", "map", "SupplySolarGround"),
+    setup.ClusterAPI("wind_offshore_wind_parks", "map", "WindOffshoreWindPark"),
+    setup.ClusterAPI("wind_onshore_wind_parks", "map", "WindOnshoreWindPark"),
     setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
     setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
+    setup.ClusterAPI("pv_roof-top_pv_plants", "map", "PVRoofTopPVPlant"),
+    setup.ClusterAPI("pv_ground-mounted_pv_plants", "map", "PVGroundMountedPVPlant"),
 ]
 
 MAP_ENGINE_IMAGES = [
