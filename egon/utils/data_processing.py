@@ -23,8 +23,6 @@ MODELS = [
     models.PVGroundMountedPotentialAreaHighways_Railroads,
     models.WindOnshorePotentialArea,
     # PowerPlants
-    models.SupplyBiomass,
-    models.SupplyRunOfRiver,
     models.WindOffshoreWindPark,
     models.WindOnshoreWindPark,
     models.PVRoofTopPVPlant,
@@ -35,9 +33,12 @@ MODELS = [
     models.EHVLine,
     models.EHVHVSubstation,
     models.HVLine,
+    models.MethaneGridLine,
+    # models.FlexPotElDynamicLineRating,
     models.HVMVSubstation,
     # DATAMODEL
     models.MVGridDistrictData,
+    models.LoadArea,
 ]
 
 

@@ -54,8 +54,8 @@
                         aria-selected="false"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill"
-                        data-bs-target="#model" type="button" role="tab" aria-controls="model"
+                <button class="nav-link category-tabs__category" id="category-flexibility-tab" data-bs-toggle="pill"
+                        data-bs-target="#flexibility" type="button" role="tab" aria-controls="flexibility"
                         aria-selected="false"></button>
               </li>
             </ul>
@@ -71,7 +71,7 @@
                           <form class="layers__item static-layer" data-scenario="{{ layer.scenario }}" {% if layer.scenario == "100RE" %}style="display: none;"{%  endif %}>
                             <div class="name">
                             <div class="name__visual"
-                                 style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}, {{ layer.colors|last }});{% endif %}">
+                                 style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}{% for color in layer.colors %},{{ color }}{% endfor %});{% endif %}">
                             </div>
                               <span class="name__text" data-source="{{ layer.identifier }}">{{ layer.name }}</span>
                               {% if layer.description %}

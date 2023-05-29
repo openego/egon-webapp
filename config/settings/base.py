@@ -262,25 +262,33 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("ch4_voronoi", "map", "CH4Voronoi"),
         setup.MVTAPI("ch4_voronoi_line", "map", "CH4Voronoi"),
     ],
-    "gas_potential_biogas_production": [
-        setup.MVTAPI("gas_potential_biogas_production", "map", "GasPotentialBiogasProduction")
+    "gas_potential_biogas_production_2035": [
+        setup.MVTAPI("gas_potential_biogas_production_2035", "map", "GasPotentialBiogasProduction")
     ],
-    "gas_potential_natural_gas_production": [
-        setup.MVTAPI("gas_potential_natural_gas_production", "map", "GasPotentialNaturalGasProduction")
+    "gas_potential_natural_gas_production_2035": [
+        setup.MVTAPI("gas_potential_natural_gas_production_2035", "map", "GasPotentialNaturalGasProduction")
     ],
     "gas_methane_for_industry": [setup.MVTAPI("gas_methane_for_industry", "map", "GasCH4Industry")],
     "gas_hydrogen_for_industry": [setup.MVTAPI("gas_hydrogen_for_industry", "map", "GasH2Industry")],
-    "transport_heavy-duty_transport": [setup.MVTAPI("transport_heavy-duty_transport", "map", "TransportHeavyDuty")],
+    "demand_transport_heavy_duty_transport_2035": [
+        setup.MVTAPI("demand_transport_heavy_duty_transport_2035", "map", "TransportHeavyDuty")
+    ],
     "static": [
-        setup.MVTAPI("wind_onshore_potential_areas", "map", "WindOnshorePotentialArea"),
-        setup.MVTAPI("pv_ground-mounted_potential_areas_agriculture", "map", "PVGroundMountedPotentialAreaAgriculture"),
+        setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
         setup.MVTAPI(
-            "pv_ground-mounted_potential_areas_highways_railroad",
+            "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
+        ),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_highways_railroad_2035",
             "map",
             "PVGroundMountedPotentialAreaHighways_Railroads",
         ),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
         setup.MVTAPI("hv_line", "map", "HVLine"),
+        setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
+    ],
+    "potential_h2_underground_storage_2035": [
+        setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
     ],
     "country": [
         setup.MVTAPI("country", "map", "Country"),
@@ -301,21 +309,17 @@ MAP_ENGINE_API_MVTS = {
 }
 
 MAP_ENGINE_API_CLUSTERS = [
-    setup.ClusterAPI("biomass", "map", "SupplyBiomass"),
-    setup.ClusterAPI("hydro", "map", "SupplyRunOfRiver"),
-    setup.ClusterAPI("wind_offshore_wind_parks", "map", "WindOffshoreWindPark"),
-    setup.ClusterAPI("wind_onshore_wind_parks", "map", "WindOnshoreWindPark"),
+    setup.ClusterAPI("wind_offshore_wind_parks_2035", "map", "WindOffshoreWindPark"),
+    setup.ClusterAPI("wind_onshore_wind_parks_2035", "map", "WindOnshoreWindPark"),
     setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
     setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
-    setup.ClusterAPI("pv_roof-top_pv_plants", "map", "PVRoofTopPVPlant"),
-    setup.ClusterAPI("pv_ground-mounted_pv_plants", "map", "PVGroundMountedPVPlant"),
+    setup.ClusterAPI("pv_roof-top_pv_plants_2035", "map", "PVRoofTopPVPlant"),
+    setup.ClusterAPI("pv_ground-mounted_pv_plants_2035", "map", "PVGroundMountedPVPlant"),
 ]
 
 MAP_ENGINE_IMAGES = [
-    setup.MapImage("biomass", "images/icons/biomass.png"),
     setup.MapImage("solar", "images/icons/solar.png"),
     setup.MapImage("wind", "images/icons/wind.png"),
-    setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
 

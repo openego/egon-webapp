@@ -157,17 +157,17 @@
       @include panel-tab-icons-after("Netze");
     }
 
-    #category-model-tab {
+    #category-flexibility-tab {
       background-image: url("../images/icons/i_data_b.svg");
     }
 
-    #category-model-tab.active,
-    #category-model-tab:hover {
+    #category-flexibility-tab.active,
+    #category-flexibility-tab:hover {
       background-image: url("../images/icons/i_data_w.svg");
     }
 
-    #category-model-tab::after {
-      @include panel-tab-icons-after("Verwaltungsebenen");
+    #category-flexibility-tab::after {
+      @include panel-tab-icons-after("Flexibilitäten");
     }
   }
 

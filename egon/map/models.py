@@ -96,7 +96,7 @@ class MapLayer(models.Model):
     )
     name = models.CharField(max_length=64, help_text="The name used for display in the frontend.")
     description = models.CharField(
-        max_length=256,
+        max_length=1024,
         blank=True,
         null=True,
         help_text="The description that can be found in the frontend, when clicking on the info-icon.",
@@ -387,6 +387,23 @@ class MVGridDistrictData(models.Model):
     }
 
 
+class LoadArea(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    el_peakload = models.FloatField()
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "5_Data_model"
+    data_file = "egon2035.aggregation_levels.load_areas_"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        # TODO: Replace with real column, when data is in the package
+        "el_peakload": "id",
+    }
+
+
 # POTENTIALS
 class SupplyPotentialModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
@@ -461,24 +478,6 @@ class SupplyPlantModel(models.Model):
 
     class Meta:
         abstract = True
-
-
-class SupplyBiomass(SupplyPlantModel):
-    data_file = "egon_supply_power_plants_biomass"
-    layer = "egon_supply_power_plants_biomass"
-
-    mapping = {
-        "geom": "POINT",
-    }
-
-
-class SupplyRunOfRiver(SupplyPlantModel):
-    data_file = "egon_supply_power_plants_run_of_river"
-    layer = "egon_supply_power_plants_run_of_river"
-
-    mapping = {
-        "geom": "POINT",
-    }
 
 
 class WindOffshoreWindPark(SupplyPlantModel):
@@ -574,6 +573,17 @@ class HVLine(LineModel):
     layer = data_file
 
 
+class MethaneGridLine(LineModel):
+    data_file = "egon2035.grids.gas_methane_grid"
+    layer = data_file
+
+
+class FlexPotElDynamicLineRating(LineModel):
+    data_folder = "4_Flexibility"
+    data_file = "egon2035.flexibility_potential.electricity_dynamic_line_rating"
+    layer = data_file
+
+
 class SubstationModel(models.Model):
     geom = models.PointField(srid=4326)
 
@@ -597,3 +607,21 @@ class EHVHVSubstation(SubstationModel):
 class HVMVSubstation(SubstationModel):
     data_file = "egon2035.grids.electricity_hv_mv_stations"
     layer = "egon2035.grids.electricity_hv_mv_stations"
+
+
+# FLEXIBILTY POTENTIAL
+class PotentialH2UndergroundStorage(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    e_nom_max = models.FloatField(null=True)
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "4_Flexibility"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "e_nom_max": "e_nom_max",
+    }
+
+    data_file = "egon2035.flexibility_potential.gas_potential_hydrogen_underground_storage"
+    layer = data_file
