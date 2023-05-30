@@ -550,6 +550,21 @@
       "line-width": [3,0.8]
     }
   },
+  "load_area": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.8,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "load_area_line": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgb(115,62,136)",
+      "line-width": [3,0.8]
+    }
+  },
   "h2_voronoi": {
     "type": "fill",
     "paint": {

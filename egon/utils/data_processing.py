@@ -34,6 +34,8 @@ MODELS = [
     models.EHVHVSubstation,
     models.HVLine,
     models.MethaneGridLine,
+    # FELXIBILITY
+    models.PotentialH2UndergroundStorage,
     # models.FlexPotElDynamicLineRating,
     models.HVMVSubstation,
     # DATAMODEL

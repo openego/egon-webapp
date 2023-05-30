@@ -254,6 +254,10 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
         setup.MVTAPI("mv_grid_district_data_line", "map", "MVGridDistrictData"),
     ],
+    "load_area": [
+        setup.MVTAPI("load_area", "map", "LoadArea"),
+        setup.MVTAPI("load_area_line", "map", "LoadArea"),
+    ],
     "h2_voronoi": [
         setup.MVTAPI("h2_voronoi", "map", "H2Voronoi"),
         setup.MVTAPI("h2_voronoi_line", "map", "H2Voronoi"),
@@ -273,20 +277,20 @@ MAP_ENGINE_API_MVTS = {
     "demand_transport_heavy_duty_transport_2035": [
         setup.MVTAPI("demand_transport_heavy_duty_transport_2035", "map", "TransportHeavyDuty")
     ],
-    "static": [
-        setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
-        setup.MVTAPI(
-            "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
-        ),
-        setup.MVTAPI(
-            "pv_ground-mounted_potential_areas_highways_railroad_2035",
-            "map",
-            "PVGroundMountedPotentialAreaHighways_Railroads",
-        ),
-        setup.MVTAPI("ehv_line", "map", "EHVLine"),
-        setup.MVTAPI("hv_line", "map", "HVLine"),
-        setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
-    ],
+    # "static": [
+    #     setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
+    #     setup.MVTAPI(
+    #         "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
+    #     ),
+    #     setup.MVTAPI(
+    #         "pv_ground-mounted_potential_areas_highways_railroad_2035",
+    #         "map",
+    #         "PVGroundMountedPotentialAreaHighways_Railroads",
+    #     ),
+    #     setup.MVTAPI("ehv_line", "map", "EHVLine"),
+    #     setup.MVTAPI("hv_line", "map", "HVLine"),
+    #     setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
+    # ],
     "potential_h2_underground_storage_2035": [
         setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
     ],

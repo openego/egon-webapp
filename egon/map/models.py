@@ -111,6 +111,7 @@ class MapLayer(models.Model):
     choropleth_field = models.CharField(
         max_length=64, blank=True, null=True, help_text="The field that holds the data for the choropleth."
     )
+    choropleth_unit = models.CharField(max_length=64, null=True, blank=True)
     popup_fields = ArrayField(
         models.CharField(max_length=64),
         null=True,
