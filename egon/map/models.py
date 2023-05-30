@@ -195,228 +195,6 @@ class HeatingHouseholdsCts(DemandModel):
     layer = data_file
 
 
-class MVGridDistrictData(models.Model):
-    geom = models.MultiPolygonField(srid=4326, null=True)
-    area = models.FloatField(null=True)
-
-    demand_electricity_households_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
-    demand_electricity_households_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
-    demand_electricity_households_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
-    demand_population_2035_sum = models.FloatField(verbose_name=_("Population"), null=True)
-    demand_electricity_households_100re_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
-    demand_electricity_households_100re_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
-    demand_electricity_households_100re_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
-    transport_mit_number_of_evs_2035_ev_count = models.IntegerField(
-        verbose_name=_("Number of electric vehicles"), null=True
-    )
-    transport_mit_number_of_evs_2035_bev_mini = models.IntegerField(verbose_name=_("Number of compact EV"), null=True)
-    transport_mit_number_of_evs_2035_bev_medium = models.IntegerField(
-        verbose_name=_("Number of mid-range EV"), null=True
-    )
-    transport_mit_number_of_evs_2035_bev_luxury = models.IntegerField(
-        verbose_name=_("Number of luxury-class EV"), null=True
-    )
-    transport_mit_number_of_evs_2035_phev_mini = models.IntegerField(
-        verbose_name=_("Number of compact PHEV"), null=True
-    )
-    transport_mit_number_of_evs_2035_phev_medium = models.IntegerField(
-        verbose_name=_("Number of mid-range PHEV"), null=True
-    )
-    transport_mit_number_of_evs_2035_phev_luxury = models.IntegerField(
-        verbose_name=_("Number of luxury-class PHEV"), null=True
-    )
-    transport_mit_number_of_evs_100re_ev_count = models.IntegerField(
-        verbose_name=_("Number of electric vehicles"), null=True
-    )
-    transport_mit_number_of_evs_100re_bev_mini = models.IntegerField(verbose_name=_("Number of compact EV"), null=True)
-    transport_mit_number_of_evs_100re_bev_medium = models.IntegerField(
-        verbose_name=_("Number of mid-range EV"), null=True
-    )
-    transport_mit_number_of_evs_100re_bev_luxury = models.IntegerField(
-        verbose_name=_("Number of luxury-class EV"), null=True
-    )
-    transport_mit_number_of_evs_100re_phev_mini = models.IntegerField(
-        verbose_name=_("Number of compact PHEV"), null=True
-    )
-    transport_mit_number_of_evs_100re_phev_medium = models.IntegerField(
-        verbose_name=_("Number of mid-range PHEV"), null=True
-    )
-    transport_mit_number_of_evs_100re_phev_luxury = models.IntegerField(
-        verbose_name=_("Number of luxury-class PHEV"), null=True
-    )
-    supply_pv_ground_mounted_installed_capacity_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_pv_ground_mounted_installed_capacity_2035_unit_count = models.IntegerField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_pv_ground_mounted_installed_capacity_100re_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_pv_ground_mounted_installed_capacity_100re_unit_count = models.IntegerField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    demand_transport_mit_demand_2035_annual_demand = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
-    demand_transport_mit_demand_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
-    demand_transport_mit_demand_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
-    flex_pot_electricity_electromobility_2035_charging_demand = models.FloatField(
-        verbose_name=_("Charging demand (MWh)"), null=True
-    )
-    flex_pot_electricity_electromobility_2035_flex_demand = models.FloatField(
-        verbose_name=_("Flexible demand (MW)"), null=True
-    )
-    flex_pot_electricity_electromobility_2035_flex_share = models.FloatField(
-        verbose_name=_("Share of flexible demand (%)"), null=True
-    )
-    supply_other_biomass_fired_power_plants_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_other_biomass_fired_power_plants_2035_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_other_gas_fired_power_plants_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_other_gas_fired_power_plants_2035_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_other_hydro_2035_el_capacity = models.FloatField(verbose_name=_("Installed capacity (MW)"), null=True)
-    supply_other_hydro_2035_unit_count = models.FloatField(verbose_name=_("Number of power plants"), null=True)
-    supply_other_other_power_plants_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_other_other_power_plants_2035_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_pv_roof_top_installed_capacity_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_pv_roof_top_installed_capacity_2035_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_pv_roof_top_potential_production_2035_feedin = models.FloatField(
-        verbose_name=_("Potential production feedin"), null=True
-    )
-    supply_wind_onshore_installed_capacity_2035_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_wind_onshore_installed_capacity_2035_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    demand_transport_mit_demand_100re_annual_demand = models.FloatField(
-        verbose_name=_("Annual Demand (MWh)"), null=True
-    )
-    demand_transport_mit_demand_100re_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
-    demand_transport_mit_demand_100re_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
-    flex_pot_electricity_electromobility_100re_charging_demand = models.FloatField(
-        verbose_name=_("Charging demand (MWh)"), null=True
-    )
-    flex_pot_electricity_electromobility_100re_flex_demand = models.FloatField(
-        verbose_name=_("Flexible demand (MW)"), null=True
-    )
-    flex_pot_electricity_electromobility_100re_flex_share = models.FloatField(
-        verbose_name=_("Share of flexible demand (%)"), null=True
-    )
-    supply_pv_roof_top_installed_capacity_100re_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_pv_roof_top_installed_capacity_100re_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-    supply_pv_roof_top_potential_production_100re_feedin = models.FloatField(
-        verbose_name=_("Potential production feedin"), null=True
-    )
-    supply_wind_onshore_installed_capacity_100re_el_capacity = models.FloatField(
-        verbose_name=_("Installed capacity (MW)"), null=True
-    )
-    supply_wind_onshore_installed_capacity_100re_unit_count = models.FloatField(
-        verbose_name=_("Number of power plants"), null=True
-    )
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id"])
-
-    data_folder = "5_Data_model"
-    data_file = "2023-05-16_grid.egon_mv_grid_district"
-    layer = "NEWEST_MEGA_grid.egon_mv_grid_district"
-    mapping = {
-        "area": "area",
-        "demand_electricity_households_2035_sum": "demand_electricity_households_2035_sum",
-        "demand_electricity_households_2035_max": "demand_electricity_households_2035_max",
-        "demand_electricity_households_2035_min": "demand_electricity_households_2035_min",
-        "demand_population_2035_sum": "demand_population_2035_sum",
-        "transport_mit_number_of_evs_2035_ev_count": "transport_mit_number_of_evs_2035_ev_count",
-        "transport_mit_number_of_evs_2035_bev_mini": "transport_mit_number_of_evs_2035_bev_mini",
-        "transport_mit_number_of_evs_2035_bev_medium": "transport_mit_number_of_evs_2035_bev_medium",
-        "transport_mit_number_of_evs_2035_bev_luxury": "transport_mit_number_of_evs_2035_bev_luxury",
-        "transport_mit_number_of_evs_2035_phev_mini": "transport_mit_number_of_evs_2035_phev_mini",
-        "transport_mit_number_of_evs_2035_phev_medium": "transport_mit_number_of_evs_2035_phev_medium",
-        "transport_mit_number_of_evs_2035_phev_luxury": "transport_mit_number_of_evs_2035_phev_luxury",
-        "demand_transport_mit_demand_2035_annual_demand": "demand_transport_mit_demand_2035_annual_demand",
-        "demand_transport_mit_demand_2035_max": "demand_transport_mit_demand_2035_max",
-        "demand_transport_mit_demand_2035_min": "demand_transport_mit_demand_2035_min",
-        "flex_pot_electricity_electromobility_2035_charging_demand": "flexibility_potential_electricity_electromobility_2035_charging_demand",  # noqa: E501
-        "flex_pot_electricity_electromobility_2035_flex_demand": "flexibility_potential_electricity_electromobility_2035_flex_demand",  # noqa: E501
-        "flex_pot_electricity_electromobility_2035_flex_share": "flexibility_potential_electricity_electromobility_2035_flex_share",  # noqa: E501
-        "supply_other_biomass_fired_power_plants_2035_el_capacity": "supply_other_biomass_fired_power_plants_2035_el_capacity",  # noqa: E501
-        "supply_other_biomass_fired_power_plants_2035_unit_count": "supply_other_biomass_fired_power_plants_2035_unit_count",  # noqa: E501
-        "supply_other_gas_fired_power_plants_2035_el_capacity": "supply_other_gas_fired_power_plants_2035_el_capacity",
-        "supply_other_gas_fired_power_plants_2035_unit_count": "supply_other_gas_fired_power_plants_2035_unit_count",
-        "supply_other_hydro_2035_el_capacity": "supply_other_hydro_2035_el_capacity",
-        "supply_other_hydro_2035_unit_count": "supply_other_hydro_2035_unit_count",
-        "supply_other_other_power_plants_2035_el_capacity": "supply_other_other_power_plants_2035_el_capacity",
-        "supply_other_other_power_plants_2035_unit_count": "supply_other_other_power_plants_2035_unit_count",
-        "supply_pv_ground_mounted_installed_capacity_2035_el_capacity": "supply_pv_ground_mounted_installed_capacity_2035_el_capacity",  # noqa: E501
-        "supply_pv_ground_mounted_installed_capacity_2035_unit_count": "supply_pv_ground_mounted_installed_capacity_2035_unit_count",  # noqa: E501
-        "supply_pv_roof_top_installed_capacity_2035_el_capacity": "supply_pv_roof_top_installed_capacity_2035_el_capacity",  # noqa: E501
-        "supply_pv_roof_top_installed_capacity_2035_unit_count": "supply_pv_roof_top_installed_capacity_2035_unit_count",  # noqa: E501
-        "supply_pv_roof_top_potential_production_2035_feedin": "supply_pv_roof_top_potential_production_2035_feedin",
-        "supply_wind_onshore_installed_capacity_2035_el_capacity": "supply_wind_onshore_installed_capacity_2035_el_capacity",  # noqa: E501
-        "supply_wind_onshore_installed_capacity_2035_unit_count": "supply_wind_onshore_installed_capacity_2035_unit_count",  # noqa: E501
-        "demand_electricity_households_100re_sum": "demand_electricity_households_100RE_sum",
-        "demand_electricity_households_100re_max": "demand_electricity_households_100RE_max",
-        "demand_electricity_households_100re_min": "demand_electricity_households_100RE_min",
-        "demand_transport_mit_demand_100re_annual_demand": "demand_transport_mit_demand_100RE_annual_demand",
-        "demand_transport_mit_demand_100re_max": "demand_transport_mit_demand_100RE_max",
-        "demand_transport_mit_demand_100re_min": "demand_transport_mit_demand_100RE_min",
-        "transport_mit_number_of_evs_100re_ev_count": "transport_mit_number_of_evs_100RE_ev_count",
-        "transport_mit_number_of_evs_100re_bev_mini": "transport_mit_number_of_evs_100RE_bev_mini",
-        "transport_mit_number_of_evs_100re_bev_medium": "transport_mit_number_of_evs_100RE_bev_medium",
-        "transport_mit_number_of_evs_100re_bev_luxury": "transport_mit_number_of_evs_100RE_bev_luxury",
-        "transport_mit_number_of_evs_100re_phev_mini": "transport_mit_number_of_evs_100RE_phev_mini",
-        "transport_mit_number_of_evs_100re_phev_medium": "transport_mit_number_of_evs_100RE_phev_medium",
-        "transport_mit_number_of_evs_100re_phev_luxury": "transport_mit_number_of_evs_100RE_phev_luxury",
-        "flex_pot_electricity_electromobility_100re_charging_demand": "flexibility_potential_electricity_electromobility_100RE_charging_demand",  # noqa: E501
-        "flex_pot_electricity_electromobility_100re_flex_demand": "flexibility_potential_electricity_electromobility_100RE_flex_demand",  # noqa: E501
-        "flex_pot_electricity_electromobility_100re_flex_share": "flexibility_potential_electricity_electromobility_100RE_flex_share",  # noqa: E501
-        "supply_pv_ground_mounted_installed_capacity_100re_el_capacity": "supply_pv_ground_mounted_installed_capacity_100RE_el_capacity",  # noqa: E501
-        "supply_pv_ground_mounted_installed_capacity_100re_unit_count": "supply_pv_ground_mounted_installed_capacity_100RE_unit_count",  # noqa: E501
-        "supply_pv_roof_top_installed_capacity_100re_el_capacity": "supply_pv_roof_top_installed_capacity_100RE_el_capacity",  # noqa: E501
-        "supply_pv_roof_top_installed_capacity_100re_unit_count": "supply_pv_roof_top_installed_capacity_100RE_unit_count",  # noqa: E501
-        "supply_pv_roof_top_potential_production_100re_feedin": "supply_pv_roof_top_potential_production_100RE_feedin",
-        "supply_wind_onshore_installed_capacity_100re_el_capacity": "supply_wind_onshore_installed_capacity_100RE_el_capacity",  # noqa: E501
-        "supply_wind_onshore_installed_capacity_100re_unit_count": "supply_wind_onshore_installed_capacity_100RE_unit_count",  # noqa: E501
-        "geom": "MULTIPOLYGON",
-    }
-
-
-class LoadArea(models.Model):
-    geom = models.MultiPolygonField(srid=4326, null=True)
-    el_peakload = models.FloatField()
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id"])
-
-    data_folder = "5_Data_model"
-    data_file = "egon2035.aggregation_levels.load_areas_"
-    layer = data_file
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        # TODO: Replace with real column, when data is in the package
-        "el_peakload": "id",
-    }
-
-
 # SUPPLY
 # POTENTIALS
 class SupplyPotentialModel(models.Model):
@@ -558,6 +336,237 @@ class PVRoofTopPVPlant(SupplyPlantModel):
 
 
 # POWER AND GAS GRIDS
+class MVGridDistrictData(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    area = models.FloatField(null=True)
+
+    # DEMAND
+    demand_population_2035_sum = models.FloatField(verbose_name=_("Population"), null=True)
+
+    demand_electricity_households_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_electricity_households_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_electricity_households_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+
+    demand_electricity_cts_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_electricity_cts_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_electricity_cts_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+
+    demand_electricity_industry_2035_sum = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_electricity_industry_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_electricity_industry_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+
+    demand_heat_individual_heating_households_and_cts_2035_sum = models.FloatField(
+        verbose_name=_("Annual Demand (MWh)"), null=True
+    )
+    demand_heat_individual_heating_households_and_cts_2035_max = models.FloatField(
+        verbose_name=_("Maximal hourly demand (MW)"), null=True
+    )
+    demand_heat_individual_heating_households_and_cts_2035_min = models.FloatField(
+        verbose_name=_("Minimal hourly demand (MW)"), null=True
+    )
+
+    demand_transport_mit_number_of_evs_2035_ev_count = models.IntegerField(
+        verbose_name=_("Number of electric vehicles"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_bev_mini = models.IntegerField(
+        verbose_name=_("Number of compact EV"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_bev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range EV"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_bev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class EV"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_phev_mini = models.IntegerField(
+        verbose_name=_("Number of compact PHEV"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_phev_medium = models.IntegerField(
+        verbose_name=_("Number of mid-range PHEV"), null=True
+    )
+    demand_transport_mit_number_of_evs_2035_phev_luxury = models.IntegerField(
+        verbose_name=_("Number of luxury-class PHEV"), null=True
+    )
+
+    demand_transport_mit_demand_2035_annual_demand = models.FloatField(verbose_name=_("Annual Demand (MWh)"), null=True)
+    demand_transport_mit_demand_2035_max = models.FloatField(verbose_name=_("Maximal hourly demand (MW)"), null=True)
+    demand_transport_mit_demand_2035_min = models.FloatField(verbose_name=_("Minimal hourly demand (MW)"), null=True)
+
+    # SUPPLY
+    supply_wind_onshore_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_wind_onshore_installed_capacity_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_wind_onshore_potential_el_production_2035_feedin = models.FloatField(
+        verbose_name=_("Potential el. prodcution feed-in (MW)"), null=True
+    )
+    supply_wind_offshore_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_wind_offshore_installed_capacity_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_wind_offshore_potential_el_production_2035_feedin = models.FloatField(
+        verbose_name=_("Potential el. prodcution feed-in (MW)"), null=True
+    )
+
+    supply_pv_ground_mounted_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_ground_mounted_installed_capacity_2035_unit_count = models.IntegerField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_pv_ground_mounted_potential_el_production_2035_feedin = models.FloatField(
+        verbose_name=_("Potential el. prodcution feed-in (MW)"), null=True
+    )
+
+    supply_pv_roof_top_installed_capacity_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_pv_roof_top_installed_capacity_2035_unit_count = models.IntegerField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    supply_pv_roof_top_potential_electricity_production_2035_feedin = models.FloatField(
+        verbose_name=_("Potential el. prodcution feed-in (MW)"), null=True
+    )
+
+    supply_other_gas_fired_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_gas_fired_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    supply_other_biomass_fired_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_biomass_fired_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    supply_other_hydro_2035_el_capacity = models.FloatField(verbose_name=_("Installed capacity (MW)"), null=True)
+    supply_other_hydro_2035_unit_count = models.FloatField(verbose_name=_("Number of power plants"), null=True)
+
+    supply_other_other_power_plants_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    supply_other_other_power_plants_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    supply_heat_individual_heat_pumps_2035_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+
+    flexibility_potential_electricity_dsm_2035_dsm_potential = models.FloatField(
+        verbose_name=_("Demand Side Potential (MW)"), null=True
+    )
+
+    flex_pot_electricity_electromobility_2035_flex_demand = models.FloatField(
+        verbose_name=_("Flexible demand (MW)"), null=True
+    )
+    flex_pot_electricity_electromobility_2035_charging_demand = models.FloatField(
+        verbose_name=_("Charging demand (MWh)"), null=True
+    )
+    flex_pot_electricity_electromobility_2035_flex_share = models.FloatField(
+        verbose_name=_("Share of flexible demand (%)"), null=True
+    )
+
+    flexibility_potential_storage_pumped_storage_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    flexibility_potential_storage_pumped_storage_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+    flexibility_potential_storage_home_storage_2035_el_capacity = models.FloatField(
+        verbose_name=_("Installed capacity (MW)"), null=True
+    )
+    flexibility_potential_storage_home_storage_2035_unit_count = models.FloatField(
+        verbose_name=_("Number of power plants"), null=True
+    )
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "3_Power_and_gas_grids"
+    data_file = "egon_2035.grids.egon_mv_grid_district"
+    layer = "MERGED_grid.egon_mv_grid_district"
+    mapping = {
+        "area": "area",
+        "demand_electricity_households_2035_sum": "demand_electricity_households_2035_sum",
+        "demand_electricity_households_2035_max": "demand_electricity_households_2035_max",
+        "demand_electricity_households_2035_min": "demand_electricity_households_2035_min",
+        "demand_population_2035_sum": "demand_population_2035_sum",
+        "demand_transport_mit_number_of_evs_2035_ev_count": "demand_transport_mit_number_of_evs_2035_ev_count",
+        "demand_transport_mit_number_of_evs_2035_bev_mini": "demand_transport_mit_number_of_evs_2035_bev_mini",
+        "demand_transport_mit_number_of_evs_2035_bev_medium": "demand_transport_mit_number_of_evs_2035_bev_medium",
+        "demand_transport_mit_number_of_evs_2035_bev_luxury": "demand_transport_mit_number_of_evs_2035_bev_luxury",
+        "demand_transport_mit_number_of_evs_2035_phev_mini": "demand_transport_mit_number_of_evs_2035_phev_mini",
+        "demand_transport_mit_number_of_evs_2035_phev_medium": "demand_transport_mit_number_of_evs_2035_phev_medium",
+        "demand_transport_mit_number_of_evs_2035_phev_luxury": "demand_transport_mit_number_of_evs_2035_phev_luxury",
+        "demand_transport_mit_demand_2035_annual_demand": "demand_transport_mit_demand_2035_annual_demand",
+        "demand_transport_mit_demand_2035_max": "demand_transport_mit_demand_2035_max",
+        "demand_transport_mit_demand_2035_min": "demand_transport_mit_demand_2035_min",
+        "flex_pot_electricity_electromobility_2035_charging_demand": "flexibility_potential_electricity_electromobility_2035_charging_demand",  # noqa: E501
+        "flex_pot_electricity_electromobility_2035_flex_demand": "flexibility_potential_electricity_electromobility_2035_flex_demand",  # noqa: E501
+        "flex_pot_electricity_electromobility_2035_flex_share": "flexibility_potential_electricity_electromobility_2035_flex_share",  # noqa: E501
+        "supply_other_biomass_fired_power_plants_2035_el_capacity": "supply_other_biomass-fired_power_plants_2035_el_capacity",  # noqa: E501
+        "supply_other_biomass_fired_power_plants_2035_unit_count": "supply_other_biomass-fired_power_plants_2035_unit_count",  # noqa: E501
+        "supply_other_gas_fired_power_plants_2035_el_capacity": "supply_other_gas-fired_power_plants_2035_el_capacity",
+        "supply_other_gas_fired_power_plants_2035_unit_count": "supply_other_gas-fired_power_plants_2035_unit_count",
+        "supply_other_hydro_2035_el_capacity": "supply_other_hydro_2035_el_capacity",
+        "supply_other_hydro_2035_unit_count": "supply_other_hydro_2035_unit_count",
+        "supply_other_other_power_plants_2035_el_capacity": "supply_other_other_power_plants_2035_el_capacity",
+        "supply_other_other_power_plants_2035_unit_count": "supply_other_other_power_plants_2035_unit_count",
+        "supply_pv_ground_mounted_installed_capacity_2035_el_capacity": "supply_pv_ground-mounted_installed_capacity_2035_el_capacity",  # noqa: E501
+        "supply_pv_ground_mounted_installed_capacity_2035_unit_count": "supply_pv_ground-mounted_installed_capacity_2035_unit_count",  # noqa: E501
+        "supply_pv_roof_top_installed_capacity_2035_el_capacity": "supply_pv_roof-top_installed_capacity_2035_el_capacity",  # noqa: E501
+        "supply_pv_roof_top_installed_capacity_2035_unit_count": "supply_pv_roof-top_installed_capacity_2035_unit_count",  # noqa: E501
+        "supply_wind_onshore_installed_capacity_2035_el_capacity": "supply_wind_onshore_installed_capacity_2035_el_capacity",  # noqa: E501
+        "supply_wind_onshore_installed_capacity_2035_unit_count": "supply_wind_onshore_installed_capacity_2035_unit_count",  # noqa: E501
+        "demand_electricity_cts_2035_max": "demand_electricity_cts_2035_max",
+        "demand_electricity_cts_2035_min": "demand_electricity_cts_2035_min",
+        "demand_electricity_cts_2035_sum": "demand_electricity_cts_2035_sum",
+        "demand_electricity_industry_2035_max": "demand_electricity_industry_2035_max",
+        "demand_electricity_industry_2035_min": "demand_electricity_industry_2035_min",
+        "demand_electricity_industry_2035_sum": "demand_electricity_industry_2035_sum",
+        "demand_heat_individual_heating_households_and_cts_2035_max": "demand_heat_individual_heating_households_and_cts_2035_max",  # noqa: E501
+        "demand_heat_individual_heating_households_and_cts_2035_min": "demand_heat_individual_heating_households_and_cts_2035_min",  # noqa: E501
+        "demand_heat_individual_heating_households_and_cts_2035_sum": "demand_heat_individual_heating_households_and_cts_2035_sum",  # noqa: E501
+        "flexibility_potential_electricity_dsm_2035_dsm_potential": "flexibility_potential_electricity_dsm_2035_dsm_potential",  # noqa: E501
+        "flexibility_potential_storage_home_storage_2035_el_capacity": "flexibility_potential_storage_home_storage_2035_el_capacity",  # noqa: E501
+        "flexibility_potential_storage_home_storage_2035_unit_count": "flexibility_potential_storage_home_storage_2035_unit_count",  # noqa: E501
+        "flexibility_potential_storage_pumped_storage_2035_el_capacity": "flexibility_potential_storage_pumped_storage_2035_el_capacity",  # noqa: E501
+        "flexibility_potential_storage_pumped_storage_2035_unit_count": "flexibility_potential_storage_pumped_storage_2035_unit_count",  # noqa: E501
+        "supply_heat_individual_heat_pumps_2035_capacity": "supply_heat_individual_heat_pumps_2035_capacity",
+        "supply_pv_ground_mounted_potential_el_production_2035_feedin": "supply_pv_ground-mounted_potential_electricity_production_2035_feedin",  # noqa: E501
+        "supply_pv_roof_top_potential_electricity_production_2035_feedin": "supply_pv_roof-top_potential_electricity_production_2035_feedin",  # noqa: E501
+        "supply_wind_offshore_installed_capacity_2035_el_capacity": "supply_wind_offshore_installed_capacity_2035_el_capacity",  # noqa: E501
+        "supply_wind_offshore_installed_capacity_2035_unit_count": "supply_wind_offshore_installed_capacity_2035_unit_count",  # noqa: E501
+        "supply_wind_offshore_potential_el_production_2035_feedin": "supply_wind_offshore_potential_electricity_production_2035_feedin",  # noqa: E501
+        "supply_wind_onshore_potential_el_production_2035_feedin": "supply_wind_onshore_potential_electricity_production_2035_feedin",  # noqa: E501
+        "geom": "MULTIPOLYGON",
+    }
+
+
+class LoadArea(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    el_peakload = models.FloatField()
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "5_Data_model"
+    data_file = "egon2035.aggregation_levels.load_areas_"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        # TODO: Replace with real column, when data is in the package
+        "el_peakload": "id",
+    }
+
+
 class CH4Voronoi(models.Model):
     geom = models.MultiPolygonField(srid=4326, null=True)
     scn_name = models.CharField(max_length=64)
