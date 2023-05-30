@@ -294,6 +294,21 @@ MAP_ENGINE_API_MVTS = {
     "potential_h2_underground_storage_2035": [
         setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
     ],
+    "potential_ch4_store_2035": [
+        setup.MVTAPI("potential_ch4_store_2035", "map", "PotentialCH4Stores"),
+    ],
+    "heat_solarthermal_2035": [
+        setup.MVTAPI("heat_solarthermal_2035", "map", "HeatSolarthermal"),
+    ],
+    "heat_geothermal_2035": [
+        setup.MVTAPI("heat_geothermal_2035", "map", "HeatGeothermal"),
+    ],
+    "central_heatpumps_2035": [
+        setup.MVTAPI("central_heatpumps_2035", "map", "CentralHeatPumps"),
+    ],
+    "heating_households_cts_2035": [
+        setup.MVTAPI("heating_households_cts_2035", "map", "HeatingHouseholdsCts"),
+    ],
     "country": [
         setup.MVTAPI("country", "map", "Country"),
         setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),

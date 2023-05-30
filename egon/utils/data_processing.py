@@ -16,6 +16,11 @@ MODELS = [
     models.GasCH4Industry,
     models.GasH2Industry,
     models.TransportHeavyDuty,
+    models.HeatingHouseholdsCts,
+    # SUPPLY
+    models.CentralHeatPumps,
+    models.HeatSolarthermal,
+    models.HeatGeothermal,
     # Potentials
     models.GasPotentialBiogasProduction,
     models.GasPotentialNaturalGasProduction,
@@ -36,6 +41,7 @@ MODELS = [
     models.MethaneGridLine,
     # FELXIBILITY
     models.PotentialH2UndergroundStorage,
+    models.PotentialCH4Stores,
     # models.FlexPotElDynamicLineRating,
     models.HVMVSubstation,
     # DATAMODEL

@@ -11,7 +11,7 @@ from django_mapengine import views
 from config.settings.base import PASSWORD, PASSWORD_PROTECTION
 
 from .config import STORE_COLD_INIT, STORE_HOT_INIT
-from .models import MapLayer, MVGridDistrictData
+from .models import MapLayer
 
 
 class MapGLView(TemplateView, views.MapEngineMixin):
@@ -73,7 +73,7 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
     raw_data = data_model.objects.filter(id=region).values(*map_layer.popup_fields)[0]
 
     # Get the model's verbose field names
-    verbose_field_names = {field.name: field.verbose_name for field in MVGridDistrictData._meta.get_fields()}
+    verbose_field_names = {field.name: field.verbose_name for field in data_model._meta.get_fields()}
     # Replace field names in data with verbose names
     data_verbose = {}
     for field_name, value in raw_data.items():

@@ -183,6 +183,18 @@ class TransportHeavyDuty(DemandModel):
     layer = data_file
 
 
+class HeatingHouseholdsCts(DemandModel):
+    max = models.FloatField(null=True, verbose_name=_("Maximal demand (MW)"))
+    min = models.FloatField(null=True, verbose_name=_("Minimal demand (MW)"))
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "annual_demand": "annual_demand",
+    }
+
+    data_file = "egon2035.demand.heat_district_heating_households_and_cts"
+    layer = data_file
+
+
 class MVGridDistrictData(models.Model):
     geom = models.MultiPolygonField(srid=4326, null=True)
     area = models.FloatField(null=True)
@@ -405,6 +417,7 @@ class LoadArea(models.Model):
     }
 
 
+# SUPPLY
 # POTENTIALS
 class SupplyPotentialModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
@@ -416,6 +429,36 @@ class SupplyPotentialModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class CentralHeatPumps(SupplyPotentialModel):
+    capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
+    data_file = "egon2035.supply.heat_central_heat_pumps"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "capacity": "capacity",
+    }
+
+
+class HeatGeothermal(SupplyPotentialModel):
+    capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
+    data_file = "egon2035.supply.heat_geothermal"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "capacity": "capacity",
+    }
+
+
+class HeatSolarthermal(SupplyPotentialModel):
+    capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
+    data_file = "egon2035.supply.heat_solarthermal"
+    layer = data_file
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "capacity": "capacity",
+    }
 
 
 class GasPotentialBiogasProduction(SupplyPotentialModel):
@@ -613,7 +656,7 @@ class HVMVSubstation(SubstationModel):
 # FLEXIBILTY POTENTIAL
 class PotentialH2UndergroundStorage(models.Model):
     geom = models.MultiPolygonField(srid=4326, null=True)
-    e_nom_max = models.FloatField(null=True)
+    e_nom_max = models.FloatField(null=True, verbose_name=_("Storage Capacity (MWh)"))
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
@@ -625,4 +668,21 @@ class PotentialH2UndergroundStorage(models.Model):
     }
 
     data_file = "egon2035.flexibility_potential.gas_potential_hydrogen_underground_storage"
+    layer = data_file
+
+
+class PotentialCH4Stores(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    e_nom = models.FloatField(null=True, verbose_name=_("Storage Capacity (MWh)"))
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "4_Flexibility"
+    mapping = {
+        "geom": "MULTIPOLYGON",
+        "e_nom": "e_nom",
+    }
+
+    data_file = "egon2035.flexibility_potential.gas_methane_stores"
     layer = data_file

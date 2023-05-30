@@ -461,6 +461,41 @@
       "fill-opacity": 0.8
     }
   },
+  "potential_ch4_store_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heat_solarthermal_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heat_geothermal_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "central_heatpumps_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heating_households_cts_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
   "ehv_hv_station": {
     "type": "symbol",
     "layout": {
