@@ -277,20 +277,20 @@ MAP_ENGINE_API_MVTS = {
     "demand_transport_heavy_duty_transport_2035": [
         setup.MVTAPI("demand_transport_heavy_duty_transport_2035", "map", "TransportHeavyDuty")
     ],
-    # "static": [
-    #     setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
-    #     setup.MVTAPI(
-    #         "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
-    #     ),
-    #     setup.MVTAPI(
-    #         "pv_ground-mounted_potential_areas_highways_railroad_2035",
-    #         "map",
-    #         "PVGroundMountedPotentialAreaHighways_Railroads",
-    #     ),
-    #     setup.MVTAPI("ehv_line", "map", "EHVLine"),
-    #     setup.MVTAPI("hv_line", "map", "HVLine"),
-    #     setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
-    # ],
+    "static": [
+        setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
+        ),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_highways_railroad_2035",
+            "map",
+            "PVGroundMountedPotentialAreaHighways_Railroads",
+        ),
+        setup.MVTAPI("ehv_line", "map", "EHVLine"),
+        setup.MVTAPI("hv_line", "map", "HVLine"),
+        setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
+    ],
     "potential_h2_underground_storage_2035": [
         setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
     ],
