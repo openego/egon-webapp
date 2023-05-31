@@ -38,6 +38,7 @@ class MapGLView(TemplateView, views.MapEngineMixin):
                 "colors",
                 "icon",
                 "scenario",
+                "choropleth_field",
             )
             # needs to be ordered by category and subcategory for "regroup" (in template)
             .order_by("category", "sub_category", "name")
@@ -115,4 +116,5 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     values = {val["id"]: val[choropleth_data_field] for val in queryset}
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
+    print(fill_color)
     return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})

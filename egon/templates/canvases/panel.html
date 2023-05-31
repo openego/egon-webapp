@@ -83,7 +83,7 @@
                           </div>
                           <div class="switch-wrap">
                             <div class="form-check form-switch">
-                              <input class="form-check-input" id="{{ layer.identifier }}" data-geom-layer="{{ layer.geom_layer }}" type="checkbox" name="switch">
+                              <input class="form-check-input{% if layer.choropleth_field %} choropleth{% endif %}" id="{{ layer.identifier }}" data-geom-layer="{{ layer.geom_layer }}" type="checkbox" name="switch">
                               <label class="form-check-label" for="{{ layer.identifier }}" id="{{ layer.identifier }}">
                               </label>
                             </div>

@@ -50,7 +50,7 @@
     "type": "line",
     "paint": {
       "line-color": "rgb(115,62,136)",
-      "line-width": [3,0.8]
+      "line-width": 0.8
     }
   },
   "countrylabel": {
@@ -504,6 +504,7 @@
     }
   },
   "ehv_hv_station_cluster": {
+    "type": "circle",
     "paint": {
       "circle-color": [
         "step",
@@ -526,6 +527,7 @@
     }
   },
   "ehv_hv_station_cluster_count": {
+    "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
       "text-field": "{point_count_abbreviated}",
@@ -541,6 +543,7 @@
     }
   },
   "hv_mv_station_cluster": {
+    "type": "circle",
     "paint": {
       "circle-color": [
         "step",
@@ -563,6 +566,7 @@
     }
   },
   "hv_mv_station_cluster_count": {
+    "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
       "text-field": "{point_count_abbreviated}",
@@ -582,7 +586,7 @@
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
-      "line-width": [3,0.8]
+      "line-width": 0.8
     }
   },
   "load_area": {
@@ -597,7 +601,7 @@
     "type": "line",
     "paint": {
       "line-color": "rgb(115,62,136)",
-      "line-width": [3,0.8]
+      "line-width": 0.8
     }
   },
   "h2_voronoi": {
@@ -612,7 +616,7 @@
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
-      "line-width": [3,0.8]
+      "line-width": 0.8
     }
   },
   "ch4_voronoi": {
@@ -627,7 +631,7 @@
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
-      "line-width": [3,0.8]
+      "line-width": 0.8
     }
   },
   "soil_quality": {
