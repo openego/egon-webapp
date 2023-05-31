@@ -332,7 +332,7 @@ MAP_ENGINE_API_CLUSTERS = [
     setup.ClusterAPI("wind_onshore_wind_parks_2035", "map", "WindOnshoreWindPark"),
     setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
     setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
-    setup.ClusterAPI("pv_roof-top_pv_plants_2035", "map", "PVRoofTopPVPlant"),
+    # setup.ClusterAPI("pv_roof-top_pv_plants_2035", "map", "PVRoofTopPVPlant"),
     setup.ClusterAPI("pv_ground-mounted_pv_plants_2035", "map", "PVGroundMountedPVPlant"),
 ]
 
