@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 12:53+0000\n"
+"POT-Creation-Date: 2023-06-01 18:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,142 +59,149 @@ msgid "Grids"
 msgstr "Netz"
 
 #: egon/map/models.py:133
-msgid "Data Model"
-msgstr "Datenmodell"
+msgid "Flexibility"
+msgstr "Flexibilitäten"
 
 #: egon/map/models.py:149
 msgid "Map Layer"
-msgstr ""
+msgstr "Map Layer"
 
 #: egon/map/models.py:150
 msgid "Map Layers"
-msgstr ""
+msgstr "Map Layer"
 
-#: egon/map/models.py:187
-#, fuzzy
-#| msgid "Maximal hourly demand (MW)"
+#: egon/map/models.py:156
+msgid "Max. demand (MW)"
+msgstr "Maximale Nachfrage (MW)"
+
+#: egon/map/models.py:157 egon/map/models.py:170
+msgid "Annual demand (MWh)"
+msgstr "Jährlicher Verbrauch (MWh)"
+
+#: egon/map/models.py:201
 msgid "Maximal demand (MW)"
-msgstr "Maximale stündliche Nachfrage (MW)"
+msgstr "Minimale Nachfrage (MW)"
 
-#: egon/map/models.py:188
-#, fuzzy
-#| msgid "Minimal hourly demand (MW)"
+#: egon/map/models.py:202
 msgid "Minimal demand (MW)"
-msgstr "Maximale stündliche Nachfrage (MW)"
+msgstr "Minimale Nachfrage (MW)"
 
-#: egon/map/models.py:202 egon/map/models.py:206 egon/map/models.py:259
-#: egon/map/models.py:307
-msgid "Annual Demand (MWh)"
-msgstr "Jährlicher Verbrauch (MWh)"
-
-#: egon/map/models.py:203 egon/map/models.py:208 egon/map/models.py:260
-#: egon/map/models.py:309
-msgid "Maximal hourly demand (MW)"
-msgstr "Maximale stündliche Nachfrage (MW)"
-
-#: egon/map/models.py:204 egon/map/models.py:207 egon/map/models.py:261
-#: egon/map/models.py:310
-msgid "Minimal hourly demand (MW)"
-msgstr "Maximale stündliche Nachfrage (MW)"
-
-#: egon/map/models.py:205
-msgid "Population"
-msgstr "Bevölkerung"
-
-#: egon/map/models.py:210 egon/map/models.py:229
-msgid "Number of electric vehicles"
-msgstr "Anzahl elektrischer Fahrzeuge"
-
-#: egon/map/models.py:212 egon/map/models.py:231
-msgid "Number of compact EV"
-msgstr "Anzahl elektrische Fahrzeuge Kompaktklasse"
-
-#: egon/map/models.py:214 egon/map/models.py:233
-msgid "Number of mid-range EV"
-msgstr ""
-
-#: egon/map/models.py:217 egon/map/models.py:236
-msgid "Number of luxury-class EV"
-msgstr ""
-
-#: egon/map/models.py:220 egon/map/models.py:239
-msgid "Number of compact PHEV"
-msgstr ""
-
-#: egon/map/models.py:223 egon/map/models.py:242
-msgid "Number of mid-range PHEV"
-msgstr ""
-
-#: egon/map/models.py:226 egon/map/models.py:245
-msgid "Number of luxury-class PHEV"
-msgstr ""
-
-#: egon/map/models.py:248 egon/map/models.py:254 egon/map/models.py:272
-#: egon/map/models.py:278 egon/map/models.py:283 egon/map/models.py:286
-#: egon/map/models.py:292 egon/map/models.py:301 egon/map/models.py:321
-#: egon/map/models.py:330
-msgid "Installed capacity (MW)"
-msgstr "Installierte Leistung (MW)"
-
-#: egon/map/models.py:251 egon/map/models.py:257 egon/map/models.py:275
-#: egon/map/models.py:281 egon/map/models.py:284 egon/map/models.py:289
-#: egon/map/models.py:295 egon/map/models.py:304 egon/map/models.py:324
-#: egon/map/models.py:333
-msgid "Number of power plants"
-msgstr "Anzahl der Energieanlagen"
-
-#: egon/map/models.py:263 egon/map/models.py:312
-#, fuzzy
-#| msgid "Annual Demand (MWh)"
-msgid "Charging demand (MWh)"
-msgstr "Jährlicher Verbrauch (MWh)"
-
-#: egon/map/models.py:266 egon/map/models.py:315
-msgid "Flexible demand (MW)"
-msgstr "Flexibler Verbrauch (MW)"
-
-#: egon/map/models.py:269 egon/map/models.py:318
-msgid "Share of flexible demand (%)"
-msgstr "Anteil des flexiblen Verbrauchs (%)"
-
-#: egon/map/models.py:298 egon/map/models.py:327
-msgid "Potential production feedin"
-msgstr ""
-
-#: egon/map/models.py:434 egon/map/models.py:444 egon/map/models.py:454
-#, fuzzy
-#| msgid "Installed capacity (MW)"
+#: egon/map/models.py:229 egon/map/models.py:239 egon/map/models.py:249
 msgid "Electrical capacity (MW))"
 msgstr "Installierte Leistung (MW)"
 
-#: egon/map/models.py:464
+#: egon/map/models.py:259
 msgid "P nom"
-msgstr ""
+msgstr "P nom"
 
-#: egon/map/models.py:474
+#: egon/map/models.py:269
 msgid "P nom (MWh)"
-msgstr ""
+msgstr "P nom (MWh)"
 
-#: egon/map/models.py:484 egon/map/models.py:494 egon/map/models.py:504
+#: egon/map/models.py:279 egon/map/models.py:289 egon/map/models.py:299
 msgid "Potential area (km²)"
-msgstr ""
+msgstr "Potenzialgebiet (km²)"
 
-#: egon/map/models.py:527 egon/map/models.py:535 egon/map/models.py:543
-#: egon/map/models.py:551
+#: egon/map/models.py:322 egon/map/models.py:330 egon/map/models.py:338
+#: egon/map/models.py:351
 msgid "Electrical Capacity"
+msgstr "Elektrische Leistung"
+
+#: egon/map/models.py:323
+msgid "Voltage level"
+msgstr "Spannungsebene"
+
+#: egon/map/models.py:366
+msgid "Population"
+msgstr "Bevölkerung"
+
+#: egon/map/models.py:368 egon/map/models.py:372 egon/map/models.py:376
+#: egon/map/models.py:381 egon/map/models.py:412
+msgid "Annual Demand (MWh)"
+msgstr "Jährlicher Verbrauch (MWh)"
+
+#: egon/map/models.py:369 egon/map/models.py:373 egon/map/models.py:377
+#: egon/map/models.py:384 egon/map/models.py:413
+msgid "Maximal hourly demand (MW)"
+msgstr "Maximale stündliche Nachfrage (MW)"
+
+#: egon/map/models.py:370 egon/map/models.py:374 egon/map/models.py:378
+#: egon/map/models.py:387 egon/map/models.py:414
+msgid "Minimal hourly demand (MW)"
+msgstr "Maximale stündliche Nachfrage (MW)"
+
+#: egon/map/models.py:391
+msgid "Number of electric vehicles"
+msgstr "Anzahl elektrischer Fahrzeuge"
+
+#: egon/map/models.py:394
+msgid "Number of compact EV"
+msgstr "Anzahl elektrischer Kompaktklassewagen"
+
+#: egon/map/models.py:397
+msgid "Number of mid-range EV"
+msgstr "Anzahl elektrische Mittelklassewagen"
+
+#: egon/map/models.py:400
+msgid "Number of luxury-class EV"
+msgstr "Anzahl Oberklassewagen"
+
+#: egon/map/models.py:403
+msgid "Number of compact PHEV"
+msgstr "Anzahl plug-in Kompaktklassewagen"
+
+#: egon/map/models.py:406
+msgid "Number of mid-range PHEV"
+msgstr "Anzahl plug-in Mittelklassewagen"
+
+#: egon/map/models.py:409
+msgid "Number of luxury-class PHEV"
+msgstr "Anzahl plugin Oberklassewagen"
+
+#: egon/map/models.py:418 egon/map/models.py:427 egon/map/models.py:437
+#: egon/map/models.py:447 egon/map/models.py:457 egon/map/models.py:464
+#: egon/map/models.py:470 egon/map/models.py:474 egon/map/models.py:481
+#: egon/map/models.py:499 egon/map/models.py:505
+msgid "Installed capacity (MW)"
+msgstr "Installierte Leistung (MW)"
+
+#: egon/map/models.py:421 egon/map/models.py:430 egon/map/models.py:440
+#: egon/map/models.py:450 egon/map/models.py:460 egon/map/models.py:467
+#: egon/map/models.py:471 egon/map/models.py:477 egon/map/models.py:502
+#: egon/map/models.py:508
+msgid "Number of power plants"
+msgstr "Anzahl der Energieanlagen"
+
+#: egon/map/models.py:424 egon/map/models.py:433 egon/map/models.py:443
+#: egon/map/models.py:453
+msgid "Potential el. prodcution feed-in (MW)"
 msgstr ""
 
-#: egon/map/models.py:658 egon/map/models.py:675
-#, fuzzy
-#| msgid "Installed capacity (MW)"
+#: egon/map/models.py:485
+msgid "Demand Side Potential (MW)"
+msgstr ""
+
+#: egon/map/models.py:489
+msgid "Flexible demand (MW)"
+msgstr "Flexibler Verbrauch (MW)"
+
+#: egon/map/models.py:492
+msgid "Charging demand (MWh)"
+msgstr "Ladenachfrage (MWh)"
+
+#: egon/map/models.py:495
+msgid "Share of flexible demand (%)"
+msgstr "Anteil des flexiblen Verbrauchs (%)"
+
+#: egon/map/models.py:677 egon/map/models.py:694
 msgid "Storage Capacity (MWh)"
-msgstr "Installierte Leistung (MW)"
+msgstr "Speicherkapazität (MW)"
 
 #: egon/templates/canvases/map.html:10
 msgid "About"
 msgstr "Über uns"
 
-#: egon/templates/canvases/map.html:13 egon/templates/canvases/panel.html:108
+#: egon/templates/canvases/map.html:13 egon/templates/canvases/panel.html:109
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -206,10 +213,10 @@ msgstr "Szenarien"
 msgid "Results"
 msgstr "Ergebnisse"
 
-#: egon/templates/canvases/panel.html:111
+#: egon/templates/canvases/panel.html:112
 msgid "Imprint"
 msgstr "Impressum"
 
-#: egon/templates/canvases/panel.html:114
+#: egon/templates/canvases/panel.html:115
 msgid "Data Privacy"
 msgstr "Datenschutzhinweise"

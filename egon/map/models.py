@@ -130,7 +130,7 @@ class MapLayer(models.Model):
             ("demand", _("Demand")),
             ("supply", _("Supply")),
             ("grids", _("Grids")),
-            ("model", _("Data Model")),
+            ("flexibility", _("Flexibility")),
         ],
         default="demand",
         help_text="The main category in the left panel in the frontend.",
@@ -167,7 +167,7 @@ class LoadArea(models.Model):
 
 class DemandModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
-    annual_demand = models.FloatField(null=True)
+    annual_demand = models.FloatField(null=True, verbose_name=_("Annual demand (MWh)"))
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
@@ -200,10 +200,7 @@ class TransportHeavyDuty(DemandModel):
 class HeatingHouseholdsCts(DemandModel):
     max = models.FloatField(null=True, verbose_name=_("Maximal demand (MW)"))
     min = models.FloatField(null=True, verbose_name=_("Minimal demand (MW)"))
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        "annual_demand": "annual_demand",
-    }
+    mapping = {"geom": "MULTIPOLYGON", "annual_demand": "annual_demand", "max": "max", "min": "min"}
 
     data_file = "egon2035.demand.heat_district_heating_households_and_cts"
     layer = data_file
@@ -318,7 +315,7 @@ class SupplyPlantModel(models.Model):
 
 class WindOffshoreWindPark(SupplyPlantModel):
     el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
-    voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
+    voltage_level = models.PositiveIntegerField(verbose_name=_("Voltage level"))
     data_file = "egon2035.supply.wind_offshore_wind_parks"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
