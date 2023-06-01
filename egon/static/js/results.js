@@ -8,6 +8,9 @@ layerSwitches.forEach(layerSwitch => {
       layerSwitches.forEach(otherSwitch => {
         if (otherSwitch.id !== layerSwitch.id) {
           otherSwitch.checked = false;
+          deactivateChoropleth(null, otherSwitch.id);
+          map.setLayoutProperty(otherSwitch.dataset.geomLayer, "visibility", "none");
+
         }
       });
       map.setLayoutProperty(layerSwitch.dataset.geomLayer, "visibility", "visible");
