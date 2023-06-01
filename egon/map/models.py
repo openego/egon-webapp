@@ -151,6 +151,20 @@ class MapLayer(models.Model):
 
 
 # DEMAND
+class LoadArea(models.Model):
+    geom = models.MultiPolygonField(srid=4326, null=True)
+    el_peakload = models.FloatField(null=True, verbose_name=_("Max. demand (MW)"))
+    el_consumption = models.FloatField(null=True, verbose_name=_("Annual demand (MWh)"))
+
+    objects = models.Manager()
+    vector_tiles = MVTManager(columns=["id"])
+
+    data_folder = "1_Demand"
+    data_file = "egon2035.demand.electricity_load_areas"
+    layer = "egon2035.demand.electricity_load_areas_"
+    mapping = {"geom": "MULTIPOLYGON", "el_peakload": "el_peakload", "el_consumption": "el_consumption"}
+
+
 class DemandModel(models.Model):
     geom = models.MultiPolygonField(srid=4326)
     annual_demand = models.FloatField(null=True)
@@ -547,23 +561,6 @@ class MVGridDistrictData(models.Model):
         "supply_wind_offshore_potential_el_production_2035_feedin": "supply_wind_offshore_potential_electricity_production_2035_feedin",  # noqa: E501
         "supply_wind_onshore_potential_el_production_2035_feedin": "supply_wind_onshore_potential_electricity_production_2035_feedin",  # noqa: E501
         "geom": "MULTIPOLYGON",
-    }
-
-
-class LoadArea(models.Model):
-    geom = models.MultiPolygonField(srid=4326, null=True)
-    el_peakload = models.FloatField()
-
-    objects = models.Manager()
-    vector_tiles = MVTManager(columns=["id"])
-
-    data_folder = "5_Data_model"
-    data_file = "egon2035.aggregation_levels.load_areas_"
-    layer = data_file
-    mapping = {
-        "geom": "MULTIPOLYGON",
-        # TODO: Replace with real column, when data is in the package
-        "el_peakload": "id",
     }
 
 
