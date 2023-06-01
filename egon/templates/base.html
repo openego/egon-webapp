@@ -22,6 +22,18 @@
         <link href="{% static 'vendors/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
       {% endcompress %}
     {% endblock %}
+   {% if password_protected %}
+      <script type="text/javascript">
+        var s = "";
+        const pw = "{{password}}";
+        while (s != pw) {
+          s = prompt("Bitte Passwort eingeben");
+          if (s != pw) {
+            alert("Falsches Passwort - bitte versuch es erneut!");
+          }
+        }
+      </script>
+    {% endif %}
 
   </head>
 
