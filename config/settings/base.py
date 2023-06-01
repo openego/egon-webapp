@@ -258,7 +258,6 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("load_area", "map", "LoadArea"),
     ],
     "load_area_line": [
-        setup.MVTAPI("load_area", "map", "LoadArea"),
         setup.MVTAPI("load_area_line", "map", "LoadArea"),
     ],
     "h2_voronoi": [
