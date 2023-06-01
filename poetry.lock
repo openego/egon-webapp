@@ -931,7 +931,7 @@ range-key-dict = "^1.1.0"
 type = "git"
 url = "https://github.com/rl-institut/django-mapengine.git"
 reference = "optional_map_layer_model"
-resolved_reference = "43f8d9ebf2c949d70939b16c09758bd23d29f467"
+resolved_reference = "56b7cdf201b4c08083afaaa019309527a6e7c65e"
 
 [[package]]
 name = "django-redis"
