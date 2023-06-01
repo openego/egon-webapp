@@ -340,10 +340,16 @@ class PVGroundMountedPVPlant(SupplyPlantModel):
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
 
+class PVRoofTopPVPlantManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(el_capacity__gt=0.13)
+
+
 class PVRoofTopPVPlant(SupplyPlantModel):
     el_capacity = models.FloatField(_("Electrical Capacity"))
     voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
 
+    objects = PVRoofTopPVPlantManager()
     data_file = "egon2035.supply.pv_roof-top_pv_plants"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}

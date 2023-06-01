@@ -337,15 +337,7 @@
     "filter": ["has", "point_count"],
     "paint": {
       "circle-color": "#FFD660",
-      "circle-radius": [
-        "step",
-        ["get", "point_count"],
-        15,
-        125,
-        20,
-        950,
-        25
-      ]
+      "circle-radius": 20
     }
   },
   "pv_roof-top_pv_plants_2035_cluster_count": {
