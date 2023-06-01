@@ -442,6 +442,18 @@
       "line-color": "blue"
     }
   },
+  "flex_electricity_dynamic_line_rating_2035": {
+    "type": "line",
+    "paint": {
+      "line-color": [
+      "case",
+      ["==", ["get", "dlr"], 1],
+      "red",
+      "black"
+    ],
+      "line-width": 1
+    }
+  },
   "methan_grid_line_2035": {
     "type": "line",
     "paint": {

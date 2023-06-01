@@ -42,7 +42,7 @@ MODELS = [
     # FELXIBILITY
     models.PotentialH2UndergroundStorage,
     models.PotentialCH4Stores,
-    # models.FlexPotElDynamicLineRating,
+    models.FlexPotElDynamicLineRating,
     models.HVMVSubstation,
     # DATAMODEL
     models.MVGridDistrictData,

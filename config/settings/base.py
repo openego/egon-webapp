@@ -293,6 +293,9 @@ MAP_ENGINE_API_MVTS = {
         setup.MVTAPI("hv_line", "map", "HVLine"),
         setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
     ],
+    "flex_electricity_dynamic_line_rating_2035": [
+        setup.MVTAPI("flex_electricity_dynamic_line_rating_2035", "map", "FlexPotElDynamicLineRating"),
+    ],
     "potential_h2_underground_storage_2035": [
         setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
     ],

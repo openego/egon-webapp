@@ -629,9 +629,13 @@ class MethaneGridLine(LineModel):
 
 
 class FlexPotElDynamicLineRating(LineModel):
+    dlr = models.PositiveIntegerField(null=True)
     data_folder = "4_Flexibility"
     data_file = "egon2035.flexibility_potential.electricity_dynamic_line_rating"
     layer = data_file
+    vector_tiles = MVTManager(columns=["id", "dlr"])
+
+    mapping = {"geom": "MULTILINESTRING", "dlr": "dlr"}
 
 
 class SubstationModel(models.Model):
