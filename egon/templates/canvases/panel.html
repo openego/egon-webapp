@@ -73,7 +73,8 @@
                             <div class="name__visual"
                                  style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}{% for color in layer.colors %},{{ color }}{% endfor %});{% endif %}">
                             </div>
-                              <span class="name__text" data-source="{{ layer.identifier }}">{{ layer.name }}</span>
+                              <span class="name__text text-truncate" data-source="{{ layer.identifier }}" style="max-width: 255px;">
+                                {{ layer.name }}</span>
                               {% if layer.description %}
                               <span class="name__info has-tip right" aria-haspopup="true" data-allow-html="true"
                               data-disable-hover="false" data-tooltip=""
