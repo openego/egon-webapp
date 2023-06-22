@@ -1,4 +1,3 @@
-
 {% load static i18n %}
 {% load crispy_forms_tags %}
 
@@ -6,65 +5,103 @@
   <section class="panel__content">
     <div class="panel__logos">
       <div class="logo logo--egon">
-        <a href="https://egon.de/" target="_blank" rel="noopener noreferrer">
+        <a href="https://ego-n.org/" target="_blank" rel="noopener noreferrer">
           <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo">
         </a>
       </div>
       <div class="logo logo--bmwk">
         <a href="https://www.bmwk.de/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/BMWK.png" alt="Federal Ministry for Economic Affairs and Climate Action logo">
+          <img src="../../static/images/logos/BMWK.png"
+               alt="Federal Ministry for Economic Affairs and Climate Action logo">
         </a>
       </div>
     </div>
     <div class="panel__tabs">
       <div>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios" type="button" role="tab" aria-controls="nav-home" aria-selected="true">{% translate "Scenarios" %}</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">{% translate "Results" %}</button>
+        <div class="nav nav-tabs" id="nav-tabMain" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios"
+                  type="button" role="tab" aria-controls="nav-scenarios"
+                  aria-selected="true">{% translate "Scenarios" %}</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button"
+                  role="tab" aria-controls="nav-profile" aria-selected="false" disabled style="color: #9D9D9D;">{% translate "Results" %}</button>
         </div>
       </div>
+
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-scenarios" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="scenario-btns">
-            <button type="button" class="active">eGon2035</button>
-            <button type="button">eGon100RE</button>
+            <button type="button" class="active" id="2035">eGon2035</button>
+            <button type="button" disabled id="100RE" style="color: #9D9D9D;">eGon100RE</button>
           </div>
+
+
+
           <div class="category-tabs">
             <ul class="nav nav-pills mb-3" id="category-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active category-tabs__category" id="category-demand-tab" data-bs-toggle="pill" data-bs-target="#category-demand" type="button" role="tab" aria-controls="category-demand" aria-selected="true"></button>
+                <button class="nav-link active category-tabs__category" id="category-demand-tab" data-bs-toggle="pill"
+                        data-bs-target="#demand" type="button" role="tab" aria-controls="Demand"
+                        aria-selected="true"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-generation-tab" data-bs-toggle="pill" data-bs-target="#category-generation" type="button" role="tab" aria-controls="category-generation" aria-selected="false"></button>
+                <button class="nav-link category-tabs__category" id="category-generation-tab" data-bs-toggle="pill"
+                        data-bs-target="#supply" type="button" role="tab" aria-controls="generation"
+                        aria-selected="false"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-grid-tab" data-bs-toggle="pill" data-bs-target="#category-grid" type="button" role="tab" aria-controls="category-grid" aria-selected="false"></button>
+                <button class="nav-link category-tabs__category" id="category-grid-tab" data-bs-toggle="pill"
+                        data-bs-target="#grid" type="button" role="tab" aria-controls="grid"
+                        aria-selected="false"></button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link category-tabs__category" id="category-model-tab" data-bs-toggle="pill" data-bs-target="#category-model" type="button" role="tab" aria-controls="category-model" aria-selected="false"></button>
+                <button class="nav-link category-tabs__category" id="category-flexibility-tab" data-bs-toggle="pill"
+                        data-bs-target="#flexibility" type="button" role="tab" aria-controls="flexibility"
+                        aria-selected="false"></button>
               </li>
             </ul>
             <div class="tab-content layers" id="category-tabContent">
-              <div class="panel-chart" id="demandChart"></div>
-              {% for category, switches in area_switches.items %}
-                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="category-{{category}}" role="tabpanel" aria-labelledby="category-{{category}}-tab">
-                  {% regroup switches by layer.type as grouped_switches %}
-                  {% for _, switch_group in grouped_switches %}
-                    {% if forloop.counter > 1 %}
-                      <div class="panel-line"></div>
-                    {% endif %}
-                    {% for switch in switch_group %}
-                      {% crispy switch %}
-                    {% endfor %}
+              {% regroup layers by category as category_list %}
+              {% for category in category_list %}
+                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ category.grouper }}"
+                     role="tabpanel" aria-labelledby="{{ category.grouper }}-tab">
+                  {% regroup category.list by sub_category as sub_category_list %}
+                    {% for sub_cat in sub_category_list %}
+                      <h5>{{ sub_cat.grouper }}</h5>
+                        {% for layer in sub_cat.list %}
+                          <form class="layers__item static-layer" data-scenario="{{ layer.scenario }}" {% if layer.scenario == "100RE" %}style="display: none;"{%  endif %}>
+                            <div class="name">
+                            <div class="name__visual"
+                                 style="background-image: {% if layer.icon %}url('{% static layer.icon  %}');background-size: cover; {% endif %}{% if layer.colors %}linear-gradient(to right, {{ layer.colors|first }}{% for color in layer.colors %},{{ color }}{% endfor %});{% endif %}">
+                            </div>
+                              <span class="name__text text-truncate" data-source="{{ layer.identifier }}" style="max-width: 255px;">
+                                {{ layer.name }}</span>
+                              {% if layer.description %}
+                              <span class="name__info has-tip right" aria-haspopup="true" data-allow-html="true"
+                              data-disable-hover="false" data-tooltip=""
+                              style="background: url('{% static "images/icons/info.svg" %}') no-repeat center center / contain;"
+                              title="{{ layer.description }}"></span>
+                              {% endif %}
+                          </div>
+                          <div class="switch-wrap">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input{% if layer.choropleth_field %} choropleth{% endif %}" id="{{ layer.identifier }}" data-geom-layer="{{ layer.geom_layer }}" type="checkbox" name="switch">
+                              <label class="form-check-label" for="{{ layer.identifier }}" id="{{ layer.identifier }}">
+                              </label>
+                            </div>
+                          </div>
+                          </form>
                   {% endfor %}
+                      <div class="panel-line"></div>
+                    {% endfor %}
                 </div>
               {% endfor %}
             </div>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-      </div>
+          </div></div>
     </div>
+        <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
+          Results....
+        </div>
+      </div>
   </section>
   <footer class="footer">
     <ul>
@@ -80,81 +117,3 @@
     </ul>
   </footer>
 </section>
-
-<script>
-  // Variables
-	const demandXValues = ['Electricity', 'Heat', 'Gas', 'Transport'];
-  const demandYValues = [20, 14, 23, 54];
-  const demandTitle = 'Sum for Germany in TWh per sector';
-
-  // Layout
-  var trace1 = {
-    x: demandXValues,
-    y: demandYValues,
-    type: 'bar',
-    text: demandYValues.map(String),
-    textposition: 'auto',
-    hoverinfo: 'none',
-    marker: {
-      color: '#D1DDE4'
-    },
-    width: 0.4,
-    textfont: {
-      size: 12,
-      color: '#000'
-    },
-  };
-
-  var data = [trace1];
-
-  var layout = {
-    title: {
-      text: demandTitle,
-      x: 0,
-      xanchor: 'left',
-      font: {
-        family: 'Lato, sans-serif',
-        color: '#616161',
-        size: 14
-      }
-    },
-    showlegend: false,
-    legend: {
-      font: {
-        family: 'Lato, sans-serif',
-        size: 12,
-        color: '#616161'
-      }
-    },
-    height: 275,
-    margin: {
-      l: 35,
-      r: 5,
-      b: 40,
-      t: 30
-    },
-    barmode: 'stack',
-    xaxis: {
-      autotick: false,
-      ticks: 'outside',
-      tick0: 0,
-      dtick: 1,
-      ticklen: 4,
-      tickwidth: 2,
-      tickcolor: '#fff'
-    },
-    yaxis: {
-      autotick: false,
-      ticks: 'outside',
-      tick0: 0,
-      dtick: 50,
-      ticklen: 8,
-      tickwidth: 4,
-      tickcolor: '#fff',
-      zerolinecolor: '#EDEDED'
-    }
-  };
-
-  // Plots
-  Plotly.newPlot('demandChart', data, layout, {staticPlot: true});
-</script>

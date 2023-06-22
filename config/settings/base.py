@@ -82,8 +82,10 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.admin",
     # "django.contrib.humanize", # Handy template tags
     "django.forms",
+    "django.contrib.gis",
 ]
 
 THIRD_PARTY_APPS = [
@@ -91,6 +93,7 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_distill",
+    "import_export",
 ]
 
 LOCAL_APPS = ["egon.map.apps.MapConfig", "django_mapengine"]
@@ -112,6 +115,7 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -232,19 +236,87 @@ COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"
 MAP_ENGINE_CENTER_AT_STARTUP = [10.407237624103573, 51.22757621251938]
 MAP_ENGINE_ZOOM_AT_STARTUP = 5.546712433728557
 MAP_ENGINE_MAX_BOUNDS: [[-2.54, 46.35], [23.93, 55.87]]
+MAP_ENGINE_LAYERS_AT_STARTUP = []
 
 MAP_ENGINE_STYLES_FOLDER = "egon/static/styles/"
-MAP_ENGINE_MIN_ZOOM = 5
-MAP_ENGINE_ZOOM_LEVELS = {}
+MAP_ENGINE_MIN_ZOOM = 2
+
+# needs to be empty to disable centration- and moveto-behavior onclick
+MAP_ENGINE_ZOOM_LEVELS = {
+    # "country": setup.Zoom(2, 7),
+    # "state": setup.Zoom(7, 9),
+    # "district": setup.Zoom(9, 11),
+    # "municipality": setup.Zoom(11, 13),
+}
 
 MAP_ENGINE_API_MVTS = {
+    "mv_grid_district_data": [
+        setup.MVTAPI("mv_grid_district_data", "map", "MVGridDistrictData"),
+        setup.MVTAPI("mv_grid_district_data_line", "map", "MVGridDistrictData"),
+    ],
+    "load_area": [
+        setup.MVTAPI("load_area", "map", "LoadArea"),
+    ],
+    "load_area_line": [
+        setup.MVTAPI("load_area_line", "map", "LoadArea"),
+    ],
+    "h2_voronoi": [
+        setup.MVTAPI("h2_voronoi", "map", "H2Voronoi"),
+        setup.MVTAPI("h2_voronoi_line", "map", "H2Voronoi"),
+    ],
+    "ch4_voronoi": [
+        setup.MVTAPI("ch4_voronoi", "map", "CH4Voronoi"),
+        setup.MVTAPI("ch4_voronoi_line", "map", "CH4Voronoi"),
+    ],
+    "gas_potential_biogas_production_2035": [
+        setup.MVTAPI("gas_potential_biogas_production_2035", "map", "GasPotentialBiogasProduction")
+    ],
+    "gas_potential_natural_gas_production_2035": [
+        setup.MVTAPI("gas_potential_natural_gas_production_2035", "map", "GasPotentialNaturalGasProduction")
+    ],
+    "gas_methane_for_industry": [setup.MVTAPI("gas_methane_for_industry", "map", "GasCH4Industry")],
+    "gas_hydrogen_for_industry": [setup.MVTAPI("gas_hydrogen_for_industry", "map", "GasH2Industry")],
+    "demand_transport_heavy_duty_transport_2035": [
+        setup.MVTAPI("demand_transport_heavy_duty_transport_2035", "map", "TransportHeavyDuty")
+    ],
     "static": [
-        setup.MVTAPI("potential_wind", "map", "SupplyPotentialWind"),
-        setup.MVTAPI("potential_pv", "map", "SupplyPotentialPVGround"),
+        setup.MVTAPI("wind_onshore_potential_areas_2035", "map", "WindOnshorePotentialArea"),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_agriculture_2035", "map", "PVGroundMountedPotentialAreaAgriculture"
+        ),
+        setup.MVTAPI(
+            "pv_ground-mounted_potential_areas_highways_railroad_2035",
+            "map",
+            "PVGroundMountedPotentialAreaHighways_Railroads",
+        ),
         setup.MVTAPI("ehv_line", "map", "EHVLine"),
         setup.MVTAPI("hv_line", "map", "HVLine"),
+        setup.MVTAPI("methan_grid_line_2035", "map", "MethaneGridLine"),
+    ],
+    "flex_electricity_dynamic_line_rating_2035": [
+        setup.MVTAPI("flex_electricity_dynamic_line_rating_2035", "map", "FlexPotElDynamicLineRating"),
+    ],
+    "potential_h2_underground_storage_2035": [
+        setup.MVTAPI("potential_h2_underground_storage_2035", "map", "PotentialH2UndergroundStorage"),
+    ],
+    "potential_ch4_store_2035": [
+        setup.MVTAPI("potential_ch4_store_2035", "map", "PotentialCH4Stores"),
+    ],
+    "heat_solarthermal_2035": [
+        setup.MVTAPI("heat_solarthermal_2035", "map", "HeatSolarthermal"),
+    ],
+    "heat_geothermal_2035": [
+        setup.MVTAPI("heat_geothermal_2035", "map", "HeatGeothermal"),
+    ],
+    "central_heatpumps_2035": [
+        setup.MVTAPI("central_heatpumps_2035", "map", "CentralHeatPumps"),
+    ],
+    "heating_households_cts_2035": [
+        setup.MVTAPI("heating_households_cts_2035", "map", "HeatingHouseholdsCts"),
+    ],
+    "country": [
         setup.MVTAPI("country", "map", "Country"),
-        # setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
+        setup.MVTAPI("countrylabel", "map", "Country", "label_tiles"),
     ],
     "state": [
         setup.MVTAPI("state", "map", "State"),
@@ -256,37 +328,29 @@ MAP_ENGINE_API_MVTS = {
     ],
     "municipality": [
         setup.MVTAPI("municipality", "map", "Municipality"),
-        # setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
-    ],
-    "mv_grid_districts": [
-        setup.MVTAPI("mv_grid_districts", "map", "MVGridDistricts"),
+        setup.MVTAPI("municipalitylabel", "map", "Municipality", "label_tiles"),
     ],
 }
 
 MAP_ENGINE_API_CLUSTERS = [
-    setup.ClusterAPI("supply_biomass", "map", "SupplyBiomass"),
-    setup.ClusterAPI("supply_run_of_river", "map", "SupplyRunOfRiver"),
-    setup.ClusterAPI("supply_wind", "map", "SupplyWindOnshore"),
-    setup.ClusterAPI("supply_solar", "map", "SupplySolarGround"),
+    setup.ClusterAPI("wind_offshore_wind_parks_2035", "map", "WindOffshoreWindPark"),
+    setup.ClusterAPI("wind_onshore_wind_parks_2035", "map", "WindOnshoreWindPark"),
     setup.ClusterAPI("ehv_hv_station", "map", "EHVHVSubstation"),
     setup.ClusterAPI("hv_mv_station", "map", "HVMVSubstation"),
+    setup.ClusterAPI("pv_roof-top_pv_plants_2035", "map", "PVRoofTopPVPlant"),
+    setup.ClusterAPI("pv_ground-mounted_pv_plants_2035", "map", "PVGroundMountedPVPlant"),
 ]
 
 MAP_ENGINE_IMAGES = [
-    setup.MapImage("biomass", "images/icons/biomass.png"),
     setup.MapImage("solar", "images/icons/solar.png"),
     setup.MapImage("wind", "images/icons/wind.png"),
-    setup.MapImage("river", "images/icons/river.png"),
     setup.MapImage("station", "images/icons/station.png"),
 ]
-MAP_ENGINE_CHOROPLETHS = [
-    setup.Choropleth("transport_mit_demand", layers=["mv_grid_districts"]),
-    setup.Choropleth("egon_demand_electricity_household_2035", layers=["mv_grid_districts"]),
-]
 
-MAP_ENGINE_POPUPS = [
-    setup.Popup("mv_grid_districts", False, ["transport_mit_demand", "egon_demand_electricity_household_2035"])
-]
+MAP_ENGINE_MAPLAYER_MODEL = "MapLayer"
+# not needed when using MAPLAYER_MODEL
+MAP_ENGINE_CHOROPLETHS = []
+MAP_ENGINE_POPUPS = []
 
 # Your stuff...
 # ------------------------------------------------------------------------------
