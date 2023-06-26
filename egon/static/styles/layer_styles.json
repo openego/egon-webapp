@@ -502,13 +502,16 @@
   },
   "ehv_hv_station": {
     "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
     "layout": {
       "icon-image": "station",
-      "icon-size": 0.5
+      "icon-size": 0.5,
+      "icon-allow-overlap": true
     }
   },
   "ehv_hv_station_cluster": {
     "type": "circle",
+    "filter": ["has", "point_count"],
     "paint": {
       "circle-color": [
         "step",
@@ -541,13 +544,16 @@
   },
   "hv_mv_station": {
     "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
     "layout": {
       "icon-image": "station",
-      "icon-size": 0.8
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
     }
   },
   "hv_mv_station_cluster": {
     "type": "circle",
+    "filter": ["has", "point_count"],
     "paint": {
       "circle-color": [
         "step",
