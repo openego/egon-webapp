@@ -35,13 +35,14 @@ class MapGLView(TemplateView, views.MapEngineMixin):
                 "geom_layer",
                 "description",
                 "sub_category",
+                "order_priority",
                 "colors",
                 "icon",
                 "scenario",
                 "choropleth_field",
             )
             # needs to be ordered by category and subcategory for "regroup" (in template)
-            .order_by("category", "sub_category", "name")
+            .order_by("category", "sub_category", "order_priority", "name")
         )
         context["store_cold_init"] = json.dumps(STORE_COLD_INIT)
 

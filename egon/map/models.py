@@ -138,6 +138,15 @@ class MapLayer(models.Model):
     sub_category = models.CharField(
         max_length=64, null=True, blank=True, help_text="The sub-category for the display in the frontend."
     )
+    order_priority = models.PositiveSmallIntegerField(
+        verbose_name=_("Order priority Frontend"),
+        null=True,
+        blank=True,
+        help_text=_(
+            "The MapLayers in the frontend-panel on the left are ordered by their category, then sub-category "
+            "and finally by this field. '1' is the highest priority."
+        ),
+    )
     data_model = models.CharField(max_length=64, help_text="The name of the model that holds the data.")
 
     data_file = "maplayer"
