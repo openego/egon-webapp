@@ -911,7 +911,7 @@ libsass = ">=0.7.0,<1"
 
 [[package]]
 name = "django-mapengine"
-version = "0.8.0"
+version = "0.9.0"
 description = "Map engine for maplibre in django"
 category = "main"
 optional = false
@@ -931,7 +931,7 @@ range-key-dict = "^1.1.0"
 type = "git"
 url = "https://github.com/rl-institut/django-mapengine.git"
 reference = "optional_map_layer_model"
-resolved_reference = "56b7cdf201b4c08083afaaa019309527a6e7c65e"
+resolved_reference = "58636444d03a2b9d6811369ac702808636b172aa"
 
 [[package]]
 name = "django-redis"
