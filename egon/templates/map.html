@@ -15,12 +15,74 @@
 {% endblock %}
 
 {% block content %}
-  <section class="map-content">
-    {% include 'canvases/panel.html' %}
-    <pre id="info"></pre>
-    {% include 'canvases/map.html' %}
-  </section>
+  {% include 'modals/imprint.html' %}
+  {% include 'modals/privacy.html' %}
+  <div class="main-container">
 
+    <nav class="top-nav navbar navbar-expand-lg navbar-light bg-body"
+         aria-label="Navbar mit Links zu den anderen Seiten">
+      <div class="container-fluid">
+        <a class="top-nav__brand navbar-brand" href="https://ego-n.org/">
+           <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo" height="40">
+        </a>
+        <a class="top-nav__logo top-nav__logo--rli" href="https://www.bmwk.de" target="_blank" rel="noopener noreferrer">
+          <img src="../../static/images/logos/BMWK.png"
+               alt="Federal Ministry for Economic Affairs and Climate Action logo" height="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample03" aria-controls="navbarsExample03"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+            <li class="nav-item">
+              <a class="nav-link active" id="mapView" aria-current="page"
+                 href="#">{% translate "Karte & Szenarien" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas"
+                href="#offcanvasResults" role="button"
+                aria-controls="offcanvasResults">
+              <a class="nav-link" href="#">{% translate "Results" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas"
+                href="#offcanvasDocumentation" role="button"
+                aria-controls="offcanvasDocumentation">
+              <a class="nav-link" href="#">{% translate "Documentation" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasSources"
+                role="button" aria-controls="offcanvasSources">
+              <a class="nav-link" href="#">{% translate "Sources" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasContact"
+                role="button" aria-controls="offcanvasContact">
+              <a class="nav-link" href="#">{% translate "Contact" %}</a>
+            </li>
+            <li class="top-nav__lang">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% if LANGUAGE_CODE == "de" %}
+                <a href="/en/" class="btn btn-sm btn-outline-secondary">English</a>
+              {% else %}
+                <a href="/de/" class="btn btn-sm btn-outline-secondary">Deutsch</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="map-content">
+      {% include 'canvases/panel.html' %}
+      <pre id="info"></pre>
+      {% include 'canvases/map.html' %}
+    </section>
+  </div>
+
+  {% include 'offcanvas/documentation.html' %}
+  {% include 'offcanvas/results.html' %}
+  {% include 'offcanvas/sources.html' %}
+  {% include 'offcanvas/contact.html' %}
   {% include 'canvases/popup.html' %}
 {% endblock content %}
 

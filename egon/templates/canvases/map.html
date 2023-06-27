@@ -1,31 +1,9 @@
 {% load static i18n %}
 
 <section class="map-wrap">
-  <nav class="top-nav">
-    <div class="top-nav__search">
-    </div>
-    <div class="top-nav__links">
-      <ul>
-        <li>
-          <a href="#">{% translate "About" %}</a>
-        </li>
-        <li>
-          <a href="#">{% translate "Contact" %}</a>
-        </li>
-        <li class="top-nav__lang">
-          {% get_current_language as LANGUAGE_CODE %}
-          {% if LANGUAGE_CODE == "de" %}
-            <a href="/en/" class="btn btn-sm btn-outline-secondary">English</a>
-          {% else %}
-            <a href="/de/" class="btn btn-sm btn-outline-secondary">Deutsch</a>
-          {% endif %}
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <section id="map">
-  </section>
-  <div class='map-overlay' id='legend'></div>
+  <section id="map"></section>
+
+  <div class='legend' id='legend' style="width: 22rem"></div>
   <!-- hidden buttons to make JS with django-mapengine work -->
   <button id="basemaps-control" style="display: none;">Toggle Basemaps</button>
   <div id="basemaps" style="display: none;">
