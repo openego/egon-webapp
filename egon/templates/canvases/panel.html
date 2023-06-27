@@ -3,27 +3,14 @@
 
 <section class="panel">
   <section class="panel__content">
-    <div class="panel__logos">
-      <div class="logo logo--egon">
-        <a href="https://ego-n.org/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo">
-        </a>
-      </div>
-      <div class="logo logo--bmwk">
-        <a href="https://www.bmwk.de/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/BMWK.png"
-               alt="Federal Ministry for Economic Affairs and Climate Action logo">
-        </a>
-      </div>
-    </div>
     <div class="panel__tabs">
       <div>
         <div class="nav nav-tabs" id="nav-tabMain" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios"
+          <button class="nav-link active" id="nav-scenarios-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios"
                   type="button" role="tab" aria-controls="nav-scenarios"
                   aria-selected="true">{% translate "Scenarios" %}</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button"
-                  role="tab" aria-controls="nav-profile" aria-selected="false" disabled style="color: #9D9D9D;">{% translate "Results" %}</button>
+          <button class="nav-link" id="nav-results-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button"
+                  role="tab" aria-controls="nav-results" aria-selected="false">{% translate "Results" %}</button>
         </div>
       </div>
 
@@ -99,7 +86,14 @@
           </div></div>
     </div>
         <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
-          Results....
+          <div class="ms-3 me-3">
+          <b>Results</b><br>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur corporis ea, eligendi eum impedit maxime molestias, officia, perspiciatis quo veniam vero voluptatum. Fugit illo nisi perferendis sed ullam.
+          <ul>
+            <li>><a href="#results">Results</a></li>
+            <li>><a href="#introduction"> Introduction </a></li>
+          </ul>
+          </div>
         </div>
       </div>
   </section>
