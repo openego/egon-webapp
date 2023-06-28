@@ -98,3 +98,6 @@ ignore = [
 fix = true
 show-fixes = true
 unfixable = ["UP007"]
+
+[tool.ruff.per-file-ignores]
+"egon/map/models/__init__.py" = ["F401"]
