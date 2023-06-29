@@ -12,6 +12,34 @@ REGIONS = [
 ]
 
 MODELS = [
+    models.GasCH4Industry100RE,
+    models.GasH2Industry100RE,
+    models.TransportHeavyDuty100RE,
+    models.HeatingHouseholdsCts100RE,
+    # models.CentralHeatPumps100RE, leer
+    # models.HeatGeothermal100RE, leer
+    # models.HeatSolarthermal100RE, leer
+    models.GasPotentialBiogasProduction100RE,
+    # models.GasPotentialNaturalGasProduction100RE, fehlt ganz
+    models.PVGroundMountedPotentialAreaAgriculture100RE,
+    models.PVGroundMountedPotentialAreaHighways_Railroads100RE,
+    models.WindOnshorePotentialArea100RE,
+    models.WindOffshoreWindPark100RE,
+    models.WindOnshoreWindPark100RE,
+    models.PVGroundMountedPVPlant100RE,
+    models.PVRoofTopPVPlant100RE,
+    models.LoadArea100RE,
+    models.MVGridDistrictData100RE,
+    models.CH4Voronoi100RE,
+    models.H2Voronoi100RE,
+    models.EHVLine100RE,
+    models.HVLine100RE,
+    models.MethaneGridLine100RE,
+    # models.FlexPotElDynamicLineRating100RE,
+    models.EHVHVSubstation100RE,
+    models.HVMVSubstation100RE,
+    models.PotentialH2UndergroundStorage100RE,
+    models.PotentialCH4Stores100RE,
     # Demand
     models.GasCH4Industry,
     models.GasH2Industry,

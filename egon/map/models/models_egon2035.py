@@ -10,6 +10,8 @@ from egon.map.models.abstract_models import (
     SupplyPotentialModel,
 )
 
+scenario_name = "egon2035"
+
 
 # DEMAND
 class LoadArea(models.Model):
@@ -21,23 +23,23 @@ class LoadArea(models.Model):
     vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "1_Demand"
-    data_file = "egon2035.demand.electricity_load_areas"
-    layer = "egon2035.demand.electricity_load_areas_"
+    data_file = scenario_name + ".demand.electricity_load_areas"
+    layer = scenario_name + ".demand.electricity_load_areas_"
     mapping = {"geom": "MULTIPOLYGON", "el_peakload": "el_peakload", "el_consumption": "el_consumption"}
 
 
 class GasCH4Industry(DemandModel):
-    data_file = "egon2035.demand.gas_methane_for_industry"
+    data_file = scenario_name + ".demand.gas_methane_for_industry"
     layer = data_file
 
 
 class GasH2Industry(DemandModel):
-    data_file = "egon2035.demand.gas_hydrogen_for_industry"
+    data_file = scenario_name + ".demand.gas_hydrogen_for_industry"
     layer = data_file
 
 
 class TransportHeavyDuty(DemandModel):
-    data_file = "egon2035.demand.transport_heavy-duty_transport"
+    data_file = scenario_name + ".demand.transport_heavy-duty_transport"
     layer = data_file
 
 
@@ -46,14 +48,14 @@ class HeatingHouseholdsCts(DemandModel):
     min = models.FloatField(null=True, verbose_name=_("Minimal demand (MW)"))
     mapping = {"geom": "MULTIPOLYGON", "annual_demand": "annual_demand", "max": "max", "min": "min"}
 
-    data_file = "egon2035.demand.heat_district_heating_households_and_cts"
+    data_file = scenario_name + ".demand.heat_district_heating_households_and_cts"
     layer = data_file
 
 
 # POTENTIALS
 class CentralHeatPumps(SupplyPotentialModel):
     capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
-    data_file = "egon2035.supply.heat_central_heat_pumps"
+    data_file = scenario_name + ".supply.heat_central_heat_pumps"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -63,7 +65,7 @@ class CentralHeatPumps(SupplyPotentialModel):
 
 class HeatGeothermal(SupplyPotentialModel):
     capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
-    data_file = "egon2035.supply.heat_geothermal"
+    data_file = scenario_name + ".supply.heat_geothermal"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -73,7 +75,7 @@ class HeatGeothermal(SupplyPotentialModel):
 
 class HeatSolarthermal(SupplyPotentialModel):
     capacity = models.FloatField(verbose_name=_("Electrical capacity (MW))"), null=True)
-    data_file = "egon2035.supply.heat_solarthermal"
+    data_file = scenario_name + ".supply.heat_solarthermal"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -83,7 +85,7 @@ class HeatSolarthermal(SupplyPotentialModel):
 
 class GasPotentialBiogasProduction(SupplyPotentialModel):
     p_nom = models.FloatField(verbose_name=_("P nom"), null=True)
-    data_file = "egon2035.supply.gas_potential_biogas_production"
+    data_file = scenario_name + ".supply.gas_potential_biogas_production"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -93,7 +95,7 @@ class GasPotentialBiogasProduction(SupplyPotentialModel):
 
 class GasPotentialNaturalGasProduction(SupplyPotentialModel):
     p_nom = models.FloatField(verbose_name=_("P nom (MWh)"), null=True)
-    data_file = "egon2035.supply.gas_potential_natural_gas_production_"
+    data_file = scenario_name + ".supply.gas_potential_natural_gas_production_"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -103,7 +105,7 @@ class GasPotentialNaturalGasProduction(SupplyPotentialModel):
 
 class PVGroundMountedPotentialAreaAgriculture(SupplyPotentialModel):
     area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
-    data_file = "egon2035.supply.pv_ground-mounted_potential_areas_agriculture"
+    data_file = scenario_name + ".supply.pv_ground-mounted_potential_areas_agriculture"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -113,7 +115,7 @@ class PVGroundMountedPotentialAreaAgriculture(SupplyPotentialModel):
 
 class PVGroundMountedPotentialAreaHighways_Railroads(SupplyPotentialModel):
     area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
-    data_file = "egon2035.supply.pv_ground-mounted_potential_areas_highways_&_railroad"
+    data_file = scenario_name + ".supply.pv_ground-mounted_potential_areas_highways_&_railroad"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -123,7 +125,7 @@ class PVGroundMountedPotentialAreaHighways_Railroads(SupplyPotentialModel):
 
 class WindOnshorePotentialArea(SupplyPotentialModel):
     area_km2 = models.FloatField(verbose_name=_("Potential area (km²)"), null=True)
-    data_file = "egon2035.supply.wind_onshore_potential_areas"
+    data_file = scenario_name + ".supply.wind_onshore_potential_areas"
     layer = data_file
     mapping = {
         "geom": "MULTIPOLYGON",
@@ -135,7 +137,7 @@ class WindOnshorePotentialArea(SupplyPotentialModel):
 class WindOffshoreWindPark(SupplyPlantModel):
     el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
     voltage_level = models.PositiveIntegerField(verbose_name=_("Voltage level"))
-    data_file = "egon2035.supply.wind_offshore_wind_parks"
+    data_file = scenario_name + ".supply.wind_offshore_wind_parks"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
@@ -143,7 +145,7 @@ class WindOffshoreWindPark(SupplyPlantModel):
 class WindOnshoreWindPark(SupplyPlantModel):
     el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
     voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
-    data_file = "egon2035.supply.wind_onshore_wind_parks"
+    data_file = scenario_name + ".supply.wind_onshore_wind_parks"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
@@ -151,7 +153,7 @@ class WindOnshoreWindPark(SupplyPlantModel):
 class PVGroundMountedPVPlant(SupplyPlantModel):
     el_capacity = models.FloatField(verbose_name=_("Electrical Capacity"))
     voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
-    data_file = "egon2035.supply.pv_ground-mounted_pv_plants"
+    data_file = scenario_name + ".supply.pv_ground-mounted_pv_plants"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
@@ -166,7 +168,7 @@ class PVRoofTopPVPlant(SupplyPlantModel):
     voltage_level = models.PositiveIntegerField(verbose_name="Voltage level")
 
     objects = PVRoofTopPVPlantManager()
-    data_file = "egon2035.supply.pv_roof-top_pv_plants"
+    data_file = scenario_name + ".supply.pv_roof-top_pv_plants"
     layer = data_file
     mapping = {"geom": "POINT", "el_capacity": "el_capacity", "voltage_level": "voltage_level"}
 
@@ -326,7 +328,7 @@ class MVGridDistrictData(models.Model):
     vector_tiles = MVTManager(columns=["id"])
 
     data_folder = "3_Power_and_gas_grids"
-    data_file = "egon_2035.grids.egon_mv_grid_district"
+    data_file = scenario_name + ".grids.egon_mv_grid_district"
     layer = "MERGED_grid.egon_mv_grid_district"
     mapping = {
         "area": "area",
@@ -431,14 +433,14 @@ class HVLine(LineModel):
 
 
 class MethaneGridLine(LineModel):
-    data_file = "egon2035.grids.gas_methane_grid"
+    data_file = scenario_name + ".grids.gas_methane_grid"
     layer = data_file
 
 
 class FlexPotElDynamicLineRating(LineModel):
     dlr = models.PositiveIntegerField(null=True)
     data_folder = "4_Flexibility"
-    data_file = "egon2035.flexibility_potential.electricity_dynamic_line_rating"
+    data_file = scenario_name + ".flexibility_potential.electricity_dynamic_line_rating"
     layer = data_file
     vector_tiles = MVTManager(columns=["id", "dlr"])
 
@@ -446,13 +448,13 @@ class FlexPotElDynamicLineRating(LineModel):
 
 
 class EHVHVSubstation(SubstationModel):
-    data_file = "egon2035.grids.electricity_ehv_hv_stations"
-    layer = "egon2035.grids.electricity_ehv_hv_stations"
+    data_file = scenario_name + ".grids.electricity_ehv_hv_stations"
+    layer = scenario_name + ".grids.electricity_ehv_hv_stations"
 
 
 class HVMVSubstation(SubstationModel):
-    data_file = "egon2035.grids.electricity_hv_mv_stations"
-    layer = "egon2035.grids.electricity_hv_mv_stations"
+    data_file = scenario_name + ".grids.electricity_hv_mv_stations"
+    layer = scenario_name + ".grids.electricity_hv_mv_stations"
 
 
 # FLEXIBILTY POTENTIAL
@@ -469,7 +471,7 @@ class PotentialH2UndergroundStorage(models.Model):
         "e_nom_max": "e_nom_max",
     }
 
-    data_file = "egon2035.flexibility_potential.gas_potential_hydrogen_underground_storage"
+    data_file = scenario_name + ".flexibility_potential.gas_potential_hydrogen_underground_storage"
     layer = data_file
 
 
@@ -486,5 +488,5 @@ class PotentialCH4Stores(models.Model):
         "e_nom": "e_nom",
     }
 
-    data_file = "egon2035.flexibility_potential.gas_methane_stores"
+    data_file = scenario_name + ".flexibility_potential.gas_methane_stores"
     layer = data_file
