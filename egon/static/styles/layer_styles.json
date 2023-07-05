@@ -428,7 +428,7 @@
       "fill-opacity": 0.8
     }
   },
-  "ehv_line": {
+  "ehv_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "blue"
@@ -452,7 +452,7 @@
       "line-color": "darkblue"
     }
   },
-  "hv_line": {
+  "hv_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "darkblue"
@@ -500,7 +500,7 @@
       "fill-opacity": 0.8
     }
   },
-  "ehv_hv_station": {
+  "ehv_hv_station_2035": {
     "type": "symbol",
     "filter": ["!", ["has", "point_count"]],
     "layout": {
@@ -509,7 +509,7 @@
       "icon-allow-overlap": true
     }
   },
-  "ehv_hv_station_cluster": {
+  "ehv_hv_station_2035_cluster": {
     "type": "circle",
     "filter": ["has", "point_count"],
     "paint": {
@@ -533,7 +533,7 @@
       ]
     }
   },
-  "ehv_hv_station_cluster_count": {
+  "ehv_hv_station_2035_cluster_count": {
     "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
@@ -542,7 +542,7 @@
       "text-size": 12
     }
   },
-  "hv_mv_station": {
+  "hv_mv_station_2035": {
     "type": "symbol",
     "filter": ["!", ["has", "point_count"]],
     "layout": {
@@ -551,7 +551,7 @@
       "icon-allow-overlap": true
     }
   },
-  "hv_mv_station_cluster": {
+  "hv_mv_station_2035_cluster": {
     "type": "circle",
     "filter": ["has", "point_count"],
     "paint": {
@@ -575,7 +575,7 @@
       ]
     }
   },
-  "hv_mv_station_cluster_count": {
+  "hv_mv_station_2035_cluster_count": {
     "type": "symbol",
     "filter": ["has", "point_count"],
     "layout": {
@@ -584,7 +584,7 @@
       "text-size": 12
     }
   },
-  "mv_grid_district_data": {
+  "mv_grid_district_data_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
@@ -592,28 +592,28 @@
       "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
-  "mv_grid_district_data_line": {
+  "mv_grid_district_data_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
       "line-width": 0.8
     }
   },
-  "load_area": {
+  "load_area_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
       "fill-opacity": 0.6
     }
   },
-  "load_area_line": {
+  "load_area_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "rgb(115,62,136)",
       "line-width": 0.8
     }
   },
-  "h2_voronoi": {
+  "h2_voronoi_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
@@ -621,14 +621,14 @@
       "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
-  "h2_voronoi_line": {
+  "h2_voronoi_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
       "line-width": 0.8
     }
   },
-  "ch4_voronoi": {
+  "ch4_voronoi_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
@@ -636,19 +636,14 @@
       "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
-  "ch4_voronoi_line": {
+  "ch4_voronoi_line_2035": {
     "type": "line",
     "paint": {
       "line-color": "rgba(115,62,136,0.2)",
       "line-width": 0.8
     }
   },
-  "soil_quality": {
-    "continuous": "True",
-    "from": [0, 0, 0],
-    "to": [200, 140, 0]
-  },
-  "transport_heavy-duty_transport": {
+  "transport_heavy-duty_transport_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
@@ -656,7 +651,7 @@
       "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
-  "gas_methane_for_industry": {
+  "gas_methane_for_industry_2035": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
@@ -664,7 +659,429 @@
       "fill-outline-color": "rgba(115,62,136,0.2)"
     }
   },
-  "gas_hydrogen_for_industry": {
+  "gas_hydrogen_for_industry_2035": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "wind_offshore_wind_parks_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "wind",
+      "icon-size": 0.8,
+      "icon-allow-overlap": false
+    },
+    "paint": {
+      "icon-color": "blue"
+    }
+  },
+  "wind_offshore_wind_parks_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#6A89CC",
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        15,
+        125,
+        20,
+        950,
+        25
+      ]
+    }
+  },
+  "wind_offshore_wind_parks_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "wind_onshore_wind_parks_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "wind",
+      "icon-size": 0.8,
+      "icon-allow-overlap": false
+    },
+    "paint": {
+      "icon-color": "blue"
+    }
+  },
+  "wind_onshore_wind_parks_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#6A89CC",
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        15,
+        125,
+        20,
+        950,
+        25
+      ]
+    }
+  },
+  "wind_onshore_wind_parks_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "pv_roof-top_pv_plants_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "solar",
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
+    },
+    "paint": {
+      "icon-color": "yellow",
+      "icon-halo-color": "red"
+    }
+  },
+  "pv_roof-top_pv_plants_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#FFD660",
+      "circle-radius": 20
+    }
+  },
+  "pv_roof-top_pv_plants_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "pv_ground-mounted_pv_plants_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "solar",
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
+    },
+    "paint": {
+      "icon-color": "yellow"
+    }
+  },
+  "pv_ground-mounted_pv_plants_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": "#F6B93B",
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        15,
+        125,
+        20,
+        950,
+        25
+      ]
+    }
+  },
+  "pv_ground-mounted_pv_plants_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "wind_onshore_potential_areas_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "darkblue",
+      "fill-opacity": 0.8
+    }
+  },
+  "demand_transport_heavy_duty_transport_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "grey",
+      "fill-opacity": 0.8
+    }
+  },
+  "gas_potential_natural_gas_production_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "grey",
+      "fill-opacity": 0.8
+    }
+  },
+  "gas_potential_biogas_production_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "pv_ground-mounted_potential_areas_agriculture_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "gold",
+      "fill-opacity": 0.8
+    }
+  },
+  "pv_ground-mounted_potential_areas_highways_railroad_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "gold",
+      "fill-opacity": 0.8
+    }
+  },
+  "ehv_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "blue"
+    }
+  },
+  "flex_electricity_dynamic_line_rating_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": [
+      "case",
+      ["==", ["get", "dlr"], 1],
+      "red",
+      "black"
+    ],
+      "line-width": 1
+    }
+  },
+  "methan_grid_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "darkblue"
+    }
+  },
+  "hv_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "darkblue"
+    }
+  },
+  "potential_h2_underground_storage_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "potential_ch4_store_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heat_solarthermal_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heat_geothermal_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "central_heatpumps_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "heating_households_cts_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#52C41A",
+      "fill-opacity": 0.8
+    }
+  },
+  "ehv_hv_station_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "station",
+      "icon-size": 0.5,
+      "icon-allow-overlap": true
+    }
+  },
+  "ehv_hv_station_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "ehv_hv_station_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "hv_mv_station_100re": {
+    "type": "symbol",
+    "filter": ["!", ["has", "point_count"]],
+    "layout": {
+      "icon-image": "station",
+      "icon-size": 0.8,
+      "icon-allow-overlap": true
+    }
+  },
+  "hv_mv_station_100re_cluster": {
+    "type": "circle",
+    "filter": ["has", "point_count"],
+    "paint": {
+      "circle-color": [
+        "step",
+        ["get", "point_count"],
+        "#51bbd6",
+        100,
+        "#f1f075",
+        750,
+        "#f28cb1"
+      ],
+      "circle-radius": [
+        "step",
+        ["get", "point_count"],
+        20,
+        100,
+        30,
+        750,
+        40
+      ]
+    }
+  },
+  "hv_mv_station_100re_cluster_count": {
+    "type": "symbol",
+    "filter": ["has", "point_count"],
+    "layout": {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12
+    }
+  },
+  "mv_grid_district_data_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "mv_grid_district_data_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgba(115,62,136,0.2)",
+      "line-width": 0.8
+    }
+  },
+  "load_area_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.6
+    }
+  },
+  "load_area_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgb(115,62,136)",
+      "line-width": 0.8
+    }
+  },
+  "h2_voronoi_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "h2_voronoi_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgba(115,62,136,0.2)",
+      "line-width": 0.8
+    }
+  },
+  "ch4_voronoi_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "ch4_voronoi_line_100re": {
+    "type": "line",
+    "paint": {
+      "line-color": "rgba(115,62,136,0.2)",
+      "line-width": 0.8
+    }
+  },
+  "transport_heavy-duty_transport_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "gas_methane_for_industry_100re": {
+    "type": "fill",
+    "paint": {
+      "fill-color": "#ffffff",
+      "fill-opacity": 0.3,
+      "fill-outline-color": "rgba(115,62,136,0.2)"
+    }
+  },
+  "gas_hydrogen_for_industry_100re": {
     "type": "fill",
     "paint": {
       "fill-color": "#ffffff",
