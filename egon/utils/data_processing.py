@@ -1,8 +1,9 @@
 import os
 
+from django.contrib.gis.utils import LayerMapping
+
 from config.settings.base import DATA_DIR
 from egon.map import models
-from egon.utils.ogr_layer_mapping import RelatedModelLayerMapping
 
 REGIONS = [
     models.Country,
@@ -91,7 +92,7 @@ def load_regions(regions=None, verbose=True):
             data_path = os.path.join(DATA_DIR, f"{region.data_file}.gpkg")
         region_model = models.Region(layer_type=region.__name__.lower())
         region_model.save()
-        instance = RelatedModelLayerMapping(
+        instance = LayerMapping(
             model=region,
             data=data_path,
             mapping=region.mapping,
@@ -113,7 +114,7 @@ def load_data(data_models=None, verbose=True):
             data_path = os.path.join(DATA_DIR, model.data_folder, f"{model.data_file}.gpkg")
         else:
             data_path = os.path.join(DATA_DIR, f"{model.data_file}.gpkg")
-        instance = RelatedModelLayerMapping(
+        instance = LayerMapping(
             model=model,
             data=data_path,
             mapping=model.mapping,
