@@ -145,6 +145,7 @@
   &__title {
     @extend .text-uppercase;
     @extend .pb-1;
+    display: none;
   }
 
   &__unit {

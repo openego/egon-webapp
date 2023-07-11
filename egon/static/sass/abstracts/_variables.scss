@@ -83,7 +83,7 @@ $anchor-pseudo-classes-inactive-state: ":link, :visited";
 $section-max-width: 82rem;
 
 // MAP
-$map-height: calc(100vh - #{$top-nav-height} - #{$steps-height});
+$map-height: 100%;
 $map-padding-x-small: 2rem;
 $map-layers-btn-size: 3rem;
 $map-items-padding: 1rem;
