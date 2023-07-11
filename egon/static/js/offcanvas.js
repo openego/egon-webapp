@@ -1,14 +1,14 @@
 const mapView = document.getElementById("mapView");
-const offcanvasDocumentation = document.getElementById('offcanvasDocumentation');
+const offcanvasAbout = document.getElementById('offcanvasAbout');
 const offcanvasResults = document.getElementById('offcanvasResults');
-const offcanvasSources = document.getElementById('offcanvasSources');
-const offcanvasContact = document.getElementById('offcanvasContact');
+const offcanvasPrivacy = document.getElementById('offcanvasPrivacy');
+const offcanvasImprint = document.getElementById('offcanvasImprint');
 
 const offcanvasInstances = {
-  documentation: new bootstrap.Offcanvas(offcanvasDocumentation),
+  about: new bootstrap.Offcanvas(offcanvasAbout),
   results: new bootstrap.Offcanvas(offcanvasResults),
-  sources: new bootstrap.Offcanvas(offcanvasSources),
-  contact: new bootstrap.Offcanvas(offcanvasContact)
+  privacy: new bootstrap.Offcanvas(offcanvasPrivacy),
+  imprint: new bootstrap.Offcanvas(offcanvasImprint)
 };
 
 mapView.onclick = function() {

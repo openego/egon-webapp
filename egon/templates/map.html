@@ -15,8 +15,6 @@
 {% endblock %}
 
 {% block content %}
-  {% include 'modals/imprint.html' %}
-  {% include 'modals/privacy.html' %}
   <div class="main-container">
 
     <nav class="top-nav navbar navbar-expand-lg navbar-light bg-body border-bottom border-2"
@@ -47,17 +45,9 @@
               <a class="nav-link" href="#">{% translate "Results" %}</a>
             </li>
             <li class="nav-item" data-bs-toggle="offcanvas"
-                href="#offcanvasDocumentation" role="button"
-                aria-controls="offcanvasDocumentation">
-              <a class="nav-link" href="#">{% translate "Documentation" %}</a>
-            </li>
-            <li class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasSources"
-                role="button" aria-controls="offcanvasSources">
-              <a class="nav-link" href="#">{% translate "Sources" %}</a>
-            </li>
-            <li class="nav-item" data-bs-toggle="offcanvas" href="#offcanvasContact"
-                role="button" aria-controls="offcanvasContact">
-              <a class="nav-link" href="#">{% translate "Contact" %}</a>
+                href="#offcanvasAbout" role="button"
+                aria-controls="offcanvasAbout">
+              <a class="nav-link" href="#">{% translate "About" %}</a>
             </li>
             <li class="top-nav__lang">
               {% get_current_language as LANGUAGE_CODE %}
@@ -79,10 +69,10 @@
     </section>
   </div>
 
-  {% include 'offcanvas/documentation.html' %}
+  {% include 'offcanvas/about.html' %}
   {% include 'offcanvas/results.html' %}
-  {% include 'offcanvas/sources.html' %}
-  {% include 'offcanvas/contact.html' %}
+  {% include 'offcanvas/imprint.html' %}
+  {% include 'offcanvas/privacy.html' %}
   {% include 'canvases/popup.html' %}
 {% endblock content %}
 

@@ -1,9 +1,9 @@
-<div class="privacy-modal modal fade" id="imprintModal" tabindex="-1" aria-labelledby="imprintModalLabel" aria-hidden="true">
-  <div class="privacy-modal__dialog modal-dialog">
-    <div class="privacy-modal__content">
-      <div class="privacy-modal__header">
-        <h2 class="privacy-modal__title" id="imprintModalLabel">Impressum</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{% load static i18n %}
+<section class="offcanvas-view offcanvas" tabindex="-1" id="offcanvasImprint" data-bs-backdrop="false" aria-labelledby="offcanvasImprintLabel">
+  <div class="offcanvas-view__wrap">
+    <h2 class="offcanvas-view__title" id="offcanvasImprintLabel">{% translate "Imprint" %}</h2>
+    <div class="offcanvas-view__body">
+        <div class="mt-5">
       </div>
       <div class="privacy-modal__body">
         <p>
@@ -48,3 +48,4 @@
     </div>
   </div>
 </div>
+</section>
