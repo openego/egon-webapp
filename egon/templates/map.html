@@ -15,12 +15,63 @@
 {% endblock %}
 
 {% block content %}
-  <section class="map-content">
-    {% include 'canvases/panel.html' %}
-    <pre id="info"></pre>
-    {% include 'canvases/map.html' %}
-  </section>
+  <div class="main-container">
 
+    <nav class="top-nav navbar navbar-expand-lg navbar-light bg-body border-bottom border-2"
+         aria-label="Navbar mit Links zu den anderen Seiten">
+      <div class="container-fluid">
+        <a class="top-nav__brand navbar-brand" href="#" id="main_logo">
+           <img src="../../static/images/logos/eGon_logo_noborder_small_notext.png" alt="eGon logo" height="40" d-inline-block align-text-top>
+          <strong>eGo<sup>n</sup></strong> - Webapp
+        </a>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample03" aria-controls="navbarsExample03"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+            <li class="nav-item">
+              <a class="nav-link active" id="mapView" aria-current="page"
+                 href="#">{% translate "Karte & Szenarien" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas"
+                href="#offcanvasResults" role="button"
+                aria-controls="offcanvasResults">
+              <a class="nav-link" href="#">{% translate "Results" %}</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="offcanvas"
+                href="#offcanvasAbout" role="button"
+                aria-controls="offcanvasAbout">
+              <a class="nav-link" href="#">{% translate "About" %}</a>
+            </li>
+            <li class="top-nav__lang">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% if LANGUAGE_CODE == "de" %}
+                <a href="/en/" class="btn btn-sm btn-outline-secondary nav-link">English</a>
+              {% else %}
+                <a href="/de/" class="btn btn-sm btn-outline-secondary nav-link">Deutsch</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="map-content">
+      {% include 'canvases/panel.html' %}
+      <pre id="info"></pre>
+      {% include 'canvases/map.html' %}
+    </section>
+  </div>
+
+  {% include 'offcanvas/about.html' %}
+  {% include 'offcanvas/results.html' %}
+  {% include 'offcanvas/imprint.html' %}
+  {% include 'offcanvas/privacy.html' %}
   {% include 'canvases/popup.html' %}
 {% endblock content %}
 

@@ -3,28 +3,9 @@
 
 <section class="panel">
   <section class="panel__content">
-    <div class="panel__logos">
-      <div class="logo logo--egon">
-        <a href="https://ego-n.org/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo">
-        </a>
-      </div>
-      <div class="logo logo--bmwk">
-        <a href="https://www.bmwk.de/" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/BMWK.png"
-               alt="Federal Ministry for Economic Affairs and Climate Action logo">
-        </a>
-      </div>
-    </div>
     <div class="panel__tabs">
-      <div>
-        <div class="nav nav-tabs" id="nav-tabMain" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-scenarios"
-                  type="button" role="tab" aria-controls="nav-scenarios"
-                  aria-selected="true">{% translate "Scenarios" %}</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-results" type="button"
-                  role="tab" aria-controls="nav-profile" aria-selected="false" disabled style="color: #9D9D9D;">{% translate "Results" %}</button>
-        </div>
+      <div class="tab-content pb-0 text-center">
+        <h4>{% translate "Scenarios" %}</h4>
       </div>
 
       <div class="tab-content" id="nav-tabContent">
@@ -33,9 +14,12 @@
             <button type="button" class="active" id="2035">eGon2035</button>
             <button type="button" id="100RE">eGon100RE</button>
           </div>
-
-
-
+          <div class="tab-content" id="scenario-description-egon2035">
+            {% translate "The scenario 'egon2035' is oriented at the 'NEP 2021 C2035'. Read more about it here." %}
+          </div>
+          <div class="tab-content" id="scenario-description-100RE" style="display: none;">
+            {% translate "The scenario 'egon100RE' has 100% renewable energies. Read more about it here." %}
+          </div>
           <div class="category-tabs">
             <ul class="nav nav-pills mb-3" id="category-tab" role="tablist">
               <li class="nav-item" role="presentation">
@@ -98,21 +82,22 @@
             </div>
           </div></div>
     </div>
-        <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
-          Results....
-        </div>
+    </div>
+  <div class="container">
+      <div class="d-flex justify-content-center">
+        <a class="top-nav__logo top-nav__logo--rli" href="https://www.bmwk.de" target="_blank" rel="noopener noreferrer">
+          <img src="../../static/images/logos/BMWK.png"
+               alt="Federal Ministry for Economic Affairs and Climate Action logo" height="200">
+        </a>
       </div>
   </section>
   <footer class="footer">
     <ul>
-      <li>
-        <a href="#">{% translate "Contact" %}</a>
+      <li data-bs-toggle="offcanvas" href="#offcanvasImprint" role="button" aria-controls="offcanvasImprint">
+              <a class="nav-link" href="#">{% translate "Imprint" %}</a>
       </li>
-      <li>
-        <a href="#">{% translate "Imprint" %}</a>
-      </li>
-      <li>
-        <a href="#">{% translate "Data Privacy" %}</a>
+      <li data-bs-toggle="offcanvas" href="#offcanvasPrivacy" role="button" aria-controls="offcanvasPrivacy">
+              <a class="nav-link" href="#">{% translate "Data Privacy" %}</a>
       </li>
     </ul>
   </footer>

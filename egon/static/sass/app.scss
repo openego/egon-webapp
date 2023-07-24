@@ -1,5 +1,8 @@
 @charset 'utf-8';
 
+@import 'sass/abstracts/variable_overrides';
+
+@import "../vendors/bootstrap/scss/bootstrap";
 @import 'sass/abstracts/variables';
 @import 'sass/abstracts/fonts';
 @import 'sass/abstracts/mixins';
@@ -8,6 +11,7 @@
 @import 'sass/base/typography';
 
 @import 'sass/components/controls';
+@import 'sass/components/offcanvas';
 @import 'sass/components/map';
 @import 'sass/components/top-nav';
 

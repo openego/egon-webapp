@@ -8,7 +8,6 @@ from .models_100re import (
     GasCH4Industry100RE,
     GasH2Industry100RE,
     GasPotentialBiogasProduction100RE,
-    GasPotentialNaturalGasProduction100RE,
     H2Voronoi100RE,
     HeatGeothermal100RE,
     HeatingHouseholdsCts100RE,

@@ -1,12 +1,12 @@
 .panel {
   width: 100%;
-  height: auto;
+  height: 100%;
   box-shadow: $box-shadow;
   overflow-y: scroll;
   @include flex-column;
 
   @media only screen and (min-width: $medium-screen) {
-    height: 100vh;
+    height: 100%;
     width: $panel-width;
   }
 
@@ -205,7 +205,6 @@
   }
 
   .footer {
-    flex-shrink: 0;
     border-top: $border-gray;
     padding: $padding-small 0;
 

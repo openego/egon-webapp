@@ -340,9 +340,6 @@ MAP_ENGINE_API_MVTS = {
     "gas_potential_biogas_production_100re": [
         setup.MVTAPI("gas_potential_biogas_production_100re", "map", "GasPotentialBiogasProduction100RE")
     ],
-    "gas_potential_natural_gas_production_100re": [
-        setup.MVTAPI("gas_potential_natural_gas_production_100re", "map", "GasPotentialNaturalGasProduction100RE")
-    ],
     "gas_methane_for_industry_100re": [setup.MVTAPI("gas_methane_for_industry_100re", "map", "GasCH4Industry100RE")],
     "gas_hydrogen_for_industry_100re": [setup.MVTAPI("gas_hydrogen_for_industry_100re", "map", "GasH2Industry100RE")],
     "demand_transport_heavy_duty_transport_100re": [

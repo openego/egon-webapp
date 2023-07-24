@@ -38,19 +38,24 @@ $top-nav-logo-height: 2.5rem;
 $top-map-height: 2.75rem;
 
 // LEFT PANEL
-$panel-width: 25rem;
-
-$box-shadow: 5px 5px 15px 2px rgba(0,0,0,0.05);
+$panel-width-sm: 22rem;
+$panel-width: 26rem;
+$panel-side-padding: 1.5rem;
+$panel-results-nav-button-padding: 0.5rem;
 
 // Media-breaks
-$small-screen: 640px;
-$medium-screen: 992px;
-$large-screen: 1250px;
-$xlarge-screen: 1500px;
+$small-screen: 576px;
+$medium-screen: 768px;
+$large-screen: 992px;
+$xlarge-screen: 1200px;
+$xxlarge-screen: 1400px;
 
 // TOP-NAV
-$top-nav-height: 3.125rem;
-$top-nav-logo-height: 2.5rem;
+$top-nav-height: 5rem;
+
+// STEPS
+$steps-height: 3rem;
+$steps-numbers-size: 1.5rem;
 
 // LEFT PANEL
 $panel-width: 26rem;
@@ -76,3 +81,33 @@ $anchor-pseudo-classes-inactive-state: ":link, :visited";
 
 // Layout
 $section-max-width: 82rem;
+
+// MAP
+$map-height: 100%;
+$map-padding-x-small: 2rem;
+$map-layers-btn-size: 3rem;
+$map-items-padding: 1rem;
+$map-layers-box-legend-color-size: 0.875rem;
+$map-layers-box-height: 65vh;
+$map-layers-box-width: 18rem;
+$map-layers-box-z-index: 200;
+$map-legend-box-padding-bottom: 2rem;
+
+// Map controls
+$map-control-position: absolute;
+$map-control-img-size: 3rem;
+$map-control-text-height: 1rem;
+$map-control-total-height: calc((#{$padding-small} * 2) + #{$map-control-img-size} + #{$map-control-text-height});
+$map-control-position-top: calc(#{$steps-height} + #{$map-items-padding});
+$map-control-position-right: 1rem;
+$map-control-position-left: 1rem;
+$map-control-z-index: 9;
+$map-control-bg-color: rgba(255, 255, 255, 1);
+
+// POPUP
+$popup-width: 28rem;
+
+// ICONS
+$info-icon-size: 1rem;
+$info-icon-margin-left: 0.25rem;
+$icon-margin-right: 0.25rem;
