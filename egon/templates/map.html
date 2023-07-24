@@ -20,13 +20,12 @@
     <nav class="top-nav navbar navbar-expand-lg navbar-light bg-body border-bottom border-2"
          aria-label="Navbar mit Links zu den anderen Seiten">
       <div class="container-fluid">
-        <a class="top-nav__brand navbar-brand" href="https://ego-n.org/">
-           <img src="../../static/images/logos/eGon_logo_noborder_transbg.svg" alt="eGon logo" height="40">
+        <a class="top-nav__brand navbar-brand" href="#" id="main_logo">
+           <img src="../../static/images/logos/eGon_logo_noborder_small_notext.png" alt="eGon logo" height="40" d-inline-block align-text-top>
+          <strong>eGo<sup>n</sup></strong> - Webapp
         </a>
-        <a class="top-nav__logo top-nav__logo--rli" href="https://www.bmwk.de" target="_blank" rel="noopener noreferrer">
-          <img src="../../static/images/logos/BMWK.png"
-               alt="Federal Ministry for Economic Affairs and Climate Action logo" height="40">
-        </a>
+
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarsExample03" aria-controls="navbarsExample03"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -52,9 +51,9 @@
             <li class="top-nav__lang">
               {% get_current_language as LANGUAGE_CODE %}
               {% if LANGUAGE_CODE == "de" %}
-                <a href="/en/" class="btn btn-sm btn-outline-secondary">English</a>
+                <a href="/en/" class="btn btn-sm btn-outline-secondary nav-link">English</a>
               {% else %}
-                <a href="/de/" class="btn btn-sm btn-outline-secondary">Deutsch</a>
+                <a href="/de/" class="btn btn-sm btn-outline-secondary nav-link">Deutsch</a>
               {% endif %}
             </li>
           </ul>

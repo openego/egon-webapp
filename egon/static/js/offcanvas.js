@@ -1,4 +1,5 @@
-const mapView = document.getElementById("mapView");
+const mapView = document.getElementById("mapView", "main_logo");
+const mainLogo = document.getElementById("main_logo");
 const offcanvasAbout = document.getElementById('offcanvasAbout');
 const offcanvasResults = document.getElementById('offcanvasResults');
 const offcanvasPrivacy = document.getElementById('offcanvasPrivacy');
@@ -12,6 +13,12 @@ const offcanvasInstances = {
 };
 
 mapView.onclick = function() {
+  Object.values(offcanvasInstances).forEach(function(offcanvas) {
+    offcanvas.hide();
+  });
+};
+
+mainLogo.onclick = function() {
   Object.values(offcanvasInstances).forEach(function(offcanvas) {
     offcanvas.hide();
   });
