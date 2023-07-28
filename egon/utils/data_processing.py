@@ -14,14 +14,14 @@ REGIONS = [
 
 MODELS = [
     # models.CentralHeatPumps100RE,  # empty
-    # models.CH4Voronoi100RE,  # missing
+    models.CH4Voronoi100RE,
     models.EHVHVSubstation100RE,
     models.EHVLine100RE,
     models.FlexPotElDynamicLineRating100RE,
     models.GasCH4Industry100RE,
-    models.GasH2Industry100RE,  # works with changed geometry_type_name
+    models.GasH2Industry100RE,
     models.GasPotentialBiogasProduction100RE,
-    # models.H2Voronoi100RE,  # missing
+    models.H2Voronoi100RE,
     # models.HeatGeothermal100RE, # empty
     models.HeatingHouseholdsCts100RE,
     # models.HeatSolarthermal100RE, # empty
@@ -30,27 +30,27 @@ MODELS = [
     models.LoadArea100RE,
     models.MethaneGridLine100RE,
     models.MVGridDistrictData100RE,
-    models.PotentialCH4Stores100RE,  # works with changed geometry_type_name
-    models.PotentialH2UndergroundStorage100RE,  # works with changed geometry_type_name
+    models.PotentialCH4Stores100RE,
+    models.PotentialH2UndergroundStorage100RE,
     models.PVGroundMountedPotentialAreaAgriculture100RE,
     models.PVGroundMountedPotentialAreaHighways_Railroads100RE,
     models.PVGroundMountedPVPlant100RE,
     models.PVRoofTopPVPlant100RE,
-    models.TransportHeavyDuty100RE,  # works with changed geometry_type_name
+    models.TransportHeavyDuty100RE,
     models.WindOffshoreWindPark100RE,
     models.WindOnshorePotentialArea100RE,
     models.WindOnshoreWindPark100RE,
     # egon2035 scenario
     models.CentralHeatPumps,
-    # models.CH4Voronoi, #missing
+    models.CH4Voronoi,
     models.EHVHVSubstation,
     models.EHVLine,
     models.FlexPotElDynamicLineRating,
-    models.GasCH4Industry,  # works with changed geometry_type_name
-    models.GasH2Industry,  # works with changed geometry_type_name
+    models.GasCH4Industry,
+    models.GasH2Industry,
     models.GasPotentialBiogasProduction,
     models.GasPotentialNaturalGasProduction,
-    # models.H2Voronoi, missing
+    models.H2Voronoi,
     models.HeatGeothermal,
     models.HeatingHouseholdsCts,
     models.HeatSolarthermal,
@@ -59,13 +59,13 @@ MODELS = [
     models.LoadArea,
     models.MethaneGridLine,
     models.MVGridDistrictData,
-    models.PotentialCH4Stores,  # works with changed geometry_type_name
-    models.PotentialH2UndergroundStorage,  # works with changed geometry_type_name
+    models.PotentialCH4Stores,
+    models.PotentialH2UndergroundStorage,
     models.PVGroundMountedPotentialAreaAgriculture,
     models.PVGroundMountedPotentialAreaHighways_Railroads,
     models.PVGroundMountedPVPlant,
     models.PVRoofTopPVPlant,
-    models.TransportHeavyDuty,  # works with changed geometry_type_name
+    models.TransportHeavyDuty,
     models.WindOffshoreWindPark,
     models.WindOnshorePotentialArea,
     models.WindOnshoreWindPark,

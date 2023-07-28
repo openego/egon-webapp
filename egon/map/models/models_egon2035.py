@@ -384,7 +384,6 @@ class MVGridDistrictData(models.Model):
 
 class CH4Voronoi(models.Model):
     geom = models.MultiPolygonField(srid=4326, null=True)
-    scn_name = models.CharField(max_length=64)
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
@@ -392,16 +391,14 @@ class CH4Voronoi(models.Model):
     data_folder = "3_Power_and_gas_grids"
     mapping = {
         "geom": "MULTIPOLYGON",
-        "scn_name": "scn_name",
     }
 
-    data_file = scenario_name + ".grids.gas_methane_grid"
+    data_file = scenario_name + ".grids.methane_voronoi"
     layer = data_file
 
 
 class H2Voronoi(models.Model):
     geom = models.MultiPolygonField(srid=4326, null=True)
-    scn_name = models.CharField(max_length=64)
 
     objects = models.Manager()
     vector_tiles = MVTManager(columns=["id"])
@@ -409,10 +406,9 @@ class H2Voronoi(models.Model):
     data_folder = "3_Power_and_gas_grids"
     mapping = {
         "geom": "MULTIPOLYGON",
-        "scn_name": "scn_name",
     }
 
-    data_file = scenario_name + ".grids.gas_hydrogen_grid_retroffited_from_methane_grid"
+    data_file = scenario_name + ".grids.hydrogen_voronoi"
     layer = data_file
 
 
