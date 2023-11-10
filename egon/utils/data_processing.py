@@ -1,6 +1,8 @@
 import os
 
 from django.contrib.gis.utils import LayerMapping
+from import_export import resources
+from tablib import Dataset
 
 from config.settings.base import DATA_DIR
 from egon.map import models
@@ -121,3 +123,27 @@ def empty_data(data_models=None):
     data_models = data_models or MODELS
     for model in data_models:
         model.objects.all().delete()
+
+
+class MapLayerResource(resources.ModelResource):
+    class Meta:
+        model = models.MapLayer
+        import_id_fields = ("id",)  # If 'id' is the primary key field
+
+
+def import_maplayer(file_name=None):
+    csv_file = os.path.join(DATA_DIR, file_name)
+    dataset = Dataset()
+    with open(csv_file, "r") as f:
+        imported_data = dataset.load(f.read(), format="csv")
+
+    models.MapLayer.objects.all().delete()
+
+    mymodel_resource = MapLayerResource()
+    result = mymodel_resource.import_data(imported_data, dry_run=True)
+
+    if not result.has_errors():
+        mymodel_resource.import_data(imported_data, dry_run=False)
+        print("Data imported successfully.")
+    else:
+        print("There was an error importing the data.")

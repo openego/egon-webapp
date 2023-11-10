@@ -11,14 +11,14 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     image: egon_production_django
     restart: unless-stopped
-      networks:
-        - egon_network
-        - caddy_network
-      volumes:
-        - ./egon/data:/app/egon/data
-        - ./egon/static/mvts:/app/staticfiles/mvts
-      expose:
-        - "5000"
+    networks:
+      - egon_network
+      - caddy_network
+    volumes:
+      - ./egon/data:/app/egon/data
+      - ./egon/static/mvts:/app/staticfiles/mvts
+    expose:
+      - "5000"
     depends_on:
       - postgres
       - redis
@@ -34,8 +34,8 @@ services:
     image: egon_production_postgres
     command: postgres -N 500
     restart: always
-      networks:
-        - egon_network
+    networks:
+      - egon_network
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
@@ -45,8 +45,8 @@ services:
   redis:
     image: redis:5.0
     restart: always
-      networks:
-        - egon_network
+    networks:
+      - egon_network
 
 networks:
   egon_network:
