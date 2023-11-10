@@ -1,91 +1,139 @@
-{% load i18n %}
+{% load i18n compress static %}
+{% compress js %}
+    <script src="{% static 'vendors/plotly/plotly-2.24.1.min.js' %}"></script>
+  {% endcompress %}
 <section class="offcanvas-view offcanvas" tabindex="-1" id="offcanvasResults" data-bs-backdrop="false"
          aria-labelledby="offcanvasResultsLabel">
-  <div class="offcanvas-view__wrap">
-    <h2 class="offcanvas-view__title" id="offcanvasResultsLabel">{% translate "Results" %}</h2>
-    <div class="offcanvas-view__body">
-      <div class="mt-5">
-        <h1 id="results">Results of ego^n</h1>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi autem beatae deleniti eum eveniet fugit
-        laudantium nemo perferendis provident ratione repellendus soluta suscipit, totam vitae voluptatem! Delectus
-        nostrum omnis perspiciatis.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam at deserunt dolor dolorem dolores earum fugit
-        itaque iure laudantium minima nihil nisi obcaecati officia, omnis porro sapiente tempore, veritatis voluptate.
-        <h2 mt-3 id="executive_summary">Executive Summary</h2>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
-        <h2 id="introduction" mt-3>Introduction</h2>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad minus mollitia possimus quasi quo. Blanditiis
-        commodi corporis dolorem dolorum eveniet illum labore mollitia, optio quae quia quod velit voluptatem
-        voluptates.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem delectus dignissimos, hic illum
-        incidunt itaque iure nulla, quis sed, sequi tempore voluptate. At autem inventore nisi non odio optio!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur blanditiis dolore excepturi facere, laborum
-        maiores molestias obcaecati odio officia, officiis pariatur similique unde! A aliquam dolorem maxime quae sit
-        velit.
-        Lorem ipsum dolor sit amet.
+    <div class="row">
+        <div class="col-3 ms-3 me-3 mt-3">
+            <div class="position-fixed border p-3 col-3">
+                    <strong>Inhaltsverzeichnis</strong>
+                    <ol>
+                        <li><a href="#1">Netzausbau- und Flexibilitätsbedarfe</a></li>
+                        <li><a href="#2">Vermeidung von EE-Abschaltungen</a></li>
+                        <li><a href="#3">Einfluss von HöS- und HS-optimalem Einsatz von Flexibilitäten</a></li>
+
+                    </ol>
+                </div>
       </div>
+  <div class="col-8">
+    <div class="offcanvas-view__body">
+        <h1 id="results">Results of ego^n</h1>
+        <h2 id="1">
+    1. Wie hoch sind Netzausbau- und Flexibilitätsbedarfe in einem sektorgekoppelten Energiesystem?
+</h2>
+
+{% include 'results_plots/grid_expansion_costs_de.html' %}
+
+<p>...</p>
+
+<p><strong>
+    Die integrierte Planung der Sektoren Strom, Wärme, Gas und Mobilität ist essenziell,
+    um Wechselwirkungen abbilden zu können und somit kostengünstige und effiziente Systeme zu erhalten.
+</strong></p>
+<p><strong>
+    In sektorengekoppelten Systemen bestehen signifikante Flexibilitätspotentiale, von denen
+    <ul>
+        <li>Großwärmespeicher</li>
+        <li>E-Mobilität</li>
+        <li>und Freileitungsmonitoring</li>
+    </ul>
+    am meisten eingesetzt werden
+</strong></p>
+
+<!-- Forschungsfrage -->
+<h2 id="2">
+    2. Inwieweit kann Sektorenkopplung mit zusätzlichen Flexibilitäten zur Vermeidung von EE-Abschaltungen beitragen?
+</h2>
+
+<figure>
+    <img src="{% static 'images/results_images/dummy_map_plot.png' %}" width="400" height="300">
+    <figcaption>EE-Abschaltungen im eGon2035 Szenario</figcaption>
+</figure>
+<figure>
+    <img src="{% static 'images/results_images/dummy_map_plot.png' %}" width="400" height="300">
+    <figcaption>EE-Abschaltungen im eGon2035_lowflex Szenario</figcaption>
+</figure>
+
+<p>
+    Durch die zusätzlichen Flexibilitäten im eGon2035 Szenario, werden gegenüber dem eGon2035_lowflex Szenario
+    mit weniger Flexibilität rund 14,5 Prozentpunkte weniger Photovoltaik- und Windeinspeisung abgeregelt.
+    Einen relevanten Beitrag liefern vor allem die Nutzung von gesteuertem Laden von batterieelektrischen
+    Fahrzeugen und Groß-Wärmepumpen mit Wärmespeicher.
+</p>
+<p>
+    Die erhöhte Nutzung Erneuerbarer Energien Einspeisung führt zu einer signifikanten Reduktion des Einsatzes
+    konventioneller Kraftwerke und sowie Reduktion der CO<sub>2</sub>-Emissionen um 4,3%
+    (von 530 Mio. t im eGon2035_lowflex Szenario auf 507,5 Mio. t im eGon2035 Szenario).
+    Dadurch können Kosten für Brennstoffe und CO<sub>2</sub>-Emissionen gesenkt werden.
+    Die jährlichen Systemkosten der Energiebereitstellung fallen damit im eGon2035 insgesamt rund 5,5% geringer
+    aus als im eGon2035_lowflex Szenario.
+</p>
+
+{% include 'results_plots/annual_costs_de.html' %}
+<figure>
+  <img src="{% static 'images/results_images/gesamtkosten.png' %}" height="300">
+    <figcaption>Jährliche Gesamtkosten der Energiebereitstellung im eGon2035 und eGon2035_lowflex Szenario</figcaption>
+</figure>
+
+<p><strong>
+    Die Aktivierung von Flexibilitäten in den unteren Netzebenen sollte aufgrund
+    ihrer hohen Relevanz zur Förderung der EE-Integration und damit einhergehend Verringerung
+    der Systemkosten, Reduktion von CO<sub>2</sub>-Emissionen und Stärkung der Unabhängigkeit von
+    Energieimporten vorangetrieben werden.
+</strong></p>
+<!-- Forschungsfrage Ende-->
+
+
+
+<!-- Forschungsfrage -->
+<h2 id="3">
+    3. Welchen Einfluss hat der HöS- und HS-optimale Einsatz von Flexibilitäten auf die MS- und NS-Netze?
+    <!-- @Finn: Kurzform: Einfluss von HöS- und HS-optimalem Einsatz von Flexibilitäten -->
+</h2>
+
+        {% include 'results_plots/grid_expansion_costs_mvlv_de.html' %}
+
+<figure>
+    <img src="{% static 'images/results_images/netzausbau_3.png' %}" width="400" height="300">
+    <figcaption>Netzausbaukosten in Mittel- und Niederspannung im Falle eines HöS/HS-optimalen Flexibilitätseinsatzes
+        (eGon2035 Szenario) sowie eines MS/NS-optimal Einsatzes (eGon2035_dg Szenario) </figcaption>
+</figure>
+
+<p>
+    In dem Szenario eGon2035_dg erfolgt der Einsatz der Flexibilitäten nicht HöS/HS-optimal, wie
+    es in dem eGon2035 Szenario der Fall ist, sondern MS/NS-optimal.
+    Wie aus der oberen Grafik hervor geht, führt der HöS/HS-optimale Einsatz im Vergleich zum MS/NS-optimalen Einsatz zu rund 11 % höheren Netzausbaukosten
+    (entspricht ca. 5 Mrd. Euro). Grund hierfür sind vor allem höhere Lastspitzen in Zeiten hoher Einspeisung, speziell im
+    Falle von gesteuertem Laden, wie die folgende Grafik verdeutlicht.
+</p>
+
+        {% include 'results_plots/dispatch_cp.html' %}
+<figure>
+    <img src="{% static 'images/results_images/avg_norm_dispatch_cp_all_all_grids_egon_dg_szenarien.png' %}" height="300">
+    <figcaption>Median und Quantile der Elektromobilitätslast an privaten Ladepunkten (bezogen auf die
+        installierte Leistung von Ladepunkten) über einen Tag in den repräsentativen Netzen
+    </figcaption>
+</figure>
+
+<p>
+    Durch Netzrestriktionen reduziertes Flexibilitätspotenzial führt dazu, dass
+    eine erhöhte Batteriespeichernutzung trotz zusätzlicher Verluste sinnvoll ist.
+</p>
+
+        {%  include 'results_plots/dispatch_bss.html' %}
+<figure>
+    <img src="{% static 'images/results_images/avg_norm_dispatch_bss_all_grids_egon_dg_szenarien.png' %}" height="300">
+    <figcaption>Median und Quantile des Batteriespeichereinsatzes (bezogen auf die
+        installierte Leistung) über einen Tag in den repräsentativen Netzen
+    </figcaption>
+</figure>
+
+<p><strong>
+    Die integrierte Planung aller Spannungsebenen ist essenziell, um Wechselwirkungen abbilden zu
+    können und somit kostengünstige und effiziente Systeme zu erhalten.
+</strong></p>
     </div>
+      </div>
   </div>
 </section>
