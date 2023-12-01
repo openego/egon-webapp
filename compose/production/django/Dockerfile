@@ -10,7 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE=true
 # Install the package as normal:
 COPY environment.yml .
 RUN conda env export --no-builds > environment.yml
-RUN conda env create -f environment.yml
+RUN conda env create -f environment.yml --force
 
 # Install conda-pack:
 RUN conda install --freeze-installed -c conda-forge conda-pack
