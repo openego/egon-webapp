@@ -9,6 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=true
 
 # Install the package as normal:
 COPY environment.yml .
+RUN conda env export --no-builds > environment.yml
 RUN conda env create -f environment.yml
 
 # Install conda-pack:
