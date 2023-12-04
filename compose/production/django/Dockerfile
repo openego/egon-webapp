@@ -9,8 +9,17 @@ ENV PYTHONDONTWRITEBYTECODE=true
 
 # Install the package as normal:
 COPY environment.yml .
+
+# set up enviroment for conda
+ENV CONDA_DIR=/opt/conda \
+    CONDA_TMP_DIR=/tmp/conda
+# to avoid the error: CondaValueError: prefix already exists: /opt/conda
+RUN rm -rf $CONDA_DIR
+RUN mkdir -p $CONDA_DIR
+
+
 RUN conda env export --no-builds > environment.yml
-RUN conda env create -f environment.yml --force
+RUN conda env create -f environment.yml
 
 # Install conda-pack:
 RUN conda install --freeze-installed -c conda-forge conda-pack
