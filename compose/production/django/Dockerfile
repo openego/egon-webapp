@@ -3,23 +3,14 @@
 # https://pythonspeed.com/articles/conda-docker-image-size/
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 # https://jcristharif.com/conda-docker-tips.html
-FROM continuumio/miniconda3 AS build
+FROM continuumio/miniconda3:latest AS build
 
 ENV PYTHONDONTWRITEBYTECODE=true
 
 # Install the package as normal:
 COPY environment.yml .
-
-# set up enviroment for conda
-ENV CONDA_DIR=/opt/conda \
-    CONDA_TMP_DIR=/tmp/conda
-# to avoid the error: CondaValueError: prefix already exists: /opt/conda
-RUN rm -rf $CONDA_DIR
-RUN mkdir -p $CONDA_DIR
-
-
 RUN conda env export --no-builds > environment.yml
-RUN conda env create -f environment.yml
+RUN conda env create -f environment.yml --force
 
 # Install conda-pack:
 RUN conda install --freeze-installed -c conda-forge conda-pack
