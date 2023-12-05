@@ -15,13 +15,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # git \
   git
 
-# Requirements are installed here to ensure they will be cached.
-COPY ./requirements .
-
-# Create Python Dependency and Sub-Dependency Wheels.
-RUN pip wheel --wheel-dir /usr/src/app/wheels  \
-  -r ${BUILD_ENVIRONMENT}.txt
-
 
 # Python 'run' stage
 FROM python as python-run-stage
