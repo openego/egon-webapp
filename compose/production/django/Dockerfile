@@ -59,7 +59,8 @@ ENV LC_ALL de_DE.UTF-8
 
 # install requirements
 COPY ./pyproject.toml ./poetry.lock ./
-RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry && poetry install --no-root
+RUN pip install --upgrade pip && pip install --no-cache-dir poetry
+RUN poetry install --no-root --without dev
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
