@@ -63,6 +63,7 @@ RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry && 
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
+RUN pip install psycopg[binary]
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
