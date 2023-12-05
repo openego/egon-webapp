@@ -1,54 +1,54 @@
+# define an alias for the specific python version used in this file.
+FROM python:3.11.6-slim-bullseye as python
 
-# Manuals from
-# https://pythonspeed.com/articles/conda-docker-image-size/
-# https://pythonspeed.com/articles/activate-conda-dockerfile/
-# https://jcristharif.com/conda-docker-tips.html
-FROM continuumio/miniconda3:latest AS build
+# Python build stage
+FROM python as python-build-stage
 
-ENV PYTHONDONTWRITEBYTECODE=true
+ARG BUILD_ENVIRONMENT=production
 
-# Install the package as normal:
-COPY environment.yml .
-RUN conda env export --no-builds > environment.yml
-RUN conda env create -f environment.yml --force
-
-# Install conda-pack:
-RUN conda install --freeze-installed -c conda-forge conda-pack
-
-# Use conda-pack to create a standalone environment
-# in /venv:
-RUN conda-pack -n egon -o /tmp/env.tar && \
-  mkdir /venv && cd /venv && tar xf /tmp/env.tar && \
-  rm /tmp/env.tar
-
-# Clean conda and remove unnecessary files
-RUN \
-  conda clean -afy \
-  && find /opt/conda/ -follow -type f -name '*.a' -delete \
-  && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
-  && find /opt/conda/ -follow -type f -name '*.js.map' -delete
-
-# We've put venv in same path it'll be in final image,
-# so now fix up paths:
-RUN /venv/bin/conda-unpack
-
-
-# The runtime-stage image; we can use Debian as the
-# base image since the Conda env also includes Python
-# for us.
-FROM debian:buster-slim AS runtime
-
-RUN apt-get update \
+# Install apt packages
+RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
-  && apt-get install -y build-essential binutils libproj-dev gdal-bin \
-  && apt-get install -y apt-transport-https \
-  && apt-get install -y git \
+  build-essential \
   # psycopg2 dependencies
-  && apt-get install -y libpq-dev \
+  libpq-dev \
+  # git \
+  git
+
+# Requirements are installed here to ensure they will be cached.
+COPY ./requirements .
+
+# Create Python Dependency and Sub-Dependency Wheels.
+RUN pip wheel --wheel-dir /usr/src/app/wheels  \
+  -r ${BUILD_ENVIRONMENT}.txt
+
+
+# Python 'run' stage
+FROM python as python-run-stage
+
+ARG BUILD_ENVIRONMENT=production
+ARG APP_HOME=/app
+
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+
+WORKDIR ${APP_HOME}
+
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+  # dependencies for building Python packages
+  build-essential binutils libproj-dev gdal-bin \
+  apt-transport-https \
+  git \
+  # psycopg2 dependencies
+  libpq-dev \
   # Translations dependencies
-  && apt-get install -y gettext \
+  gettext \
   # Only for django-distill (remove later)
-  && apt-get install -y ca-certificates \
+  ca-certificates \
   && update-ca-certificates \
   # Locales de-De
   && apt-get install -y locales \
@@ -64,17 +64,12 @@ ENV LANG de_DE.UTF-8
 ENV LANGUAGE de_DE:en
 ENV LC_ALL de_DE.UTF-8
 
-# Copy /venv from the previous stage:
-COPY --from=build /venv /venv
-
 # install requirements
-WORKDIR /tmp
-SHELL ["/bin/bash", "-c"]
 COPY ./pyproject.toml ./poetry.lock ./
-RUN source /venv/bin/activate && python -m pip install --upgrade pip && pip install --no-cache-dir poetry && poetry install --no-root
+RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry && poetry install --no-root
 # Move this into poetry file, once changes merged into pypi package
-RUN source /venv/bin/activate && pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
-RUN source /venv/bin/activate && pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
+RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
+RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
@@ -86,16 +81,12 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 RUN chown django /start
 
-ENV BASH_ENV "/home/django/.bashrc"
-RUN echo "source /venv/bin/activate" > /home/django/.bashrc
+# copy application code to WORKDIR
+COPY --chown=django:django . ${APP_HOME}
 
-COPY . /app
-
-RUN chown -R django /app
+# make django owner of the WORKDIR directory as well.
+RUN chown django:django ${APP_HOME}
 
 USER django
-
-WORKDIR /app
-RUN mkdir staticfiles
 
 ENTRYPOINT ["/entrypoint"]
