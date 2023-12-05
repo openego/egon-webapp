@@ -6,6 +6,15 @@ FROM python as python-build-stage
 
 ARG BUILD_ENVIRONMENT=production
 
+RUN pip install poetry==1.4.2
+
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
+
+
+
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
@@ -14,6 +23,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev \
   # git \
   git
+
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock ./
+
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
 
 
 # Python 'run' stage
@@ -27,6 +42,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
+
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY --from=python-build-stage ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 RUN addgroup --system django \
     && adduser --system --ingroup django django
@@ -59,12 +79,10 @@ ENV LC_ALL de_DE.UTF-8
 
 # install requirements
 COPY ./pyproject.toml ./poetry.lock ./
-RUN pip install --upgrade pip && pip install --no-cache-dir poetry
-RUN poetry install --no-root --without dev
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
-RUN pip install psycopg[binary]
+
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
