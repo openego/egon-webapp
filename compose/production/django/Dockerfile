@@ -62,9 +62,12 @@ RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry
 # copy only pyproject.toml and poetry.lock to WORKDIR
 COPY ./pyproject.toml ./poetry.lock ./
 
-# Create and activate the virtual environment
-RUN python -m venv /venv
-ENV PATH="/venv/bin:$PATH"
+# Install project dependencies using Poetry within its own virtual environment
+RUN poetry install
+
+# Activate Poetry's virtual environment
+SHELL ["/bin/bash", "-c"]
+RUN source /app/.venv/bin/activate
 
 # Install project dependencies using Poetry
 RUN poetry install --no-root
