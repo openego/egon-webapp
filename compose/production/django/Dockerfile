@@ -6,15 +6,6 @@ FROM python as python-build-stage
 
 ARG BUILD_ENVIRONMENT=production
 
-RUN pip install poetry==1.4.2
-
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
-
-
-
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
@@ -23,13 +14,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev \
   # git \
   git
-
-WORKDIR /app
-
-COPY pyproject.toml poetry.lock ./
-
-RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
-
 
 # Python 'run' stage
 FROM python as python-run-stage
@@ -42,11 +26,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
-
-ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
-
-COPY --from=python-build-stage ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 RUN addgroup --system django \
     && adduser --system --ingroup django django
@@ -77,12 +56,22 @@ ENV LANG de_DE.UTF-8
 ENV LANGUAGE de_DE:en
 ENV LC_ALL de_DE.UTF-8
 
-# install requirements
+# Install Poetry
+RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry
+
+# copy only pyproject.toml and poetry.lock to WORKDIR
 COPY ./pyproject.toml ./poetry.lock ./
+
+# Create and activate the virtual environment
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+# Install project dependencies using Poetry
+RUN poetry install --no-root
+
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
-
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
@@ -103,5 +92,4 @@ RUN chown django:django ${APP_HOME}
 USER django
 
 ENTRYPOINT ["/entrypoint"]
-
 CMD ${STARTUP_COMMAND}
