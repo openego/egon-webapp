@@ -14,6 +14,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 - layers can be filtered by multiple filters
 - separation of choropleth layers
 - legend for choropleth layers
+- add scripts for data deployment
 
 ### Changed
 - update setup
