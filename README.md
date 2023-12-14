@@ -15,9 +15,19 @@ Obviously, you have to clone this repo first.
 
 ## Prepare Data
 
-In both cases, geometry packages have to be placed into folder _egon/data/_,
-so that they can be found by the application and uploaded into database.
-All packages are just dropped into this folder (no hierarchy).
+**Step 1**
+
+If not present, the app data must be extracted from the
+[eGon-data](https://github.com/openego/eGon-data) database first. The scripts in
+_data_deployment/_ creates all required geopackages, see
+[data_deployment.md](data_deployment/data_deployment.md) for further
+instructions.
+
+**Step 2**
+
+These geopackages have to be placed into folder _egon/data/_, so that they can
+be found by the application and uploaded into database. All packages are just
+dropped into this folder (no hierarchy).
 
 ## Using standard python installation
 
