@@ -1,10 +1,18 @@
-# define an alias for the specific python version used in this file.
-FROM python:3.11.6-slim-bullseye as python
-
-# Python build stage
-FROM python as python-build-stage
-
+# Global ARG, available to all stages (if renewed)
+ARG WORKDIR="/app"
+ARG APP_HOME="/app"
 ARG BUILD_ENVIRONMENT=production
+
+
+FROM python:3.11.6-slim-bullseye AS builder
+
+# Renew (https://stackoverflow.com/a/53682110):
+ARG WORKDIR
+
+# Don't buffer `stdout`:
+ENV PYTHONUNBUFFERED=1
+# Don't create `.pyc` files:
+ENV PYTHONDONTWRITEBYTECODE=1
 
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -15,17 +23,20 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # git \
   git
 
-# Python 'run' stage
-FROM python as python-run-stage
+RUN pip install poetry && poetry config virtualenvs.in-project true
 
-ARG BUILD_ENVIRONMENT=production
-ARG APP_HOME=/app
+WORKDIR ${WORKDIR}
+COPY . .
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+RUN poetry install --only main
 
-WORKDIR ${APP_HOME}
+FROM python:3.11.6-alpine
+
+ARG WORKDIR
+WORKDIR ${WORKDIR}
+COPY --from=builder ${WORKDIR} .
+
+# For options, see https://boxmatrix.info/wiki/Property:adduser
 
 RUN addgroup --system django \
     && adduser --system --ingroup django django
@@ -55,22 +66,6 @@ RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && loca
 ENV LANG de_DE.UTF-8
 ENV LANGUAGE de_DE:en
 ENV LC_ALL de_DE.UTF-8
-
-# Install Poetry
-RUN python -m pip install --upgrade pip && pip install --no-cache-dir poetry
-
-# copy only pyproject.toml and poetry.lock to WORKDIR
-COPY ./pyproject.toml ./poetry.lock ./
-
-# Install project dependencies using Poetry within its own virtual environment
-RUN poetry install
-
-# Activate Poetry's virtual environment
-SHELL ["/bin/bash", "-c"]
-RUN source /app/.venv/bin/activate
-
-# Install project dependencies using Poetry
-RUN poetry install --no-root
 
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
