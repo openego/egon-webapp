@@ -34,29 +34,8 @@ COPY . .
 
 RUN poetry install --only main
 
-FROM python:3.9-slim-bullseye
-
-ARG WORKDIR
-WORKDIR ${WORKDIR}
-COPY --from=builder ${WORKDIR} .
-
-# For options, see https://boxmatrix.info/wiki/Property:adduser
-
 RUN addgroup --system django \
     && adduser --system --ingroup django django
-
-# Install required system dependencies
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg2 dependencies
-  libpq-dev \
-  # Translations dependencies
-  gettext \
-  git \
-  # Geospatioal dependencies
-  binutils libproj-dev gdal-bin \
-  # cleaning up unused files
-  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-  && rm -rf /var/lib/apt/lists/*
 
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
