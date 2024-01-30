@@ -30,7 +30,7 @@ COPY . .
 
 RUN poetry install --only main
 
-FROM python:3.11.6-alpine
+FROM python:3.11.6-slim-bullseye
 
 ARG WORKDIR
 WORKDIR ${WORKDIR}
@@ -54,8 +54,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup --system django \
-    && adduser --system --ingroup django django
 
 RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 ENV LANG de_DE.UTF-8
