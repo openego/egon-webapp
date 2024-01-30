@@ -72,7 +72,7 @@ RUN chown django /start
 COPY --chown=django:django . ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
-RUN chown django:django ${APP_HOME}
+RUN chown -R django:django ${APP_HOME}
 
 USER django
 
