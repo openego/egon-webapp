@@ -1,30 +1,45 @@
+# Global ARG, available to all stages (if renewed)
+ARG WORKDIR="/app"
+ARG APP_HOME="/app"
+ARG BUILD_ENVIRONMENT=production
 
-FROM python:3.9-alpine AS builder
 
-WORKDIR /app
+FROM python:3.11.6-slim-bullseye AS builder
 
-ADD pyproject.toml poetry.lock /app/
+# Renew (https://stackoverflow.com/a/53682110):
+ARG WORKDIR
 
-RUN apk add build-base libffi-dev
+# Don't buffer `stdout`:
+ENV PYTHONUNBUFFERED=1
+# Don't create `.pyc` files:
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN pip install poetry
-RUN poetry config virtualenvs.in-project true
-RUN poetry install --no-ansi
+# Install apt packages
+RUN apt-get update && apt-get install --no-install-recommends -y \
+  # dependencies for building Python packages
+  build-essential \
+  # psycopg2 dependencies
+  libpq-dev \
+  # git \
+  git
 
-FROM python:3.9-slim-bullseye
-WORKDIR /app
+RUN pip install poetry && poetry config virtualenvs.in-project true
 
-COPY --from=builder /app /app
-ADD . /app
+WORKDIR ${WORKDIR}
+COPY . .
 
-# Create a new group `app` with Group ID `1000`.
-RUN addgroup --gid 1000 django
-# Create a new user `app`, sets home directory to `/app`, User ID `1000`, in
-# the group `app`. The `-DH` option results in a system account.
-RUN adduser django -h /app -u 1000 -G django -DH
-# Change the user for subsequent commands in Dockerfile to the user with ID
-# `1000`.
-USER 1000
+RUN poetry install --only main
+
+FROM python:3.11.6-slim-bullseye
+
+ARG WORKDIR
+WORKDIR ${WORKDIR}
+COPY --from=builder ${WORKDIR} .
+
+# For options, see https://boxmatrix.info/wiki/Property:adduser
+
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -53,6 +68,13 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 RUN chown django /start
 
+# copy application code to WORKDIR
+COPY --chown=django:django . ${WORKDIR}
+
+# make django owner of the WORKDIR directory as well.
+RUN chown -R django:django ${WORKDIR}
+
+USER django
 
 ENTRYPOINT ["/entrypoint"]
 CMD ${STARTUP_COMMAND}
