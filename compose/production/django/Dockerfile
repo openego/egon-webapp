@@ -30,6 +30,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 WORKDIR ${WORKDIR}
 COPY . .
 
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
+
 RUN pip install poetry && poetry config virtualenvs.create false
 RUN poetry install --without dev
 
@@ -41,21 +44,16 @@ RUN pip list
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
-RUN chown django /entrypoint
 
 COPY ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-RUN chown django /start
 
 # copy application code to WORKDIR
-COPY --chown=django:django . ${WORKDIR}
-
-RUN addgroup --system django \
-    && adduser --system --ingroup django django
+COPY --chown=django:django . ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
-RUN chown -R django:django ${WORKDIR}
+RUN chown django:django ${APP_HOME}
 
 USER django
 
