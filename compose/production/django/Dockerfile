@@ -58,6 +58,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
 
+RUN pip install psycopg2-binary
+
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
