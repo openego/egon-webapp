@@ -1,6 +1,5 @@
 # Global ARG, available to all stages (if renewed)
 ARG WORKDIR="/app"
-ARG APP_HOME="/app"
 ARG BUILD_ENVIRONMENT=production
 
 
@@ -27,15 +26,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip install poetry && poetry config virtualenvs.in-project true
 
 WORKDIR ${WORKDIR}
 COPY . .
 
-RUN poetry install --only main
-
-RUN addgroup --system django \
-    && adduser --system --ingroup django django
+RUN pip install poetry && poetry config virtualenvs.in-project true
+RUN poetry install --without dev
 
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
@@ -45,20 +41,10 @@ RUN pip list
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
-RUN chown django /entrypoint
 
 COPY ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-RUN chown django /start
-
-# copy application code to WORKDIR
-COPY --chown=django:django . ${WORKDIR}
-
-# make django owner of the WORKDIR directory as well.
-RUN chown -R django:django ${WORKDIR}
-
-USER django
 
 ENTRYPOINT ["/entrypoint"]
 CMD ${STARTUP_COMMAND}
