@@ -41,20 +41,15 @@ COPY --from=builder ${WORKDIR} .
 RUN addgroup --system django \
     && adduser --system --ingroup django django
 
+# Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # dependencies for building Python packages
-  build-essential binutils libproj-dev gdal-bin \
-  apt-transport-https \
-  git \
   # psycopg2 dependencies
   libpq-dev \
   # Translations dependencies
   gettext \
-  # Only for django-distill (remove later)
-  ca-certificates \
-  && update-ca-certificates \
-  # Locales de-De
-  && apt-get install -y locales \
+  git \
+  # Geospatioal dependencies
+  binutils libproj-dev gdal-bin \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
