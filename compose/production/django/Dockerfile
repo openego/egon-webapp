@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # Translations dependencies
   gettext \
   git \
+  build-essential \
   # Geospatioal dependencies
   binutils libproj-dev gdal-bin \
   # cleaning up unused files
