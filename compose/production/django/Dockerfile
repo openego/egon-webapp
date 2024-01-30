@@ -4,7 +4,7 @@ ARG APP_HOME="/app"
 ARG BUILD_ENVIRONMENT=production
 
 
-FROM python:3.11.6-slim-bullseye AS builder
+FROM python:3.9-slim-bullseye AS builder
 
 # Renew (https://stackoverflow.com/a/53682110):
 ARG WORKDIR
@@ -33,7 +33,7 @@ COPY . .
 
 RUN poetry install --only main
 
-FROM python:3.11.6-slim-bullseye
+FROM python:3.9-slim-bullseye
 
 ARG WORKDIR
 WORKDIR ${WORKDIR}
