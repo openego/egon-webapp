@@ -37,6 +37,7 @@ RUN poetry install --without dev
 # Move this into poetry file, once changes merged into pypi package
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-distill.git@djagora
 RUN pip install --trusted-host github.com git+https://github.com/henhuy/django-raster.git@djagora
+pip install psycopg2
 
 COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
