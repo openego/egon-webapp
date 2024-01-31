@@ -112,7 +112,7 @@ LOGGING = {
     "formatters": {"verbose": {"format": "%(levelname)s %(asctime)s %(module)s " "%(process)d %(thread)d %(message)s"}},
     "handlers": {
         "console": {
-            "level": "ERROR",
+            "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         }
