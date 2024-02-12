@@ -113,12 +113,22 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+# CACHE
+# Caching views for one day
+CACHE_MIDDLEWARE_SECONDS = 3600
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
+CACHE_MIDDLEWARE_ALIAS = "default"
+
 
 # STATIC
 # ------------------------------------------------------------------------------
