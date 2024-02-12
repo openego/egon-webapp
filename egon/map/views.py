@@ -92,7 +92,6 @@ def get_popup(request: HttpRequest, lookup: str, region: int) -> response.JsonRe
     return response.JsonResponse({"html": html})
 
 
-# pylint: disable=W0613
 def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response.JsonResponse:  # noqa: ARG001
     """Read scenario results from database, aggregate data and send back data.
 
@@ -110,11 +109,12 @@ def get_choropleth(request: HttpRequest, lookup: str, scenario: str) -> response
     JsonResponse
         Containing key-value pairs of municipality_ids and values and related color style
     """
+
     map_layer = MapLayer.objects.get(identifier=lookup)
     data_model = apps.get_model(app_label="map", model_name=map_layer.data_model)
     choropleth_data_field = map_layer.choropleth_field
-    queryset = data_model.objects.values("id", choropleth_data_field)
-    values = {val["id"]: val[choropleth_data_field] for val in queryset}
+    queryset = data_model.objects.values_list("id", choropleth_data_field)
+    values = dict(queryset)
 
     fill_color = settings.MAP_ENGINE_CHOROPLETH_STYLES.get_fill_color(lookup, list(values.values()))
     return response.JsonResponse({"values": values, "paintProperties": {"fill-color": fill_color, "fill-opacity": 1}})
