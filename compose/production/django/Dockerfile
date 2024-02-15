@@ -39,7 +39,7 @@ FROM debian:buster-slim AS runtime
 
 RUN apt-get update \
   # dependencies for building Python packages
-  && apt-get install -y build-essential binutils libproj-dev gdal-bin \
+  && apt-get install -y build-essential \
   && apt-get install -y apt-transport-https \
   && apt-get install -y git \
   # psycopg2 dependencies
